@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="flutter">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/ios/.symlinks/plugins/fluttertoast/android/libs/flutter.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/build/permission_handler/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/aapt.iml" filepath="$PROJECT_DIR$/app/build/permission_handler/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/aapt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/firebase_auth/generated/source/buildConfig/buildConfig.iml" filepath="$PROJECT_DIR$/app/build/firebase_auth/generated/source/buildConfig/buildConfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/firebase_analytics/generated/source/buildConfig/buildConfig1.iml" filepath="$PROJECT_DIR$/app/build/firebase_analytics/generated/source/buildConfig/buildConfig1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/cloud_firestore/generated/source/buildConfig/buildConfig2.iml" filepath="$PROJECT_DIR$/app/build/cloud_firestore/generated/source/buildConfig/buildConfig2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/app/generated/source/buildConfig/buildConfig3.iml" filepath="$PROJECT_DIR$/app/build/app/generated/source/buildConfig/buildConfig3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/firebase_core/generated/source/buildConfig/buildConfig4.iml" filepath="$PROJECT_DIR$/app/build/firebase_core/generated/source/buildConfig/buildConfig4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/example/android/app/src/debug/debug.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/example/android/app/src/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/firebase_auth/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile.iml" filepath="$PROJECT_DIR$/app/build/firebase_auth/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/firebase_core/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile1.iml" filepath="$PROJECT_DIR$/app/build/firebase_core/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/cloud_firestore/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile2.iml" filepath="$PROJECT_DIR$/app/build/cloud_firestore/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/firebase_analytics/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile3.iml" filepath="$PROJECT_DIR$/app/build/firebase_analytics/generated/not_namespaced_r_class_sources/debug/generateDebugRFile/generateDebugRFile3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/geolocator/example/android/app/src/main/main.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/geolocator/example/android/app/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_auth/android/src/main/main1.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_auth/android/src/main/main1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/geolocator/android/src/main/main10.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/geolocator/android/src/main/main10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/fluttertoast/example/android/app/src/main/main11.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/fluttertoast/example/android/app/src/main/main11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_analytics/android/src/main/main12.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_analytics/android/src/main/main12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/android/app/src/main/main13.iml" filepath="$PROJECT_DIR$/app/android/app/src/main/main13.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/google_maps_flutter/android/src/main/main14.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/google_maps_flutter/android/src/main/main14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/location/example/android/app/src/main/main15.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/location/example/android/app/src/main/main15.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/location_permissions/android/src/main/main16.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/location_permissions/android/src/main/main16.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/fluttertoast/android/src/main/main17.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/fluttertoast/android/src/main/main17.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_core/android/src/main/main18.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_core/android/src/main/main18.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/cloud_firestore/android/src/main/main19.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/cloud_firestore/android/src/main/main19.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_core/example/android/app/src/main/main2.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_core/example/android/app/src/main/main2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_auth/example/android/app/src/main/main20.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_auth/example/android/app/src/main/main20.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/google_api_availability/android/src/main/main21.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/google_api_availability/android/src/main/main21.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/example/android/app/src/main/main22.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/example/android/app/src/main/main22.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/google_maps_flutter/example/android/app/src/main/main3.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/google_maps_flutter/example/android/app/src/main/main3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/location_permissions/example/android/app/src/main/main4.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/location_permissions/example/android/app/src/main/main4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/location/android/src/main/main5.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/location/android/src/main/main5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/cloud_firestore/example/android/app/src/main/main6.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/cloud_firestore/example/android/app/src/main/main6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_analytics/example/android/app/src/main/main7.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/firebase_analytics/example/android/app/src/main/main7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/google_api_availability/example/android/app/src/main/main8.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/google_api_availability/example/android/app/src/main/main8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/android/src/main/main9.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/android/src/main/main9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/permission_handler/intermediates/merged_manifests/debug/processDebugManifest/merged/merged.iml" filepath="$PROJECT_DIR$/app/build/permission_handler/intermediates/merged_manifests/debug/processDebugManifest/merged/merged.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/build/app/generated/not_namespaced_r_class_sources/debug/processDebugResources/processDebugResources.iml" filepath="$PROJECT_DIR$/app/build/app/generated/not_namespaced_r_class_sources/debug/processDebugResources/processDebugResources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/example/android/app/src/profile/profile.iml" filepath="$PROJECT_DIR$/app/ios/.symlinks/plugins/permission_handler/example/android/app/src/profile/profile.iml" />
+    </modules>
+  </component>
+</project>
