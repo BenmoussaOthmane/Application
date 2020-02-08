@@ -18,7 +18,7 @@ class _UPdateusersState extends State<UPdateusers> {
           size: 25
         ),
         title: Text(
-          'Update Profiel',
+          'Update',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
