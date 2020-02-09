@@ -7,6 +7,17 @@ class UPdateusers extends StatefulWidget {
 }
 
 class _UPdateusersState extends State<UPdateusers> {
+  final _formKey = GlobalKey<FormState>(); 
+  String _users ,_name,_email ,_phone;
+  _submit(){
+     if(_formKey.currentState.validate()){
+       _formKey.currentState.save();
+       
+
+
+     }
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,18 +63,22 @@ class _UPdateusersState extends State<UPdateusers> {
               ),
             ),
             SizedBox(height: 10,),
-            Container(
+            Form(
+              key: _formKey,
+               child:Column(
+                 children: <Widget>[
+                   Container(
               child: FlatButton(
-                onPressed: null,
-                child:Text(
-                  'Update Image',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.5
-                    ),
-                )),
+                    onPressed: null,
+                    child:Text(
+                      'Update Image',
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5
+                        ),
+                    )),
             ),
             Container(
               // height: 20,
@@ -74,6 +89,8 @@ class _UPdateusersState extends State<UPdateusers> {
                   hintText: 'User Name',
                   icon: Icon(Icons.person),
                 ),
+                // validator: (input) => input.isEmpty ? 'Format non valid' : null,
+                onSaved: (input) => _users= input,
               ),
             ),
             SizedBox(height: 18,),
@@ -86,6 +103,8 @@ class _UPdateusersState extends State<UPdateusers> {
                   hintText: 'Name',
                   icon: Icon(Icons.person),
                 ),
+                // validator: (input) => input.isEmpty ? 'Format non valid' : null,
+                onSaved: (input) => _name= input,
               ),
             ),
             SizedBox(height: 18,),
@@ -98,6 +117,8 @@ class _UPdateusersState extends State<UPdateusers> {
                   hintText: 'Eamail',
                   icon: Icon(Icons.alternate_email),
                 ),
+                // validator: (input) => !input.contains('@') ? 'Format non valid' : null,
+                onSaved: (input) => _email= input,
               ),
             ),
             SizedBox(height: 18,),
@@ -110,9 +131,15 @@ class _UPdateusersState extends State<UPdateusers> {
                   hintText: 'Telephone',
                   icon: Icon(Icons.phone),
                 ),
+                // validator: (input) => input.isEmpty ? 'Format non valid' : null,
+                onSaved: (input) => _phone= input,
               ),
             ),
             SizedBox(height: 30,),
+                 ],
+               ),
+            ),
+            
             Container(
               height: MediaQuery.of(context).size.height/14,
               width: MediaQuery.of(context).size.width/1.4,
@@ -132,7 +159,7 @@ class _UPdateusersState extends State<UPdateusers> {
                 )
               ),
               child: FlatButton(
-                onPressed: ()=>print('Update'),
+                onPressed: _submit,
                 child:Text(
                   'Update',
                   style: TextStyle(
