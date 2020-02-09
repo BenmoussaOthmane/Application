@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Home extends StatefulWidget {
+  final String userId;
+  Home({this.userId});
   static final id = 'home';
   @override
   _HomeState createState() => _HomeState();
@@ -41,7 +43,13 @@ class _HomeState extends State<Home> {
       break; 
     }
   }
-
+ _pageV(){
+  return PageView(
+    children: <Widget>[
+      Profile(userId: widget.userId,)
+    ],
+  );
+}
 
 
   GlobalKey _bottomNavigationKey = GlobalKey();
@@ -51,10 +59,9 @@ class _HomeState extends State<Home> {
       body: Container(
         color: Color(0xFFF1F0F0),
         child: Center(
-          child: _showpage,          
+          child: _showpage,         
         ),
       ),
-      
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
           index: pageIndex,
@@ -74,6 +81,7 @@ class _HomeState extends State<Home> {
           onTap: (int tappedIndex) {
             setState(() {
               _showpage = _pageChooser(tappedIndex);
+              _pageV();
             });
           },
         ),
