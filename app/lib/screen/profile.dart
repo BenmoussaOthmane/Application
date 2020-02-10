@@ -31,9 +31,7 @@ class _ProfileState extends State<Profile> {
           }
           // print(snapshot.data['name']);
           User user = User.formDoc(snapshot.data);
-          
-          print(user.name);
-          
+          print(user.id);
         return Container(
           // color: Colors.,
           child: Column(
