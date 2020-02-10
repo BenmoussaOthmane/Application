@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
                           // // width: 20,
                           // color: Colors.white,
                           child: Text(
-                            'Benmoussa Othmane',
+                            snapshot.data.documents[0]['name'],
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Arail',
