@@ -11,7 +11,6 @@ class Authservice{
   static final _auth = FirebaseAuth.instance;
   static final _firestore = Firestore.instance;
   
-
   static void siginUpUser(BuildContext context, String name, String email, String password)async{
 
     try{

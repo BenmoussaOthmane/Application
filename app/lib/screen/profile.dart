@@ -19,19 +19,20 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future : usersRef.document(widget.userId).get(),
-        builder :(BuildContext context , AsyncSnapshot snapshot){
-          
+      body: StreamBuilder(
+        stream: Firestore.instance.collection('users').snapshots(),
+        builder :(context , snapshot){
             if(!snapshot.hasData){
             return Center(
               child: CircularProgressIndicator(),
             );
             // print(snapshot.data['email']);
           }
-          // print(snapshot.data['name']);
-          User user = User.formDoc(snapshot.data);
-          print(user.id);
+          // User user = User.formDoc(snapshot.data);
+          // print("${user.email}");
+          print(snapshot.data.documents[0]['name']);
+          print(snapshot.data.documents[0]['email']);
+          
         return Container(
           // color: Colors.,
           child: Column(
