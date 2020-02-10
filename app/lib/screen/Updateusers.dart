@@ -8,6 +8,8 @@ class UPdateusers extends StatefulWidget {
   static final String id = 'updateusers';
   final User user;
   UPdateusers({this.user});
+  
+
   @override
   _UPdateusersState createState() => _UPdateusersState();
 }
@@ -15,27 +17,13 @@ class UPdateusers extends StatefulWidget {
 class _UPdateusersState extends State<UPdateusers> {
   final _formKey = GlobalKey<FormState>(); 
   String _users ,_name,_email ,_phone;
-  // 
-  String name = 'dsfs';
-  String email = '';
-  // 
+
   _submit(){
      if(_formKey.currentState.validate()){
        _formKey.currentState.save();
      }
 
   }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    name = widget.user.name;
-
-  }
-// final specificDocument = snapshot.data.documents.where((f) {
-//      return f.documentID == User;
-// }).toList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,13 +105,13 @@ class _UPdateusersState extends State<UPdateusers> {
               width: MediaQuery.of(context).size.width/1.2,
               // color: Colors.black,
               child: TextFormField(
-                initialValue: name,
+                // initialValue: name,
                 decoration: InputDecoration(
                   hintText: 'Name',
                   icon: Icon(Icons.person),
                 ),
                 // validator: (input) => input.isEmpty ? 'Format non valid' : null,
-                onSaved: (input) => name= input,
+                onSaved: (input) => _name= input,
               ),
             ),
             SizedBox(height: 18,),
