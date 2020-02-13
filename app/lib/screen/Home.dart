@@ -17,17 +17,18 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int pageIndex = 0;
+  final Profile _profile = Profile();
   final Feed _feed = Feed();
   final Favorit _favorit = Favorit();
   final Location _location = Location();
   final Liste _liste = Liste();
-  final Profile _profile = Profile();
+  // final Profile _profile = Profile();
 
-  Widget _showpage = new Feed();
+  Widget _showpage = new Profile();
   Widget _pageChooser(int page){
     switch(page){
       case 0:
-      return _feed;
+      return _profile;
       break; 
       case 1:
       return _favorit;
@@ -39,7 +40,7 @@ class _HomeState extends State<Home> {
       return _liste;
       break; 
       case 4:
-      return _profile;
+      return _feed;
       break; 
     }
   }
@@ -67,11 +68,11 @@ class _HomeState extends State<Home> {
           index: pageIndex,
           height: 73.0,
           items: <Widget>[
-            Icon(Icons.home, size: 30),
+            Icon(Icons.person, size: 30),
             Icon(Icons.favorite, size: 30),
             Icon(Icons.gps_fixed, size: 30),
             Icon(Icons.view_list, size: 30),
-            Icon(Icons.person, size: 30),
+            Icon(Icons.home, size: 30),
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
