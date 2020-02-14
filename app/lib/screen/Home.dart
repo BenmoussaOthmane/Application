@@ -17,18 +17,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int pageIndex = 0;
-  final Profile _profile = Profile();
   final Feed _feed = Feed();
   final Favorit _favorit = Favorit();
   final Location _location = Location();
   final Liste _liste = Liste();
-  // final Profile _profile = Profile();
+  final Profile _profile = Profile();
 
-  Widget _showpage = new Profile();
+  Widget _showpage = new Feed();
   Widget _pageChooser(int page){
     switch(page){
       case 0:
-      return _profile;
+      return _feed;
       break; 
       case 1:
       return _favorit;
@@ -40,17 +39,17 @@ class _HomeState extends State<Home> {
       return _liste;
       break; 
       case 4:
-      return _feed;
+      return _profile;
       break; 
     }
   }
- _pageV(){
-  return PageView(
-    children: <Widget>[
-      Profile(userId: widget.userId,)
-    ],
-  );
-}
+//  _pageV(){
+//   return PageView(
+//     children: <Widget>[
+//       Profile(userId: widget.userId,)
+//     ],
+//   );
+// }
 
 
   GlobalKey _bottomNavigationKey = GlobalKey();
@@ -61,18 +60,18 @@ class _HomeState extends State<Home> {
         color: Color(0xFFF1F0F0),
         child: Center(
           child: _showpage,         
-        ),
+        ),  
       ),
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
           index: pageIndex,
           height: 73.0,
           items: <Widget>[
-            Icon(Icons.person, size: 30),
+            Icon(Icons.home, size: 30),
             Icon(Icons.favorite, size: 30),
             Icon(Icons.gps_fixed, size: 30),
             Icon(Icons.view_list, size: 30),
-            Icon(Icons.home, size: 30),
+            Icon(Icons.person, size: 30),
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
@@ -82,7 +81,7 @@ class _HomeState extends State<Home> {
           onTap: (int tappedIndex) {
             setState(() {
               _showpage = _pageChooser(tappedIndex);
-              _pageV();
+              // _pageV();
             });
           },
         ),
