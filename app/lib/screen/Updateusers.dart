@@ -1,3 +1,4 @@
+import 'package:app/Service/auth_service.dart';
 import 'package:app/models/user_model.dart';
 import 'package:app/utilities/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,7 +9,6 @@ class UPdateusers extends StatefulWidget {
   static final String id = 'updateusers';
   final String userId;
   UPdateusers({this.userId});
-  
 
   @override
   _UPdateusersState createState() => _UPdateusersState();
@@ -16,6 +16,7 @@ class UPdateusers extends StatefulWidget {
 
 class _UPdateusersState extends State<UPdateusers> {
   final _formKey = GlobalKey<FormState>(); 
+  Firestore _firestore = Firestore.instance;
   String _users ,_name,_email ,_phone;
 
   _submit(){
@@ -26,6 +27,11 @@ class _UPdateusersState extends State<UPdateusers> {
   }
   @override
   Widget build(BuildContext context) {
+
+    Stream<DocumentSnapshot> courseDocStream = Firestore.instance
+        .collection('users')
+        .document(widget.userId)
+        .snapshots();
     return Scaffold(
       backgroundColor: Color(0xFFF4F4F4),
 
@@ -42,20 +48,21 @@ class _UPdateusersState extends State<UPdateusers> {
         ),
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: FutureBuilder(
-        future:usersRef.document(widget.userId).get(),
-        builder :(BuildContext context ,AsyncSnapshot snapshot){
+      body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection('users').snapshots(),
+        // hadi ta3 la liste li ghadi nakhdam biha kach nhar tabda mana wtakmal malhih
+        builder :(BuildContext context, AsyncSnapshot <QuerySnapshot> snapshot){
+              
+
             if(!snapshot.hasData){
             return Center(
               child: CircularProgressIndicator(),
             );
-            // print(snapshot.data['email']);
+           
           }
-          User user = User.formDoc(snapshot.data);
-          print(user.name);
-          print(user.email);
+          // User user = User.formDoc(snapshot);
 
-            return Container(
+          return Container(
           height: double.infinity,
           width: double.infinity,
           child: Column(
@@ -179,7 +186,8 @@ class _UPdateusersState extends State<UPdateusers> {
                   )
                 ),
                 child: FlatButton(
-                  onPressed: _submit,
+                 onPressed: () => Authservice.logout(context),
+                  
                   child:Text(
                     'Update',
                     style: TextStyle(
@@ -194,8 +202,27 @@ class _UPdateusersState extends State<UPdateusers> {
             ],
           ),
         );
-        },
+        }
       ),
     );
   }
+
 }
+
+
+  // if (snapshot.hasError)
+  //         return new Text('Error: ${snapshot.error}');
+  //       switch (snapshot.connectionState) {
+  //         case ConnectionState.waiting: return new Text('Loading...');
+  //         default:
+            
+          
+            
+  //           return new ListView(
+  //             children: snapshot.data.documents.map((DocumentSnapshot document) {
+  //               return new ListTile(
+  //                 title: new Text(document['email']),
+  //                 subtitle: new Text(document['name']),
+  //               );
+  //             }).toList(),
+  //             );

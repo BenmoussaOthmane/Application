@@ -1,4 +1,5 @@
 import 'package:app/screen/Home.dart';
+import 'package:app/screen/Updateusers.dart';
 import 'package:app/screen/login.dart';
 import 'package:app/screen/onboarding.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -40,7 +41,7 @@ class Authservice{
   static void login (BuildContext context,String email ,String password) async {
     try{
       await _auth.signInWithEmailAndPassword(email: email,password: password);
-      Navigator.pushReplacementNamed(context,Home.id);
+      Navigator.pushReplacementNamed(context,UPdateusers.id);
     }catch(e){
       print(e);
     }
