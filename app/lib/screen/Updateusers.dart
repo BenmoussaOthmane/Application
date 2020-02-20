@@ -17,14 +17,35 @@ class UPdateusers extends StatefulWidget {
 class _UPdateusersState extends State<UPdateusers> {
   final _formKey = GlobalKey<FormState>(); 
   Firestore _firestore = Firestore.instance;
+  static final _firebaseAuth = FirebaseAuth.instance;
   String _users ,_name,_email ,_phone;
+Future<void> getData(userID) async {
+// return await     Firestore.instance.collection('users').document(userID).get();
+DocumentSnapshot result = await  Firestore.instance.collection('users').document(userID).get();
+return result;
 
+}
+// void _userDetails(userID) async {
+// final userDetails = getData(userID);
+//     setState(() {
+//        String firsenam =userDetails.toString();
+//        print(firsenam);
+//     });
+// }
+//  Future<void> _userDetails(userID) async {
+//         final userDetails = await getData(userID);
+//                     setState(() {
+//                           firstName =  userDetails.toString();
+//                           new Text(firstName);
+//         });
+//         }
   _submit(){
      if(_formKey.currentState.validate()){
        _formKey.currentState.save();
      }
 
   }
+  
   @override
   Widget build(BuildContext context) {
 
@@ -48,19 +69,28 @@ class _UPdateusersState extends State<UPdateusers> {
         ),
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection('users').snapshots(),
+      body: new FutureBuilder<FirebaseUser>(
+        future:  _firebaseAuth.currentUser(),
         // hadi ta3 la liste li ghadi nakhdam biha kach nhar tabda mana wtakmal malhih
-        builder :(BuildContext context, AsyncSnapshot <QuerySnapshot> snapshot){
+        builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
               
 
-            if(!snapshot.hasData){
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            if(snapshot.connectionState == ConnectionState.done){
+            String usersEmail = snapshot.data.email;
+            
+            print(usersEmail);
+            // User user = User.formDoc(data['name']);
+            // print(snapshot.data[]);
+            // return Text(
+            //   userID
+            // );
            
           }
-          // User user = User.formDoc(snapshot);
+          // print(snapshot.data.data);
+          // return Text('${snapshot.data.data}');
+          // User user = User.formDoc(snapshot.data);
+          // print(user.email);
+          
 
           return Container(
           height: double.infinity,
@@ -112,7 +142,7 @@ class _UPdateusersState extends State<UPdateusers> {
                 // color: Colors.black,
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'User Name',
+                    hintText: 'name',
                     icon: Icon(Icons.person),
                   ),
                   // validator: (input) => input.isEmpty ? 'Format non valid' : null,
@@ -226,3 +256,26 @@ class _UPdateusersState extends State<UPdateusers> {
   //               );
   //             }).toList(),
   //             );
+
+//////////////////////////////////////////////////
+
+
+      //  hnaya sat ghir ki njib email//////////
+  //  body: new FutureBuilder<FirebaseUser>(
+  //       future:  _firebaseAuth.currentUser(),
+  //       // hadi ta3 la liste li ghadi nakhdam biha kach nhar tabda mana wtakmal malhih
+  //       builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
+              
+
+  //           if(snapshot.connectionState == ConnectionState.done){
+  //           String usersEmail = snapshot.data.email;
+  //           String usersName = snapshot.data.toString();
+  //           print(usersEmail);
+  //           print(usersName);
+  //           // User user = User.formDoc(data['name']);
+  //           // print(snapshot.data[]);
+  //           // return Text(
+  //           //   userID
+  //           // );
+           
+  //         }
