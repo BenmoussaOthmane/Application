@@ -1,5 +1,6 @@
 import 'package:app/Service/auth_service.dart';
 import 'package:app/models/user_model.dart';
+import 'package:app/screen/Home.dart';
 import 'package:app/utilities/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,11 +49,6 @@ return result;
   
   @override
   Widget build(BuildContext context) {
-
-    Stream<DocumentSnapshot> courseDocStream = Firestore.instance
-        .collection('users')
-        .document(widget.userId)
-        .snapshots();
     return Scaffold(
       backgroundColor: Color(0xFFF4F4F4),
 
@@ -69,16 +65,25 @@ return result;
         ),
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: new FutureBuilder<FirebaseUser>(
+      body:  FutureBuilder<FirebaseUser>(
         future:  _firebaseAuth.currentUser(),
         // hadi ta3 la liste li ghadi nakhdam biha kach nhar tabda mana wtakmal malhih
         builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
               
 
             if(snapshot.connectionState == ConnectionState.done){
-            String usersEmail = snapshot.data.email;
-            
+            String usersEmail = snapshot.data.uid;
+            usersRef.document(usersEmail).snapshots();
+            if(snapshot.data == null){
+              return Center(
+              child: CircularProgressIndicator(),
+            );
+            }
             print(usersEmail);
+            // print(snapshot.data);
+          // User user = User.formDoc(snapshot.data);
+          // print(snapshot.data);
+            
             // User user = User.formDoc(data['name']);
             // print(snapshot.data[]);
             // return Text(
@@ -125,7 +130,7 @@ return result;
                    children: <Widget>[
                      Container(
                 child: FlatButton(
-                      onPressed: null,
+                      onPressed: ()=> Navigator.pushNamed(context,Home.id),
                       child:Text(
                         'Update Image',
                           style: TextStyle(

@@ -15,20 +15,36 @@ class User{
  factory User.formDoc(DocumentSnapshot doc){
     return User(
       id: doc.documentID,
-      email: doc[ 'email' ],
-      name: doc[ 'name' ],
-      bio: doc[ 'bio' ] ?? '',
+      email: doc['email'],
+      name: doc['name'],
+      bio: doc['bio'] ?? '',
     );
   }
-    Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-    };
-  }
+  //   Map<String, dynamic> toMap() {
+  //   return {
+  //     'id': id,
+  //     'name': name,
+  //     'email': email,
+  //   };
+  // }
 
 }
+
+// User(
+//       {this.id,
+//       this.email,
+//       this.name,
+//       this.profileImgUrl,
+//       this.bio});
+
+//   factory User.fromDoc(DocumentSnapshot doc) {
+//     return User(
+//       id: doc.documentID,
+//       email: doc['email'],
+//       name: doc['name'],
+//       bio: doc['bio'] ?? ''
+//     );
+//   }
 
 // class User {
 //   String id;

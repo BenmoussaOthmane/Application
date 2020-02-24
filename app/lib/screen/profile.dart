@@ -244,6 +244,7 @@ import 'package:app/screen/login.dart';
 import 'package:app/screen/signup.dart';
 import 'package:app/utilities/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -254,22 +255,59 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String usersEmail ='othmane';
+ static final _firebaseAuth = FirebaseAuth.instance;
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FutureBuilder<FirebaseUser>(
+      future:  _firebaseAuth.currentUser(),
+      builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
+        if(snapshot.connectionState == ConnectionState.done){
+             usersEmail = snapshot.data.uid;
+            usersRef.document(usersEmail).snapshots();
+            if(snapshot.hasData){
+              return Center(
+              child: CircularProgressIndicator(),
+            );
+            }
+            print(usersEmail);
+      }
+      }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new FutureBuilder(
-        future: usersRef.document(widget.userId).get(),
-        builder :(context , snapshot){
-            if(!snapshot.hasData){
+      body: FutureBuilder(
+        future: usersRef.document(usersEmail).get(),
+        builder :(BuildContext context, AsyncSnapshot snapshot){
+          if (snapshot.connectionState == ConnectionState.done) {
+              if(!snapshot.hasData){
             return Center(
               child: CircularProgressIndicator(),
             );
             // print(snapshot.data['email']);
           }
-          User user = User.formDoc(snapshot.data);
-          print(user.name);
-          // print("${user.email}");
-          // print(snapshot.data.documents[0]['email']);
+          print(usersEmail);
+          // User user = User.formDoc(snapshot.data);
+          // print(user.name);
+            
+            
+            
+          }
+          //   if(snapshot.data == null){
+          //   return Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          //   // print(snapshot.data['email']);
+          // }
+          // // // User user = User.formDoc(snapshot.data);
+          // // print(snapshot.data);
+          // // // print("${snapshot.data.documents['name']}");
+          // print(snapshot.data['name']);
+          
           
         return Container(
           // color: Colors.,
