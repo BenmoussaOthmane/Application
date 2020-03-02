@@ -41,7 +41,7 @@ class Authservice{
   static void login (BuildContext context,String email ,String password) async {
     try{
       await _auth.signInWithEmailAndPassword(email: email,password: password);
-      Navigator.pushReplacementNamed(context,UPdateusers.id);
+      Navigator.pushReplacementNamed(context,Home.id);
     }catch(e){
       print(e);
     }

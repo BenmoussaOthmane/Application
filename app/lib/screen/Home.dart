@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
           buttonBackgroundColor: Colors.white,
           backgroundColor:  Color(0xFFF1F0F0),
           animationCurve: Curves.ease,
-          animationDuration: Duration(milliseconds: 500),
+          animationDuration: Duration(milliseconds: 250),
           onTap: (int tappedIndex) {
             setState(() {
               _showpage = _pageChooser(tappedIndex);

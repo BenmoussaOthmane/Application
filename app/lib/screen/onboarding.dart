@@ -28,7 +28,7 @@ class _OnboardingState extends State<Onboarding> {
   }
   Widget _indicator( bool isActive ){
     return AnimatedContainer(
-      duration: Duration(milliseconds: 150),
+      duration: Duration(milliseconds: 300),
       margin: EdgeInsets.symmetric(horizontal: 8.0),
       height: 8.0,
       width: isActive ? 24.0 : 16.0,
@@ -49,7 +49,7 @@ class _OnboardingState extends State<Onboarding> {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage('assets/images/femme-cuisine-du-bois-feu-equipements-braai-par-nuit-tente-chaises-au-premier-plan-aventures-dans-parcs-nationaux-africains-image-tonique_107467-853.jpg'),
+              image: AssetImage('assets/images/qsdfg.png'),
               
               // fit: BoxFit.cover
             ),
@@ -61,22 +61,22 @@ class _OnboardingState extends State<Onboarding> {
                 begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   // stops: [0.1,0.3,0.6,1.9],
-                  colors: [
+                colors: [
                     Colors.black.withOpacity(1),
                     Colors.black.withOpacity(.9),
                     Colors.black.withOpacity(.8),
                     Colors.black.withOpacity(.7),
-                    Colors.black.withOpacity(.6),
-                    Colors.black.withOpacity(.5),
+                    Colors.black.withOpacity(.69),
+                    Colors.black.withOpacity(.59),
+                    Colors.black.withOpacity(.49),
+                    Colors.black.withOpacity(.39),
                     Colors.black.withOpacity(.4),
-                    Colors.black.withOpacity(.1),
                     Colors.black.withOpacity(.05),
-                    Colors.black.withOpacity(.025),
                   ]
               )
             ),
             child: Padding(
-            padding: EdgeInsets.symmetric(vertical:60.0),
+            padding: EdgeInsets.symmetric(vertical:60),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -88,14 +88,15 @@ class _OnboardingState extends State<Onboarding> {
                       'Skip',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.0
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
                         ),
                     ),
                   ),
                 )),
                 FadeAnimation(0.3,Container(
                   padding: EdgeInsets.symmetric(vertical: 150.0),
-                  height: 600.0,
+                  height: MediaQuery.of(context).size.height - 300,
                   child: PageView(
                     physics: ClampingScrollPhysics(),
                     controller: _pagecontroller,

@@ -255,22 +255,24 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String usersEmail ='dfgdfgdfgd';
+  String useremail ='';
  static final _firebaseAuth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: usersRef.document(usersEmail).get(),
-        builder :(BuildContext context, AsyncSnapshot snapshot){
+      body: FutureBuilder<FirebaseUser>(
+        future:  _firebaseAuth.currentUser(),
+        // future: usersRef.document(usersEmail).get(),
+        builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
           if (snapshot.connectionState == ConnectionState.done) {
-              if(snapshot.hasData){
-                print(snapshot.data['name']);
-            // return Center(
-            //   child: CircularProgressIndicator(),
-            // );
+              if(!snapshot.hasData){
+            return Center(
+              child: CircularProgressIndicator(),
+            );
             // print(snapshot.data['email']);
           }
+          useremail = snapshot.data.email;
+          print(useremail);
           // print(usersEmail);
           // User user = User.formDoc(snapshot.data);
           // print(user.name);
@@ -301,7 +303,7 @@ class _ProfileState extends State<Profile> {
                   gradient: LinearGradient(
                      begin: Alignment.bottomCenter,
                      end: Alignment.topCenter,
-                     stops: [0.1,1.0],
+                     stops: [0.3,1.0],
                      colors: [
                        Color(0xFF004267),
                        Color(0xFF17D3C2),
@@ -376,7 +378,7 @@ class _ProfileState extends State<Profile> {
                           // // width: 20,
                           // color: Colors.white,
                           child: Text(
-                            'othmane',
+                            useremail,
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Arail',
@@ -440,7 +442,7 @@ class _ProfileState extends State<Profile> {
                 width: MediaQuery.of(context).size.width/1.2,
                 // color: Colors.black,
                 decoration: BoxDecoration(
-                  border: Border.all(color:Colors.black54),
+                  border: Border.all(color:Colors.red),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20)
                   )
@@ -451,7 +453,7 @@ class _ProfileState extends State<Profile> {
                   child: Text(
                     'Log Out',
                     style: TextStyle(
-                      color: Colors.black54,
+                      color: Colors.red,
                       fontFamily: 'Arail',
                       fontWeight: FontWeight.bold,
                       fontSize: 20,

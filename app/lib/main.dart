@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context ,snapshot){
             if(snapshot.hasData){
               print(snapshot.data);
-              return UPdateusers(userId: snapshot.data.uid);
+              return Home(userId: snapshot.data.uid);
             }else{
               return Onboarding();
             }
