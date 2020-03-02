@@ -48,7 +48,7 @@ class _SignupState extends State<Signup> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             // Form()
-            SizedBox(height: 90.0,),
+            SizedBox(height: 60.0,),
             Padding(
               padding: EdgeInsets.all(40),
               child: Column(
@@ -105,7 +105,7 @@ class _SignupState extends State<Signup> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             FadeAnimation(0.5,Container(
-                              width: 350,
+                              width: MediaQuery.of(context).size.width/1.15,
                               height: 60,
                               margin: EdgeInsets.only(left: 30,right: 30),
                               // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
@@ -136,7 +136,7 @@ class _SignupState extends State<Signup> {
                             )),
 
                             FadeAnimation(0.6,Container(
-                              width: 350,
+                              width: MediaQuery.of(context).size.width/1.15,
                               height: 60,
                               // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
                               margin: EdgeInsets.only(top: 20),
@@ -165,7 +165,7 @@ class _SignupState extends State<Signup> {
                               ),
                             )),
                              FadeAnimation(0.7,Container(
-                              width: 350,
+                              width: MediaQuery.of(context).size.width/1.15,
                               height: 60,
                               margin: EdgeInsets.only(top: 20),
                               // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
@@ -194,10 +194,10 @@ class _SignupState extends State<Signup> {
                                 ),
                               ),
                             )),
-                            SizedBox(height: 30,),
+                            SizedBox(height: MediaQuery.of(context).size.height/28,),
                             FadeAnimation(0.8,Container(
                                height: 55,
-                               width: 250,
+                               width: MediaQuery.of(context).size.width/1.5,
                               decoration: BoxDecoration(
                               color: Color.fromRGBO(6, 52, 95, 2),
                               borderRadius: BorderRadius.circular(50),
@@ -223,16 +223,16 @@ class _SignupState extends State<Signup> {
                                   ),
                                 ),
                             )),
-                            SizedBox(height: 30,),
+                            SizedBox(height: MediaQuery.of(context).size.height/35,),
                             FadeAnimation(1.1,Container(
                                 child: Text(
                                   '_______________________ OR ______________________',
                                 ),
                             )),
-                            SizedBox(height: 30,),
+                            SizedBox(height: MediaQuery.of(context).size.height/35,),
                             FadeAnimation(1.2,Container(
                               height: 55,
-                              width: 250,
+                              width: MediaQuery.of(context).size.width/1.5,
                               decoration: BoxDecoration(
                                 border: Border.all(color:Color.fromRGBO(6, 52, 95, 2)),
                                 // color: Color.fromRGBO(6, 52, 95, 2),

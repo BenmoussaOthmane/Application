@@ -177,10 +177,10 @@ class _OnboardingState extends State<Onboarding> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 40),
+                            SizedBox(height:20),
                             Container(
                               height: 55,
-                              width: 500,
+                              width: MediaQuery.of(context).size.width/1.1,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(30),
@@ -202,7 +202,7 @@ class _OnboardingState extends State<Onboarding> {
                             SizedBox(height: 30,),
                             Container(
                               height: 55,
-                              width: 500,
+                              width: MediaQuery.of(context).size.width/1.1,
                               decoration: BoxDecoration(
                           border: Border.all(color:Colors.white),
                           // color: Color.fromRGBO(6, 52, 95, 2),

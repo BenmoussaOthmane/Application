@@ -255,28 +255,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String usersEmail ='othmane';
+  String usersEmail ='dfgdfgdfgd';
  static final _firebaseAuth = FirebaseAuth.instance;
- @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    FutureBuilder<FirebaseUser>(
-      future:  _firebaseAuth.currentUser(),
-      builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
-        if(snapshot.connectionState == ConnectionState.done){
-             usersEmail = snapshot.data.uid;
-            usersRef.document(usersEmail).snapshots();
-            if(snapshot.hasData){
-              return Center(
-              child: CircularProgressIndicator(),
-            );
-            }
-            print(usersEmail);
-      }
-      }
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -284,13 +264,14 @@ class _ProfileState extends State<Profile> {
         future: usersRef.document(usersEmail).get(),
         builder :(BuildContext context, AsyncSnapshot snapshot){
           if (snapshot.connectionState == ConnectionState.done) {
-              if(!snapshot.hasData){
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+              if(snapshot.hasData){
+                print(snapshot.data['name']);
+            // return Center(
+            //   child: CircularProgressIndicator(),
+            // );
             // print(snapshot.data['email']);
           }
-          print(usersEmail);
+          // print(usersEmail);
           // User user = User.formDoc(snapshot.data);
           // print(user.name);
             

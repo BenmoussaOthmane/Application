@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 90.0,),
+            SizedBox(height: MediaQuery.of(context).size.height/28),
             Padding(
               padding: EdgeInsets.all(40),
               child: Column(
@@ -88,7 +88,7 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            SizedBox(height: 25.0,),
+            SizedBox(height: MediaQuery.of(context).size.height/27,),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -106,8 +106,8 @@ class _LoginState extends State<Login> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             FadeAnimation(0.6,Container(
-                              width: 350,
-                              height: 60,
+                              width: MediaQuery.of(context).size.width/1.15,
+                              height: MediaQuery.of(context).size.height/15,
                               // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
                               margin: EdgeInsets.only(top: 20),
                               decoration: BoxDecoration(
@@ -137,8 +137,8 @@ class _LoginState extends State<Login> {
                               ),
                             )),
                              FadeAnimation(0.7,Container(
-                              width: 350,
-                              height: 60,
+                              width: MediaQuery.of(context).size.width/1.15,
+                              height: MediaQuery.of(context).size.height/15,
                               margin: EdgeInsets.only(top: 20),
                               // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
                               decoration: BoxDecoration(
@@ -167,10 +167,10 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                             )),
-                            SizedBox(height: 30,),
+                            SizedBox(height: MediaQuery.of(context).size.height/30,),
                             FadeAnimation(0.8,Container(
-                               height: 55,
-                               width: 250,
+                               height: 58,
+                               width: MediaQuery.of(context).size.width/1.55,
                               decoration: BoxDecoration(
                               color: Color.fromRGBO(6, 52, 95, 2),
                               borderRadius: BorderRadius.circular(50),
@@ -196,16 +196,21 @@ class _LoginState extends State<Login> {
                                   ),
                                 ),
                             )),
-                            SizedBox(height: 30,),
+                            SizedBox(height: MediaQuery.of(context).size.height/30,),
                             FadeAnimation(1.1,Container(
-                                child: Text(
-                                  '_______________________ OR ______________________',
-                                ),
+                              // color: Colors.black,
+                              // height: 10,
+                              width: MediaQuery.of(context).size.width/1.15,
+                                child: Center(
+                                  child: Text(
+                                    '_________________________ OR _________________________'
+                                  ),
+                                )
                             )),
-                            SizedBox(height: 30,),
+                            SizedBox(height: MediaQuery.of(context).size.height/30,),
                             FadeAnimation(1.2,Container(
                               height: 55,
-                              width: 250,
+                              width: MediaQuery.of(context).size.width/1.55,
                               decoration: BoxDecoration(
                                 border: Border.all(color:Color.fromRGBO(6, 52, 95, 2)),
                                 // color: Color.fromRGBO(6, 52, 95, 2),
