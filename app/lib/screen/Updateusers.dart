@@ -103,44 +103,44 @@ return result;
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                height:200 ,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(200)
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 30,
-                      color: Colors.black26
-                    )
-                  ],
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/72377054_2431601263788855_84064381272326144_n (1).jpg'),
-                  )
-                ),
-              ),
-              SizedBox(height: 10,),
+              // Container(
+              //   height:200 ,
+              //   width: 200,
+              //   decoration: BoxDecoration(
+              //     color: Colors.black,
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(200)
+              //     ),
+              //     boxShadow: [
+              //       BoxShadow(
+              //         blurRadius: 30,
+              //         color: Colors.black26
+              //       )
+              //     ],
+              //     image: DecorationImage(
+              //       fit: BoxFit.cover,
+              //       image: AssetImage('assets/images/72377054_2431601263788855_84064381272326144_n (1).jpg'),
+              //     )
+              //   ),
+              // ),
+              // SizedBox(height: 10,),
               Form(
                 key: _formKey,
                  child:Column(
                    children: <Widget>[
-                     Container(
-                child: FlatButton(
-                      onPressed: ()=> Navigator.pushNamed(context,Home.id),
-                      child:Text(
-                        'Update Image',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5
-                          ),
-                      )),
-              ),
+              //        Container(
+              //         child: FlatButton(
+              //         onPressed: ()=> Navigator.pushNamed(context,Home.id),
+              //         child:Text(
+              //           'Update Image',
+              //             style: TextStyle(
+              //               color: Colors.black87,
+              //               fontSize: 15,
+              //               fontWeight: FontWeight.bold,
+              //               letterSpacing: 1.5
+              //             ),
+              //         )),
+              // ),
               Container(
                 // height: 20,
                 width: MediaQuery.of(context).size.width/1.2,
@@ -154,7 +154,7 @@ return result;
                   onSaved: (input) => _users= input,
                 ),
               ),
-              SizedBox(height: 18,),
+              SizedBox(height: MediaQuery.of(context).size.height/20,),
               Container(
                 // height: 20,
                 width: MediaQuery.of(context).size.width/1.2,
@@ -169,7 +169,7 @@ return result;
                   onSaved: (input) => _name= input,
                 ),
               ),
-              SizedBox(height: 18,),
+              SizedBox(height: MediaQuery.of(context).size.height/20,),
               Container(
                 // height: 20,
                 width: MediaQuery.of(context).size.width/1.2,
@@ -183,7 +183,7 @@ return result;
                   onSaved: (input) => _email= input,
                 ),
               ),
-              SizedBox(height: 18,),
+              SizedBox(height: MediaQuery.of(context).size.height/20,),
               Container(
                 // height: 20,
                 width: MediaQuery.of(context).size.width/1.2,
@@ -197,11 +197,11 @@ return result;
                   onSaved: (input) => _phone= input,
                 ),
               ),
-              SizedBox(height: 30,),
+              
                    ],
                  ),
               ),
-              
+              SizedBox(height: MediaQuery.of(context).size.height/20,),
               Container(
                 height: MediaQuery.of(context).size.height/14,
                 width: MediaQuery.of(context).size.width/1.4,

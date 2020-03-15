@@ -236,6 +236,8 @@
 //     );
 //   }
 // }
+import 'dart:math';
+
 import 'package:app/Animation/FadeAnimation.dart';
 import 'package:app/Service/auth_service.dart';
 import 'package:app/models/user_model.dart';
@@ -296,17 +298,17 @@ class _ProfileState extends State<Profile> {
           // color: Colors.,
           child: Column(
             children: <Widget>[
-               FadeAnimation(0.7,Container(
+               FadeAnimation(0.1,Container(
                 width: double.infinity,
-                height:MediaQuery.of(context).size.height/1.7 ,
+                height:MediaQuery.of(context).size.height/1.45 ,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                      begin: Alignment.bottomCenter,
                      end: Alignment.topCenter,
-                     stops: [0.3,1.0],
+                     stops: [0.5,1.1],
                      colors: [
-                       Color(0xFF004267),
-                       Color(0xFF17D3C2),
+                       Color(0xFF1a2639),
+                       Color(0xFF2d4059),
                      ]
                   ),
                   borderRadius: BorderRadius.only(
@@ -324,8 +326,8 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: 215,
-                      width: 215,
+                      height: MediaQuery.of(context).size.height/4.2,
+                      width:  MediaQuery.of(context).size.height/4.2,
                       decoration: BoxDecoration(
                         color: Colors.black12,                        
                         borderRadius: BorderRadius.all(
@@ -337,8 +339,8 @@ class _ProfileState extends State<Profile> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            height: 200,
-                            width: 200,
+                            height:  MediaQuery.of(context).size.height/4.6,
+                            width:  MediaQuery.of(context).size.height/4.6,
                             // color: Colors.white,
                             decoration: BoxDecoration(
                             color: Colors.white,                        
@@ -351,8 +353,8 @@ class _ProfileState extends State<Profile> {
                             )
                             ),
                             child: Container(
-                              height: 200,
-                              width: 200,
+                              height:  MediaQuery.of(context).size.height/4.4,
+                              width:  MediaQuery.of(context).size.height/4.4,
                               decoration: BoxDecoration(
                                  borderRadius: BorderRadius.all(
                                   Radius.circular(200)
@@ -372,7 +374,7 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    SizedBox(height:  MediaQuery.of(context).size.height/20,),
                         Container(
                           // height: 50,
                           // // width: 20,
@@ -382,86 +384,236 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Arail',
-                              fontSize: 20,
+                              fontSize: 23,
+                              letterSpacing: 3,
                               fontWeight: FontWeight.bold
                             ),
                           ),
                           
                         ),
-                    SizedBox(height: 10,),
+                    // SizedBox(height: 10,),
                     // PageView(
                     //   children: <Widget>[
                     //     Profile(userId: widget.userId,)
                     //   ],
 
                     // ),
-                    Container(
-                      child: Text(
-                        'Coder X',
-                        // user.name,
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontFamily: 'Arial',
-                          fontSize: 20,
-                          letterSpacing: 2
-                        ),
-                      ),
-                    ), 
+                    // Container(
+                    //   child: Text(
+                    //     'Coder X',
+                    //     // user.name,
+                    //     style: TextStyle(
+                    //       color: Colors.white70,
+                    //       fontFamily: 'Arial',
+                    //       fontSize: 20,
+                    //       letterSpacing: 2
+                    //     ),
+                    //   ),
+                    // ), 
                     // SizedBox(height: 30,),
                   ],
                 ),
               )),
-              SizedBox(height: 50,),
-              FadeAnimation(0.5,Container(
-                height: MediaQuery.of(context).size.height/15,
-                width: MediaQuery.of(context).size.width/1.2,
-                // color: Colors.black,  MediaQuery.of(context).size.height/1.7 
+              // SizedBox(height: 50,),
+              // FadeAnimation(0.5,Container(
+              //   height: MediaQuery.of(context).size.height/15,
+              //   width: MediaQuery.of(context).size.width/1.2,
+              //   // color: Colors.black,  MediaQuery.of(context).size.height/1.7 
+              //   decoration: BoxDecoration(
+              //     color: Color(0xFF11B803),
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(20)
+              //     )
+              //   ),
+              //   child: FlatButton(
+              //     onPressed: ()=> Navigator.pushNamed(context,UPdateusers.id),
+              //     child: Text(
+              //       'Update',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontFamily: 'Arail',
+              //         fontWeight: FontWeight.bold,
+              //         fontSize: 20,
+              //         letterSpacing: 2
+              //       ),
+              //     ),
+              //     ),
+              // )),
+              // SizedBox(height: 12,),
+              // FadeAnimation(0.5,Container(
+              //   height: MediaQuery.of(context).size.height/15,
+              //   width: MediaQuery.of(context).size.width/1.2,
+              //   // color: Colors.black,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color:Colors.red),
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(20)
+              //     )
+              //   ),
+              //   child: FlatButton(
+              //     splashColor: Colors.red[50],
+              //     onPressed: () => Authservice.logout(context),
+              //     child: Text(
+              //       'Log Out',
+              //       style: TextStyle(
+              //         color: Colors.red,
+              //         fontFamily: 'Arail',
+              //         fontWeight: FontWeight.bold,
+              //         fontSize: 20,
+              //         letterSpacing: 2
+              //       ),
+              //     )
+              //     )),
+              // )
+              SizedBox(height: MediaQuery.of(context).size.height/80,),
+
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 22),
+                child: FadeAnimation(1.3,Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height/11.5,
+                        width: MediaQuery.of(context).size.width/5,
+                        decoration: BoxDecoration(
+                         color: Colors.grey[300],
+                         shape: BoxShape.circle,
+                         boxShadow: [
+                           BoxShadow(
+                             color: Colors.grey[600],
+                             offset: Offset(4.0,4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           ),
+                           BoxShadow(
+                             color: Colors.white,
+                             offset: Offset(-4.0,-4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           )
+                         ],
+                         gradient: LinearGradient(
+                           begin:Alignment.topLeft ,
+                           end: Alignment.bottomRight,
+                           colors: [
+                             Colors.grey[200],
+                             Colors.grey[300],
+                             Colors.grey[400],
+                             Colors.grey[500],
+                           ],
+                           stops: [
+                             0.1,
+                             0.3,
+                             0.8,
+                             0.9
+                           ]
+                         )
+                        ),
+                        child: IconButton(
+                          icon:Icon(Icons.settings,
+                          color: Colors.black54,
+                          size: 35,
+                          ),
+                          onPressed: ()=> Navigator.pushNamed(context,UPdateusers.id),
+                          ),
+                      ),
+                      Container(
+                        height:MediaQuery.of(context).size.height/11.5,
+                        width: MediaQuery.of(context).size.width/5,
+                        decoration: BoxDecoration(
+                         color: Colors.grey[300],
+                         shape: BoxShape.circle,
+                         boxShadow: [
+                           BoxShadow(
+                             color: Colors.grey[600],
+                             offset: Offset(4.0,4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           ),
+                           BoxShadow(
+                             color: Colors.white,
+                             offset: Offset(-4.0,-4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           )
+                         ],
+                         gradient: LinearGradient(
+                           begin:Alignment.topLeft ,
+                           end: Alignment.bottomRight,
+                           colors: [
+                             Colors.grey[200],
+                             Colors.grey[300],
+                             Colors.grey[400],
+                             Colors.grey[500],
+                           ],
+                           stops: [
+                             0.1,
+                             0.3,
+                             0.8,
+                             0.9
+                           ]
+                         )
+                        ),
+                        child: IconButton(
+                          icon:Icon(Icons.camera,
+                          color: Colors.black54,
+                          size: 35,
+                          ),
+                          onPressed: null
+                          ),
+                      ),
+                    ],                
+                )
+              ),
+              ),
+              // SizedBox(height: ,),
+             FadeAnimation(2,Container(
+                height:MediaQuery.of(context).size.height/12,
+                width: MediaQuery.of(context).size.width/2.5,
                 decoration: BoxDecoration(
-                  color: Color(0xFF11B803),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20)
-                  )
-                ),
-                child: FlatButton(
-                  onPressed: ()=> Navigator.pushNamed(context,UPdateusers.id),
-                  child: Text(
-                    'Update',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Arail',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      letterSpacing: 2
-                    ),
-                  ),
-                  ),
-              )),
-              SizedBox(height: 12,),
-              FadeAnimation(0.5,Container(
-                height: MediaQuery.of(context).size.height/15,
-                width: MediaQuery.of(context).size.width/1.2,
-                // color: Colors.black,
-                decoration: BoxDecoration(
-                  border: Border.all(color:Colors.red),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20)
-                  )
-                ),
-                child: FlatButton(
-                  splashColor: Colors.red[50],
-                  onPressed: () => Authservice.logout(context),
-                  child: Text(
-                    'Log Out',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontFamily: 'Arail',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      letterSpacing: 2
-                    ),
-                  )
-                  )),
+                         color: Colors.red[200],
+                         borderRadius: BorderRadius.all(Radius.circular(50)),
+                         boxShadow: [
+                           BoxShadow(
+                             color: Colors.red[600],
+                             offset: Offset(4.0,4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           ),
+                           BoxShadow(
+                             color: Colors.white,
+                             offset: Offset(-4.0,-4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           )
+                         ],
+                         gradient: LinearGradient(
+                           begin:Alignment.topLeft ,
+                           end: Alignment.bottomRight,
+                           colors: [
+                             Colors.red[200],
+                             Colors.red[300],
+                             Colors.red[400],
+                             Colors.red[500],
+                           ],
+                           stops: [
+                             0.1,
+                             0.3,
+                             0.8,
+                             0.9
+                           ]
+                         )
+                        ),
+                        child: IconButton(
+                          icon:Icon(Icons.exit_to_app,
+                          color: Colors.white,
+                          size: 35,
+                          ),
+                          onPressed: () => Authservice.logout(context),
+                          ),
               )
+          ),
            ],
           ),
         );
