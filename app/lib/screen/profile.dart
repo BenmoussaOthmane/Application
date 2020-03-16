@@ -236,6 +236,7 @@
 //     );
 //   }
 // }
+import 'dart:io';
 import 'dart:math';
 
 import 'package:app/Animation/FadeAnimation.dart';
@@ -245,9 +246,11 @@ import 'package:app/screen/Updateusers.dart';
 import 'package:app/screen/login.dart';
 import 'package:app/screen/signup.dart';
 import 'package:app/utilities/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart' as prefix0;
 
 class Profile extends StatefulWidget {
   final String userId;
@@ -259,13 +262,23 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String useremail ='';
  static final _firebaseAuth = FirebaseAuth.instance;
+  File _profileImage;
+  _handelImageNetwork()async{
+    File imageFile = await prefix0.ImagePicker.pickImage(source: prefix0.ImageSource.gallery);
+    if(imageFile != null){
+      setState(() {
+        _profileImage = imageFile;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<FirebaseUser>(
-        future:  _firebaseAuth.currentUser(),
-        // future: usersRef.document(usersEmail).get(),
-        builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
+      body: FutureBuilder(
+        // future:  _firebaseAuth.currentUser(),
+        future: usersRef.document(widget.userId).get(),
+        builder :(BuildContext context, AsyncSnapshot snapshot){
           if (snapshot.connectionState == ConnectionState.done) {
               if(!snapshot.hasData){
             return Center(
@@ -273,8 +286,8 @@ class _ProfileState extends State<Profile> {
             );
             // print(snapshot.data['email']);
           }
-          useremail = snapshot.data.email;
-          print(useremail);
+          // useremail = snapshot.data.email;
+          // print(useremail);
           // print(usersEmail);
           // User user = User.formDoc(snapshot.data);
           // print(user.name);
@@ -292,7 +305,7 @@ class _ProfileState extends State<Profile> {
           // // print(snapshot.data);
           // // // print("${snapshot.data.documents['name']}");
           // print(snapshot.data['name']);
-          
+          // User user =User.formDoc(snapshot.data);
           
         return Container(
           // color: Colors.,
@@ -302,25 +315,41 @@ class _ProfileState extends State<Profile> {
                 width: double.infinity,
                 height:MediaQuery.of(context).size.height/1.45 ,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                     begin: Alignment.bottomCenter,
-                     end: Alignment.topCenter,
-                     stops: [0.5,1.1],
-                     colors: [
-                       Color(0xFF1a2639),
-                       Color(0xFF2d4059),
-                     ]
-                  ),
+                 color: Colors.grey[300],
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(95),
                     bottomRight: Radius.circular(95),
                   ),
                   boxShadow: [
-                    BoxShadow(
-                      color: Color(0xFF004267).withOpacity(.9),
-                      blurRadius: 40,
-                    )
-                  ],
+                           BoxShadow(
+                             color: Colors.grey[600],
+                             offset: Offset(4.0,4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           ),
+                           BoxShadow(
+                             color: Colors.white,
+                             offset: Offset(-4.0,-4.0),
+                             blurRadius: 15.0,
+                             spreadRadius: 1.0,
+                           )
+                         ],
+                         gradient: LinearGradient(
+                           begin:Alignment.topLeft ,
+                           end: Alignment.bottomRight,
+                           colors: [
+                             Colors.grey[200],
+                             Colors.grey[300],
+                             Colors.grey[400],
+                             Colors.grey[500],
+                           ],
+                           stops: [
+                             0.1,
+                             0.3,
+                             0.8,
+                             0.9
+                           ]
+                         )
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -338,9 +367,16 @@ class _ProfileState extends State<Profile> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+                          // CircleAvatar(
+                          //   radius: 100,
+                          //   backgroundColor: Colors.grey,
+                          //   backgroundImage: user.profileImageUrl.isEmpty
+                          //   ? AssetImage('assets/images/72377054_2431601263788855_84064381272326144_n (1).jpg')
+                          //   :CachedNetworkImageProvider(user.profileImageUrl)
+                          // )
                           Container(
-                            height:  MediaQuery.of(context).size.height/4.6,
-                            width:  MediaQuery.of(context).size.height/4.6,
+                            height:  MediaQuery.of(context).size.height/4.4,
+                            width:  MediaQuery.of(context).size.height/4.4,
                             // color: Colors.white,
                             decoration: BoxDecoration(
                             color: Colors.white,                        
@@ -364,8 +400,8 @@ class _ProfileState extends State<Profile> {
                                  end: Alignment.topCenter,
                                  stops: [0.1,0.85],
                                  colors: [
-                                   Color(0xFF048C9E).withOpacity(.6),
-                                   Color(0xFF048394).withOpacity(.04),
+                                   Colors.grey.withOpacity(.6),
+                                   Colors.grey.withOpacity(.04),
                                  ]
                               ),
                               ),
@@ -380,9 +416,9 @@ class _ProfileState extends State<Profile> {
                           // // width: 20,
                           // color: Colors.white,
                           child: Text(
-                            useremail,
+                            'CoderX@gmail.com',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontFamily: 'Arail',
                               fontSize: 23,
                               letterSpacing: 3,
@@ -560,7 +596,7 @@ class _ProfileState extends State<Profile> {
                           color: Colors.black54,
                           size: 35,
                           ),
-                          onPressed: null
+                          onPressed: _handelImageNetwork
                           ),
                       ),
                     ],                

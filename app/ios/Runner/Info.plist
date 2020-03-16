@@ -42,12 +42,14 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>Application needs to access your current location</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Application needs to access your current location</string>
-	
+	<string>Application needs to access your current location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Application needs to access your current location</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-	
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Post and share photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Post and share photos</string>
 </dict>
 </plist>

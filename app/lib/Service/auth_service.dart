@@ -24,6 +24,7 @@ class Authservice{
         _firestore.collection('/users').document(signedInUser.uid).setData({
           'email' : email,
           'name' : name,
+          'profileImageUrl' : '',
           // 'password':password,
         });
         Navigator.pushReplacementNamed(context,Home.id);
