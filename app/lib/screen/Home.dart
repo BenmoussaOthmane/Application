@@ -1,16 +1,21 @@
 import 'package:app/Service/auth_service.dart';
+import 'package:app/models/user_model.dart';
 import 'package:app/screen/favorit.dart';
 import 'package:app/screen/feed.dart';
 import 'package:app/screen/liste.dart';
 import 'package:app/screen/location.dart';
 import 'package:app/screen/profile.dart';
+import 'package:app/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Home extends StatefulWidget {
   final String userId;
+  
   Home({this.userId});
   static final id = 'home';
+  static String y = '';
+  
   @override
   _HomeState createState() => _HomeState();
 }
@@ -56,11 +61,29 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Color(0xFFF1F0F0),
-        child: Center(
-          child: _showpage,         
-        ),  
+      body: FutureBuilder(
+        future: usersRef.document(widget.userId).get(),
+        builder: (BuildContext context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.done){
+            if(!snapshot.hasData){
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+                
+            }
+            
+               
+            // print(user.name);
+          }
+          // User user = User.formDoc(snapshot.data);
+          // Home.y = user.name;
+          return Container(
+            color: Color(0xFFF1F0F0),
+            child: Center(
+              child: _showpage,         
+            ),  
+          );
+        }
       ),
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
@@ -81,6 +104,7 @@ class _HomeState extends State<Home> {
           onTap: (int tappedIndex) {
             setState(() {
               _showpage = _pageChooser(tappedIndex);
+              
               // _pageV();
             });
           },

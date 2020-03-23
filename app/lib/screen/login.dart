@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: MediaQuery.of(context).size.height/28),
+            SizedBox(height: MediaQuery.of(context).size.height/100),
             Padding(
               padding: EdgeInsets.all(40),
               child: Column(
@@ -123,7 +123,7 @@ class _LoginState extends State<Login> {
                                 //   )
                                 // ]
                               ),
-                              child: Padding(
+                              child:Padding(
                                 padding:EdgeInsets.symmetric(
                                   horizontal: 30.0,
                                   vertical: 10.0
@@ -203,7 +203,7 @@ class _LoginState extends State<Login> {
                               width: MediaQuery.of(context).size.width/1.15,
                                 child: Center(
                                   child: Text(
-                                    '_________________________ OR _________________________'
+                                    '____________________ OR ____________________'
                                   ),
                                 )
                             )),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Liste extends StatefulWidget {
+  static Position cp = null;
   @override
   _ListeState createState() => _ListeState();
 }
@@ -16,6 +18,7 @@ class _ListeState extends State<Liste> {
         .then((Position position) {
       setState(() {
         _currentPosition = position;
+        Liste.cp=_currentPosition;
         // print('LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}');
       });
     }).catchError((e) {

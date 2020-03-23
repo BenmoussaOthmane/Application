@@ -40,6 +40,11 @@ return result;
 //                           new Text(firstName);
 //         });
 //         }
+@override
+  void initState(){
+    super.initState();
+    
+  }
   _submit(){
      if(_formKey.currentState.validate()){
        _formKey.currentState.save();
@@ -65,33 +70,35 @@ return result;
         ),
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body:  FutureBuilder<FirebaseUser>(
-        future:  _firebaseAuth.currentUser(),
+      body:  FutureBuilder<DocumentSnapshot>(
+        
+        future: Firestore.instance.collection('users').document(widget.userId).get(),
         // hadi ta3 la liste li ghadi nakhdam biha kach nhar tabda mana wtakmal malhih
-        builder :(BuildContext context, AsyncSnapshot <FirebaseUser> snapshot){
+        builder :(BuildContext context, AsyncSnapshot snapshot){
               
 
             if(snapshot.connectionState == ConnectionState.done){
-            String usersEmail = snapshot.data.uid;
-            usersRef.document(usersEmail).snapshots();
+            // String usersEmail = snapshot.data.uid;
+            // print(usersEmail);
+            // usersRef.document('nkoUf5YrHrWFdkeZZkQqX93qKCI2').get();
+            // print(object)
             if(snapshot.data == null){
               return Center(
               child: CircularProgressIndicator(),
             );
             }
-            print(usersEmail);
             // print(snapshot.data);
-          // User user = User.formDoc(snapshot.data);
-          // print(snapshot.data);
-            
-            // User user = User.formDoc(data['name']);
-            // print(snapshot.data[]);
+            // print(snapshot.data);
+          
+             
+            // User user = User.formDoc(snapshot.data);
+            // print(user.bio);
             // return Text(
             //   userID
             // );
            
           }
-          // print(snapshot.data.data);
+          // print(snapshot.data['k']);
           // return Text('${snapshot.data.data}');
           // User user = User.formDoc(snapshot.data);
           // print(user.email);
@@ -241,7 +248,6 @@ return result;
       ),
     );
   }
-
 }
 
 
@@ -284,3 +290,4 @@ return result;
   //           // );
            
   //         }
+
