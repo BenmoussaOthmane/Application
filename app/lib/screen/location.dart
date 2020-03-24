@@ -11,6 +11,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:google_maps_webservice/directions.dart';
+import 'package:google_maps_webservice/distance.dart';
+import 'package:google_maps_webservice/geocoding.dart';
+import 'package:google_maps_webservice/geolocation.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:google_maps_webservice/timezone.dart';
+import 'package:search_map_place/search_map_place.dart';
 
 
 class Location extends StatefulWidget {
@@ -27,8 +34,9 @@ class _LocationState extends State<Location> {
   static double ln =Liste.cp.latitude;
   static double lnn = Liste.cp.longitude;
   double lnccn = 0;
-  LatLng _center = LatLng(0,0);
+  static LatLng _center = LatLng(0,0);
   final Map<String, Marker> _markers = {};
+  Completer<GoogleMapController> _mapController = Completer();
 
   void _setStyle(GoogleMapController controller) async {
     String value = await DefaultAssetBundle.of(context)
@@ -54,6 +62,11 @@ class _LocationState extends State<Location> {
      _getCur();
    }
 
+  // final CameraPosition _initialCamera = CameraPosition(
+  //   bearing: 192.8334901395799,
+  //   target: _center,
+  //   zoom: 16,
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +82,10 @@ class _LocationState extends State<Location> {
               rotateGesturesEnabled: true,
               compassEnabled: true,
               markers: _creatMarker(),
-              initialCameraPosition: CameraPosition(
+              initialCameraPosition:CameraPosition(
                 bearing: 192.8334901395799,
                 target: _center,
-                zoom: 16.0,
+                zoom: 16,
               ),
             ),
             
@@ -88,16 +101,6 @@ class _LocationState extends State<Location> {
                   color: Colors.white
                 ),
                 child: TextField(
-                  // onTap: ()async{
-                  //   Prediction prediction = await PlacesAutocomplete.show(context: null,apiKey: 'AIzaSyDcGlwp1UaghdNbmq1AmyVWUwhWcUqJK3Y',
-                  //     language: "EN",
-                  //     components: [
-                  //       Component(
-                  //         Component.country,"EN"
-                  //       )
-                  //     ]
-                  //   );
-                  // },
                   decoration: InputDecoration(
                     hintText: 'Entre Adress ',
                     border: InputBorder.none,
@@ -127,11 +130,29 @@ class _LocationState extends State<Location> {
                   borderRadius: BorderRadius.circular(10.0),
                   color: Colors.white
                 ),
+                // child: SearchMapPlaceWidget(
+                //   apiKey: "AIzaSyDcGlwp1UaghdNbmq1AmyVWUwhWcUqJK3Y",
+                //   // The language of the autocompletion
+                //   language: 'fr',
+                //   // The position used to give better recomendations. In this case we are using the user position
+                //   location: _initialCamera.target,
+                //   radius: 30,
+                //   onSelected: (Place place) async {
+                //       print(place.description);
+                //       final geolocation = await place.geolocation;
+
+                //       // Will animate the GoogleMap camera, taking us to the selected position with an appropriate zoom
+                //       final GoogleMapController controller = await _mapController.future;
+                //       controller.animateCamera(CameraUpdate.newLatLng(geolocation.coordinates));
+                //       controller.animateCamera(CameraUpdate.newLatLngBounds(geolocation.bounds, 0));
+                //   },
+
+                // ),
                 child: TextField(
                   onTap:()async{
                     Prediction p = await PlacesAutocomplete.show(
                           context: context,
-                          apiKey: kGoogleApiKey,
+                          apiKey: "AIzaSyDcGlwp1UaghdNbmq1AmyVWUwhWcUqJK3Y",
                           mode: Mode.overlay, // Mode.fullscreen
                           language: "fr",
                           components: [new Component(Component.country, "fr")]);
