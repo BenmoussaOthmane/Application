@@ -1,3 +1,4 @@
+import 'package:app/models/user_model.dart';
 import 'package:app/screen/Home.dart';
 import 'package:app/screen/Updateusers.dart';
 import 'package:app/screen/login.dart';
@@ -8,10 +9,16 @@ import 'package:flutter/material.dart';
 
 
 
+
 class Authservice{
+  static User currentUser;
   static final _auth = FirebaseAuth.instance;
   static final _firestore = Firestore.instance;
-  
+   static String nameee = '' ;
+   static String emaiiil='';
+   static String imagee = '';
+    
+
   static void siginUpUser(BuildContext context, String name, String email, String password)async{
 
     try{
@@ -27,8 +34,16 @@ class Authservice{
           'profileImageUrl' : '',
           // 'password':password,
         });
+        doc = await _firestore.collection('/users').document(authResult.user.uid).get();
+
         Navigator.pushReplacementNamed(context,Home.id);
       }
+        currentUser = User.fromDocument(doc);
+        print(currentUser);
+        Authservice.nameee = currentUser.name;
+        print(nameee);
+        emaiiil = currentUser.email;
+        print(emaiiil);
 
     }catch(e){
       print(e);
@@ -39,10 +54,18 @@ class Authservice{
     Navigator.pushReplacementNamed(context,Login.id);
 
   }
-  static void login (BuildContext context,String email ,String password) async {
+  static void login (BuildContext context,String email,String password) async {
     try{
-      await _auth.signInWithEmailAndPassword(email: email,password: password);
+
+      AuthResult authResult =await _auth.signInWithEmailAndPassword(email: email,password: password);
+      doc = await _firestore.collection('/users').document(authResult.user.uid).get();
       Navigator.pushReplacementNamed(context,Home.id);
+      
+      currentUser = User.fromDocument(doc);
+      Authservice.nameee=currentUser.name;
+      Authservice.emaiiil=currentUser.email;
+      Authservice.imagee=currentUser.profileImageUrl;
+
     }catch(e){
       print(e);
     }

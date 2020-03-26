@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+ DocumentSnapshot doc;
 class User{
   final String id;
   final String email;
@@ -14,7 +14,7 @@ class User{
      this.profileImageUrl,
      this.bio,
     });
- factory User.formDoc(DocumentSnapshot doc){
+ factory User.fromDocument(doc){
     return User(
       id: doc.documentID,
       email: doc['email'],

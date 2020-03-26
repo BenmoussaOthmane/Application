@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:typed_data';
 
@@ -23,9 +24,12 @@ import 'package:search_map_place/search_map_place.dart';
 class Location extends StatefulWidget {
   @override
   _LocationState createState() => _LocationState();
+
 }
 
 class _LocationState extends State<Location> {
+  
+  final homeScaffoldKey = GlobalKey<ScaffoldState>();
   GoogleMapController _controller;
   // Completer<GoogleMapController> _controllerr = Completer();
   static Position position ,_currentPosition,cp;
@@ -54,6 +58,7 @@ class _LocationState extends State<Location> {
      )
      );
    }
+  
 
 
    @override
@@ -148,26 +153,31 @@ class _LocationState extends State<Location> {
                 //   },
 
                 // ),
-                child: TextField(
-                  onTap:()async{
-                    Prediction p = await PlacesAutocomplete.show(
-                          context: context,
-                          apiKey: "AIzaSyDcGlwp1UaghdNbmq1AmyVWUwhWcUqJK3Y",
-                          mode: Mode.overlay, // Mode.fullscreen
-                          language: "fr",
-                          components: [new Component(Component.country, "fr")]);
+                // child: TextField(
+                //   onTap:()async{
+                //     Prediction p = await PlacesAutocomplete.show(
+                //           context: context,
+                //           apiKey: "AIzaSyDcGlwp1UaghdNbmq1AmyVWUwhWcUqJK3Y",
+                //           mode: Mode.overlay, // Mode.fullscreen
+                //           language: "fr",
+                //           components: [new Component(Component.country, "fr")]);
 
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Entre Adress ',
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(left: 15.0,top:15.0 ),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: shearchandNavigation,
-                      iconSize: 30,
-                      )
-                  ),
+                //   },
+                //   decoration: InputDecoration(
+                //     hintText: 'Entre Adress ',
+                //     border: InputBorder.none,
+                //     contentPadding: EdgeInsets.only(left: 15.0,top:15.0 ),
+                //     suffixIcon: IconButton(
+                //       icon: Icon(Icons.search),
+                //       onPressed: shearchandNavigation,
+                //       iconSize: 30,
+                //       )
+                //   ),
+                // ),
+
+                child: RaisedButton(
+                  onPressed: _handlePressButton,
+                  child: Text("Search places"),
                 ),
               ),
             ),
@@ -189,6 +199,39 @@ class _LocationState extends State<Location> {
       ),  
     );
   }
+//  void onError(PlacesAutocompleteResponse response) {
+//     homeScaffoldKey.currentState.showSnackBar(
+//       SnackBar(content: Text(response.errorMessage)),
+//     );
+//   }
+
+  Future<void> _handlePressButton() async {
+    // show input autocomplete with selected mode
+    // then get the Prediction selected
+    Prediction p = await PlacesAutocomplete.show(
+      context: context,
+      apiKey: kGoogleApiKey,
+      // onError: onError,
+      mode: Mode.fullscreen,
+      language: "fr",
+      components: [Component(Component.country, "fr")],
+    );
+
+    displayPrediction(p, homeScaffoldKey.currentState);
+  }
+  Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+    GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+  if (p != null) {
+    // get detail (lat/lng)
+    PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+    final lat = detail.result.geometry.location.lat;
+    final lng = detail.result.geometry.location.lng;
+
+    scaffold.showSnackBar(
+      SnackBar(content: Text("${p.description} - $lat/$lng")),
+    );
+  }
+}
 
 
   shearchandNavigation(){
@@ -219,5 +262,3 @@ class _LocationState extends State<Location> {
     return tmp;
   }
 }
-
-

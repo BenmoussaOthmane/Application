@@ -20,7 +20,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
  final _auth = FirebaseAuth.instance;
  final _formKey = GlobalKey<FormState>(); 
- String _email , _password ;
+ String _email , _password ,_name;
  
 
 

@@ -6,6 +6,8 @@ import 'package:app/screen/liste.dart';
 import 'package:app/screen/location.dart';
 import 'package:app/screen/profile.dart';
 import 'package:app/utilities/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -21,13 +23,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  static final _auth = FirebaseAuth.instance;
+  static final _firestore = Firestore.instance;
   int pageIndex = 0;
   final Feed _feed = Feed();
   final Favorit _favorit = Favorit();
   final Location _location = Location();
   final Liste _liste = Liste();
   final Profile _profile = Profile();
-
+  String email,password;
   Widget _showpage = new Feed();
   Widget _pageChooser(int page){
     switch(page){
@@ -48,43 +52,18 @@ class _HomeState extends State<Home> {
       break; 
     }
   }
-//  _pageV(){
-//   return PageView(
-//     children: <Widget>[
-//       Profile(userId: widget.userId,)
-//     ],
-//   );
-// }
-
-
+  
   GlobalKey _bottomNavigationKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: usersRef.document(widget.userId).get(),
-        builder: (BuildContext context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done){
-            if(!snapshot.hasData){
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-                
-            }
-            
-               
-            // print(user.name);
-          }
-          // User user = User.formDoc(snapshot.data);
-          // Home.y = user.name;
-          return Container(
+      body:  Container(
             color: Color(0xFFF1F0F0),
             child: Center(
               child: _showpage,         
             ),  
-          );
-        }
-      ),
+          ),
+        
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
           index: pageIndex,
@@ -112,28 +91,3 @@ class _HomeState extends State<Home> {
         );
   }
 }
-
-
-
-
-
-
-
-
-// rules_version = '2';
-// service cloud.firestore {
-//   match /databases/{database}/documents {
-
-//     // This rule allows anyone on the internet to view, edit, and delete
-//     // all data in your Firestore database. It is useful for getting
-//     // started, but it is configured to expire after 30 days because it
-//     // leaves your app open to attackers. At that time, all client
-//     // requests to your Firestore database will be denied.
-//     //
-//     // Make sure to write security rules for your app before that time, or else
-//     // your app will lose access to your Firestore database
-//     match /{document=**} {
-//       allow read, write: if request.time < timestamp.date(2020, 2, 5);
-//     }
-//   }
-// }
