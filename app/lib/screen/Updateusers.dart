@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:app/Service/auth_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class UPdateusers extends StatefulWidget {
   static final String id = 'updateusers';
@@ -25,6 +27,19 @@ class _UPdateusersState extends State<UPdateusers> {
       });
     }
   }
+   Future uploadPick(BuildContext context)async{
+    print('object');
+    String filename = basename(_profileImage.path);
+    StorageReference storageReference = FirebaseStorage.instance.ref().child(filename);
+    StorageUploadTask storageUploadTask = storageReference.putFile(_profileImage);
+    StorageTaskSnapshot storageTaskSnapshot = await storageUploadTask.onComplete;
+    print('objectA');
+    setState(() {
+      print('update Profile');
+      print(storageTaskSnapshot);
+    });
+  }
+
   displayProfiel(){
     if(_profileImage == null){
         if(Authservice.imagee.isEmpty){
@@ -36,6 +51,7 @@ class _UPdateusersState extends State<UPdateusers> {
       return FileImage(_profileImage);
     }
   }
+ 
 
 
   @override
@@ -68,11 +84,23 @@ class _UPdateusersState extends State<UPdateusers> {
             SizedBox(height: 20,),
             Container(
               height: 50,
-              width: 50,
+              width: 150,
               child: FlatButton(
                 onPressed: _handelImageNetwork,
                 child:Text(
                   'submite'
+                )),
+            ),
+            // SizedBox(height: 10,),
+            Container(
+              height: 50,
+              width: 150,
+              child: FlatButton(
+                onPressed: (){
+                  uploadPick(context);
+                },
+                child:Text(
+                  'save'
                 )),
             )
           ],
