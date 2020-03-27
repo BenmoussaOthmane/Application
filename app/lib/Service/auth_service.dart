@@ -17,6 +17,7 @@ class Authservice{
    static String nameee = '' ;
    static String emaiiil='';
    static String imagee = '';
+   static String id = '';
     
 
   static void siginUpUser(BuildContext context, String name, String email, String password)async{
@@ -41,9 +42,11 @@ class Authservice{
         currentUser = User.fromDocument(doc);
         print(currentUser);
         Authservice.nameee = currentUser.name;
+        Authservice.id= currentUser.id;
         print(nameee);
         emaiiil = currentUser.email;
         print(emaiiil);
+        
 
     }catch(e){
       print(e);
@@ -62,6 +65,7 @@ class Authservice{
       Navigator.pushReplacementNamed(context,Home.id);
       
       currentUser = User.fromDocument(doc);
+      Authservice.id= currentUser.id;
       Authservice.nameee=currentUser.name;
       Authservice.emaiiil=currentUser.email;
       Authservice.imagee=currentUser.profileImageUrl;

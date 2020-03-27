@@ -39,8 +39,7 @@ class _LocationState extends State<Location> {
   static double lnn = Liste.cp.longitude;
   double lnccn = 0;
   static LatLng _center = LatLng(0,0);
-  final Map<String, Marker> _markers = {};
-  Completer<GoogleMapController> _mapController = Completer();
+
 
   void _setStyle(GoogleMapController controller) async {
     String value = await DefaultAssetBundle.of(context)
@@ -66,12 +65,6 @@ class _LocationState extends State<Location> {
      super.initState();
      _getCur();
    }
-
-  // final CameraPosition _initialCamera = CameraPosition(
-  //   bearing: 192.8334901395799,
-  //   target: _center,
-  //   zoom: 16,
-  // );
 
   @override
   Widget build(BuildContext context) {
@@ -124,114 +117,38 @@ class _LocationState extends State<Location> {
                 ),
               ),
             ),
-            Positioned(
-              top: 150,
-              right: 15,
-              left: 15,
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.white
-                ),
-                // child: SearchMapPlaceWidget(
-                //   apiKey: "AIzaSyDcGlwp1UaghdNbmq1AmyVWUwhWcUqJK3Y",
-                //   // The language of the autocompletion
-                //   language: 'fr',
-                //   // The position used to give better recomendations. In this case we are using the user position
-                //   location: _initialCamera.target,
-                //   radius: 30,
-                //   onSelected: (Place place) async {
-                //       print(place.description);
-                //       final geolocation = await place.geolocation;
-
-                //       // Will animate the GoogleMap camera, taking us to the selected position with an appropriate zoom
-                //       final GoogleMapController controller = await _mapController.future;
-                //       controller.animateCamera(CameraUpdate.newLatLng(geolocation.coordinates));
-                //       controller.animateCamera(CameraUpdate.newLatLngBounds(geolocation.bounds, 0));
-                //   },
-
-                // ),
-                // child: TextField(
-                //   onTap:()async{
-                //     Prediction p = await PlacesAutocomplete.show(
-                //           context: context,
-                //           apiKey: "AIzaSyDcGlwp1UaghdNbmq1AmyVWUwhWcUqJK3Y",
-                //           mode: Mode.overlay, // Mode.fullscreen
-                //           language: "fr",
-                //           components: [new Component(Component.country, "fr")]);
-
-                //   },
-                //   decoration: InputDecoration(
-                //     hintText: 'Entre Adress ',
-                //     border: InputBorder.none,
-                //     contentPadding: EdgeInsets.only(left: 15.0,top:15.0 ),
-                //     suffixIcon: IconButton(
-                //       icon: Icon(Icons.search),
-                //       onPressed: shearchandNavigation,
-                //       iconSize: 30,
-                //       )
-                //   ),
-                // ),
-
-                child: RaisedButton(
-                  onPressed: _handlePressButton,
-                  child: Text("Search places"),
-                ),
-              ),
-            ),
-            // SizedBox(height: 10,width: 50,),
-            // Padding(
-            //   padding: const EdgeInsets.all(200.0),
-            //   child: Container(
-            //     height: 100,
-            //     width: 100,
-            //     color: Colors.amber,
-            //     child: FlatButton(
-            //       onPressed: _getCur,
-            //       child:Text(
-            //         'Posiont'
-            //       )),
-            //   ),
-            // )
+            
         ],
       ),  
     );
   }
-//  void onError(PlacesAutocompleteResponse response) {
-//     homeScaffoldKey.currentState.showSnackBar(
-//       SnackBar(content: Text(response.errorMessage)),
+
+
+  // Future<void> _handlePressButton() async {
+    
+  //   Prediction p = await PlacesAutocomplete.show(
+  //     context: context,
+  //     apiKey: kGoogleApiKey,
+  //     // onError: onError,
+  //     mode: Mode.fullscreen,
+  //     language: "fr",
+  //     components: [Component(Component.country, "fr")],
+  //   );
+
+  //   displayPrediction(p, homeScaffoldKey.currentState);
+  // }
+//   Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+//     GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+//   if (p != null) {
+//     PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+//     final lat = detail.result.geometry.location.lat;
+//     final lng = detail.result.geometry.location.lng;
+
+//     scaffold.showSnackBar(
+//       SnackBar(content: Text("${p.description} - $lat/$lng")),
 //     );
 //   }
-
-  Future<void> _handlePressButton() async {
-    // show input autocomplete with selected mode
-    // then get the Prediction selected
-    Prediction p = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: kGoogleApiKey,
-      // onError: onError,
-      mode: Mode.fullscreen,
-      language: "fr",
-      components: [Component(Component.country, "fr")],
-    );
-
-    displayPrediction(p, homeScaffoldKey.currentState);
-  }
-  Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-    GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
-  if (p != null) {
-    // get detail (lat/lng)
-    PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
-    final lat = detail.result.geometry.location.lat;
-    final lng = detail.result.geometry.location.lng;
-
-    scaffold.showSnackBar(
-      SnackBar(content: Text("${p.description} - $lat/$lng")),
-    );
-  }
-}
+// }
 
 
   shearchandNavigation(){

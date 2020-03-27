@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   final Favorit _favorit = Favorit();
   final Location _location = Location();
   final Liste _liste = Liste();
-  final Profile _profile = Profile();
+  final Profile _profile = Profile( );
   String email,password;
   Widget _showpage = new Feed();
   Widget _pageChooser(int page){

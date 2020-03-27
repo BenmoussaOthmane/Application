@@ -292,35 +292,13 @@ class _ProfileState extends State<Profile> {
               child: FutureBuilder(
                 // future:  _firebaseAuth.currentUser(),
                 future: usersRef.document(widget.userId).get(),
-                builder :(BuildContext context, AsyncSnapshot snapshot){
-                  if (snapshot.connectionState == ConnectionState.done) {
+                builder :( context,  snapshot){
                       if(!snapshot.hasData){
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                    // print(snapshot.data['email']);
                   }
-                  // useremail = snapshot.data.email;
-                  // print(useremail);
-                  // print(usersEmail);
-                  // User user = User.formDoc(snapshot.data);
-                  // print(user.name);
-                    
-                    
-                    
-                  }
-                  //   if(snapshot.data == null){
-                  //   return Center(
-                  //     child: CircularProgressIndicator(),
-                  //   );
-                  //   // print(snapshot.data['email']);
-                  // }
-                  // User user = User.formDoc(snapshot.data);
-                  // print(user.bio);
-                  // // // print("${snapshot.data.documents['name']}");
-                  // print(snapshot.data['name']);
-                  // User user =User.formDoc(snapshot.data);
-                  
+                  // User user  = User.fromDocument(snapshot.data);
                 return Container(
                   // color: Colors.,
                   child: Column(
