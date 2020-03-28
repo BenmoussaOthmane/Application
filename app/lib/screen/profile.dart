@@ -295,7 +295,9 @@ class _ProfileState extends State<Profile> {
                 builder :( context,  snapshot){
                       if(!snapshot.hasData){
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+                      ),
                     );
                   }
                   // User user  = User.fromDocument(snapshot.data);
