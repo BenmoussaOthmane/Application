@@ -1,5 +1,6 @@
 import 'package:app/screen/Home.dart';
 import 'package:app/screen/Updateusers.dart';
+import 'package:app/screen/category.dart';
 import 'package:app/screen/login.dart';
 import 'package:app/screen/onboarding.dart';
 import 'package:app/screen/signup.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         Signup.id : (context) => Signup(),
         Home.id :(context) =>Home(),
         UPdateusers.id : (context) => UPdateusers(),
+        Category.id : (context) => Category(),
         
       },
     );

@@ -1,6 +1,7 @@
 import 'package:app/models/user_model.dart';
 import 'package:app/screen/Home.dart';
 import 'package:app/screen/Updateusers.dart';
+import 'package:app/screen/category.dart';
 import 'package:app/screen/login.dart';
 import 'package:app/screen/onboarding.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,7 +38,7 @@ class Authservice{
         });
         doc = await _firestore.collection('/users').document(authResult.user.uid).get();
 
-        Navigator.pushReplacementNamed(context,Home.id);
+        Navigator.pushReplacementNamed(context,Category.id);
       }
         currentUser = User.fromDocument(doc);
         print(currentUser);

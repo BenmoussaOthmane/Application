@@ -270,7 +270,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState(){
     super.initState();
-    _refrichi();
+    _refrichi();  
     setState(() {
     });
   }
