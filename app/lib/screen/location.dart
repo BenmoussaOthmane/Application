@@ -32,11 +32,11 @@ class _LocationState extends State<Location> {
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
   GoogleMapController _controller;
   GoogleMapsPlaces _places =
-      GoogleMapsPlaces(apiKey: "AIzaSyDTDnQqw-YEmhF48sqjJz1eSfXV8jI0zDw");
+      GoogleMapsPlaces(apiKey: "API-KEY");
   // Completer<GoogleMapController> _controllerr = Completer();
   static Position position, _currentPosition, cp;
   String searchAppr;
-  static const kGoogleApiKey = "AIzaSyDTDnQqw-YEmhF48sqjJz1eSfXV8jI0zDw";
+  static const kGoogleApiKey = "API-KEY";
   static double ln = Liste.cp.latitude;
   static double lnn = Liste.cp.longitude;
   double lnccn = 0;
@@ -82,7 +82,7 @@ class _LocationState extends State<Location> {
     try {
       Prediction p = await PlacesAutocomplete.show(
           context: context,
-          apiKey: 'AIzaSyDTDnQqw-YEmhF48sqjJz1eSfXV8jI0zDw',
+          apiKey: 'API-KEY',
           onError: onError,
           mode: Mode.overlay,
           language: 'dz',
