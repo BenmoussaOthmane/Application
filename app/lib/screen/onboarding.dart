@@ -279,7 +279,7 @@ class _OnboardingState extends State<Onboarding> {
                          'Creat New Account !',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold
                           ),
                        ),

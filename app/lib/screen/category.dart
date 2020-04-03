@@ -11,9 +11,29 @@ class Category extends StatefulWidget {
 
 class _CategoryState extends State<Category>
     with SingleTickerProviderStateMixin {
+  bool darkCaf = true;
+  bool darkRest = true;
+  bool darkShop = true;
+  bool darkVet = true;
+  bool darkBotique = true;
+  bool darkTelphone = true;
+
+  int caf;
+  int rest;
+  int shop;
+  int vet;
+  int botique;
+  int telphone;
+
+  int vall = 1;
+
   AnimationController _animationController;
   Animation<double> _animation;
   bool hide = true;
+
+  double _kM = 0.0;
+  double _min = 0.0;
+  double _max = 100.0;
 
   @override
   void initState() {
@@ -28,7 +48,10 @@ class _CategoryState extends State<Category>
     ).animate(_animationController)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          Navigator.push(context, PageTransition(type: PageTransitionType.rotate, duration: Duration(microseconds:300), child: Onboarding()));
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.downToUp, child: Onboarding()));
         }
       });
   }
@@ -39,9 +62,44 @@ class _CategoryState extends State<Category>
     _animationController.dispose();
   }
 
-  double _kM = 0.0;
-  double _min = 0.0;
-  double _max = 100.0;
+  void getSterted(BuildContext context) {
+    if (caf != null &&
+        rest != null &&
+        shop != null &&
+        vet != null &&
+        botique != null &&
+        telphone != null) {
+      print('cafe= ' +
+          caf.toString() +
+          ' rest= ' +
+          rest.toString() +
+          ' shoping= ' +
+          shop.toString() +
+          ' vet= ' +
+          vet.toString() +
+          ' botique= ' +
+          botique.toString() +
+          ' tel= ' +
+          telphone.toString() +
+          ' KM= ' +
+          _kM.toString());
+      _animationController.forward();
+    } else {
+      SnackBar mys = SnackBar(
+        backgroundColor: Color(0xff204051),
+        duration: Duration(milliseconds: 700),
+        content: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 50,vertical: 5),
+          child: Text(
+            'khasak t3amar ga3 swalhak',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+      Scaffold.of(context).showSnackBar(mys);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,12 +143,20 @@ class _CategoryState extends State<Category>
                       icon: Icon(
                         Icons.local_cafe,
                         size: 35,
-                        color: Color(0xff84a9ac),
+                        color: darkCaf ? Color(0xff84a9ac) : Colors.white,
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          darkCaf = false;
+                          caf = vall;
+                          vall++;
+                        });
+                      },
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: darkCaf
+                          ? Colors.grey[300]
+                          : Color(0xff84a9ac).withOpacity(.8),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -115,12 +181,20 @@ class _CategoryState extends State<Category>
                       icon: Icon(
                         Icons.restaurant,
                         size: 35,
-                        color: Color(0xff844685),
+                        color: darkRest ? Color(0xff3b6978) : Colors.white,
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          darkRest = false;
+                          rest = vall;
+                          vall++;
+                        });
+                      },
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: darkRest
+                          ? Colors.grey[300]
+                          : Color(0xff3b6978).withOpacity(.7),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -145,12 +219,20 @@ class _CategoryState extends State<Category>
                       icon: Icon(
                         Icons.store,
                         size: 35,
-                        color: Color(0xff512b58),
+                        color: darkShop ? Color(0xff235952) : Colors.white,
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          darkShop = false;
+                          shop = vall;
+                          vall++;
+                        });
+                      },
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: darkShop
+                          ? Colors.grey[300]
+                          : Color(0xff235952).withOpacity(.7),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -183,12 +265,20 @@ class _CategoryState extends State<Category>
                       icon: Icon(
                         Icons.shopping_basket,
                         size: 35,
-                        color: Color(0xff7d5e2a),
+                        color: darkVet ? Color(0xff7d5e2a) : Colors.white,
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          darkVet = false;
+                          vet = vall;
+                          vall++;
+                        });
+                      },
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: darkVet
+                          ? Colors.grey[300]
+                          : Color(0xff7d5e2a).withOpacity(.7),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -213,12 +303,20 @@ class _CategoryState extends State<Category>
                       icon: Icon(
                         Icons.new_releases,
                         size: 35,
-                        color: Color(0xff3b6978),
+                        color: darkBotique ? Color(0xff512b58) : Colors.white,
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          darkBotique = false;
+                          botique = vall;
+                          vall++;
+                        });
+                      },
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: darkBotique
+                          ? Colors.grey[300]
+                          : Color(0xff512b58).withOpacity(.7),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -243,12 +341,19 @@ class _CategoryState extends State<Category>
                       icon: Icon(
                         Icons.smartphone,
                         size: 35,
-                        color: Color(0xff235952),
+                        color: darkTelphone ? Colors.green[300] : Colors.white,
                       ),
-                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          darkTelphone = false;
+                          telphone = vall;
+                          vall++;
+                        });
+                      },
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color:
+                          darkTelphone ? Colors.grey[300] : Colors.green[200],
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -343,49 +448,54 @@ class _CategoryState extends State<Category>
                 height: MediaQuery.of(context).size.height / 30,
               ),
               Center(
-                child:AnimatedBuilder(
+                child: AnimatedBuilder(
                   animation: _animationController,
-                  builder: (context,child) =>Transform.scale(
-                    scale: _animation.value,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 12,
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    child: FlatButton(
-                            onPressed: () {
-                              setState(() {
-                                hide = true;
-                              });
-                              _animationController.forward();
-                            },
-                            child: Text(
-                              'Get Started',
-                              style: TextStyle(
-                                  letterSpacing: 2,
-                                  color: Color(0xff084177),
-                                  fontFamily: 'calibri',
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                  builder: (context, child) => Transform.scale(
+                      scale: _animation.value,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 12,
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.chevron_right,
+                            size: 50,
+                            color: Color(0xff204051),
                           ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[500],
-                          offset: Offset(5.0, 5.0),
-                          blurRadius: 15.0,
-                          spreadRadius: 1.0,
+                          onPressed: () {
+                            setState(() {
+                              hide = true;
+                            });
+                            getSterted(context);
+                          },
+                          // child: Text(
+                          //   'Get Started',
+                          //   style: TextStyle(
+                          //       letterSpacing: 2,
+                          //       color: Color(0xff084177),
+                          //       fontFamily: 'calibri',
+                          //       fontSize: 21,
+                          //       fontWeight: FontWeight.bold),
+                          // ),
                         ),
-                        BoxShadow(
-                          color: Colors.white,
-                          offset: Offset(-5.0, -5.0),
-                          blurRadius: 15.0,
-                          spreadRadius: 1.0,
-                        )
-                      ],
-                    ),
-                  )),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey[500],
+                              offset: Offset(5.0, 5.0),
+                              blurRadius: 15.0,
+                              spreadRadius: 1.0,
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: Offset(-5.0, -5.0),
+                              blurRadius: 15.0,
+                              spreadRadius: 1.0,
+                            )
+                          ],
+                        ),
+                      )),
                 ),
               )
             ],
