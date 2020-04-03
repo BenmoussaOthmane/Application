@@ -194,7 +194,7 @@ class _CategoryState extends State<Category>
                     decoration: BoxDecoration(
                       color: darkRest
                           ? Colors.grey[300]
-                          : Color(0xff3b6978).withOpacity(.7),
+                          : Color(0xff3b6978).withOpacity(.6),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -232,7 +232,7 @@ class _CategoryState extends State<Category>
                     decoration: BoxDecoration(
                       color: darkShop
                           ? Colors.grey[300]
-                          : Color(0xff235952).withOpacity(.7),
+                          : Color(0xff235952).withOpacity(.6),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -278,7 +278,7 @@ class _CategoryState extends State<Category>
                     decoration: BoxDecoration(
                       color: darkVet
                           ? Colors.grey[300]
-                          : Color(0xff7d5e2a).withOpacity(.7),
+                          : Color(0xff7d5e2a).withOpacity(.6),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -316,7 +316,7 @@ class _CategoryState extends State<Category>
                     decoration: BoxDecoration(
                       color: darkBotique
                           ? Colors.grey[300]
-                          : Color(0xff512b58).withOpacity(.7),
+                          : Color(0xff512b58).withOpacity(.6),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
@@ -437,7 +437,7 @@ class _CategoryState extends State<Category>
                   Text(
                     'KM',
                     style: TextStyle(
-                        color: Color(0xff084177),
+                        color: Color(0xff204051),
                         fontFamily: 'calibri',
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
