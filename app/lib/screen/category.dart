@@ -106,7 +106,7 @@ class _CategoryState extends State<Category>
       backgroundColor: Colors.grey[300],
       body: Container(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 100),
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 55),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

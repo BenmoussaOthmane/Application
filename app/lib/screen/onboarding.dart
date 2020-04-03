@@ -68,7 +68,7 @@ class _OnboardingState extends State<Onboarding> {
      Container(
        color: Color(0xFF1a2639),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical:60),
+        padding: EdgeInsets.symmetric(vertical:40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -133,7 +133,7 @@ class _OnboardingState extends State<Onboarding> {
     Container(
        color: Color(0xFF2d4059),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical:60),
+        padding: EdgeInsets.symmetric(vertical:40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -170,7 +170,7 @@ class _OnboardingState extends State<Onboarding> {
                 'Enjoy the moment',
                 textScaleFactor: 1,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFF74f9ff),
                   fontFamily: 'Arial',
                   fontSize: 28,
                   letterSpacing: 1,
@@ -198,9 +198,9 @@ class _OnboardingState extends State<Onboarding> {
     ),
       // HADA 3
     Container(
-      color: Color( 0xFF333644 ),
+      color:  Colors.grey[850],
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical:60),
+        padding: EdgeInsets.symmetric(vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -239,9 +239,22 @@ class _OnboardingState extends State<Onboarding> {
               height: 55,
                width: MediaQuery.of(context).size.width/1.3,
                decoration: BoxDecoration(
-                 color: Colors.white,
-                 borderRadius: BorderRadius.circular(30),
-               ),
+                        color: Colors.grey[850],
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[900],
+                            offset: Offset(5.0, 5.0),
+                            blurRadius: 15.0,
+                            spreadRadius: 1.0,
+                          ),
+                          BoxShadow(
+                            color: Colors.grey[800],
+                            offset: Offset(-5.0, -5.0),
+                            blurRadius: 15.0,
+                            spreadRadius: 1.0,
+                          ),
+                        ]),
                child:Center(
                  child:FlatButton(
                    padding: EdgeInsets.symmetric(horizontal: 100,vertical: 12),
@@ -249,28 +262,37 @@ class _OnboardingState extends State<Onboarding> {
                    child: Text(
                      'Login',
                      style: TextStyle(
-                       fontSize: 20,
+                       color: Colors.white,
+                       letterSpacing: 2,
+                       fontFamily: 'calibri',
+                       fontSize: 22,
                        fontWeight: FontWeight.bold,
                      ),
                    ),
                  )
                )
             )),
-            SizedBox(height: MediaQuery.of(context).size.height/27,),
+            SizedBox(height: MediaQuery.of(context).size.height/22,),
             FadeAnimation(1.8,Container(
                 height: 55,
                  width: MediaQuery.of(context).size.width/1.3,
                  decoration: BoxDecoration(
-                  border: Border.all(color:Colors.white),
-                 // color: Color.fromRGBO(6, 52, 95, 2),
-                  borderRadius: BorderRadius.circular(50),
-
-                  // boxShadow: [BoxShadow(
-                  //   color: Color.fromRGBO(2, 78, 95, .2),
-                  //   blurRadius: 25,
-                  //   offset: Offset(0,35)
-                  // )]
-                  ),
+                        color: Colors.grey[850],
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[900],
+                            offset: Offset(5.0, 5.0),
+                            blurRadius: 15.0,
+                            spreadRadius: 1.0,
+                          ),
+                          BoxShadow(
+                            color: Colors.grey[800],
+                            offset: Offset(-5.0, -5.0),
+                            blurRadius: 15.0,
+                            spreadRadius: 1.0,
+                          ),
+                        ]),
                   child:Center(
                      child:FlatButton(
                        padding: EdgeInsets.symmetric(horizontal: 70,vertical: 12),
@@ -278,7 +300,7 @@ class _OnboardingState extends State<Onboarding> {
                        child: Text(
                          'Creat New Account !',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xFF74f9ff),
                             fontSize: 15,
                             fontWeight: FontWeight.bold
                           ),

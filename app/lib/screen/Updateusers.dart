@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/Service/auth_service.dart';
+import 'package:app/Service/databseupdate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -28,16 +29,24 @@ class _UPdateusersState extends State<UPdateusers> {
     }
   }
    Future uploadPick(BuildContext context)async{
+     String _profielImageUrl ='';
     print('object');
     String filename = basename(_profileImage.path);
     StorageReference storageReference = FirebaseStorage.instance.ref().child(filename);
     StorageUploadTask storageUploadTask = storageReference.putFile(_profileImage);
     StorageTaskSnapshot storageTaskSnapshot = await storageUploadTask.onComplete;
-    print('objectA');
-    setState(() {
-      print('update Profile');
-      print(storageTaskSnapshot);
-    });
+    String downloadURl = await storageTaskSnapshot.ref.getDownloadURL();
+    if(_profileImage == null){
+      _profielImageUrl = Authservice.imagee;
+    }
+    _profielImageUrl= downloadURl;
+    
+    print(_profielImageUrl);
+    // print('objectA');
+    // setState(() {
+    //   print('update Profile');
+    //   print(storageTaskSnapshot);
+    // });
   }
 
   displayProfiel(){
@@ -51,7 +60,13 @@ class _UPdateusersState extends State<UPdateusers> {
       return FileImage(_profileImage);
     }
   }
- 
+//  _submit(BuildContext context)async{
+//    String _profielImageUrl ='';
+//    if(_profileImage == null){
+//      _profielImageUrl = Authservice.imagee;
+//    }
+//    _profielImageUrl = await uploadPick(context);
+//  }
 
 
   @override
@@ -96,9 +111,7 @@ class _UPdateusersState extends State<UPdateusers> {
               height: 50,
               width: 150,
               child: FlatButton(
-                onPressed: (){
-                  uploadPick(context);
-                },
+                onPressed: ()=>uploadPick(context),
                 child:Text(
                   'save'
                 )),

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
               print(snapshot.data);
               return Home(userId: snapshot.data.uid);
             }else{
-              return Category();
+              return Onboarding();
             }
         }
       );
