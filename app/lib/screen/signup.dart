@@ -12,11 +12,47 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
   String _name, _email, _password;
+  String error = '';
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      Authservice.siginUpUser(context, _name, _email, _password);
+      if (_name.isEmpty || _email.isEmpty || _password.isEmpty) {
+        if (_name.isEmpty) {
+          error = 'fill in all the information';
+          _showDialog();
+        } else {
+          if (!_email.contains('@')) {
+            error = 'email : invalid format';
+            _showDialog();
+          } else {
+            if (_password.length < 6) {
+              error = 'password : number of characters <6';
+              _showDialog();
+            }
+          }
+        }
+      } else {
+        // print('kolach rah riglo');
+        Authservice.siginUpUser(context, _name, _email, _password);
+      }
     }
+  }
+
+  void _showDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              error,
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () => Navigator.pop(context), child: Text('Back'))
+            ],
+          );
+        });
   }
 
   @override
@@ -262,17 +298,14 @@ class _SignupState extends State<Signup> {
                                                 blurRadius: 10,
                                                 offset: Offset(4.0, 4.0))
                                           ]),
-                                      child: Center(
-                                        child: FlatButton(
-                                          padding: EdgeInsets.all(15),
-                                          onPressed: _submit,
-                                          child: Text(
-                                            'Registred',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 21,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                      child: FlatButton(
+                                        onPressed: _submit,
+                                        child: Text(
+                                          'Registred',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 21,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     )),
@@ -312,19 +345,16 @@ class _SignupState extends State<Signup> {
                                         //   offset: Offset(0,35)
                                         // )]
                                       ),
-                                      child: Center(
-                                        child: FlatButton(
-                                          padding: EdgeInsets.all(15),
-                                          onPressed: () => Navigator.pushNamed(
-                                              context, Login.id),
-                                          child: Text(
-                                            'Log In',
-                                            style: TextStyle(
-                                                color: Colors.blueGrey,
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Arial'),
-                                          ),
+                                      child: FlatButton(
+                                        onPressed: () => Navigator.pushNamed(
+                                            context, Login.id),
+                                        child: Text(
+                                          'Log In',
+                                          style: TextStyle(
+                                              color: Colors.blueGrey,
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Arial'),
                                         ),
                                       ),
                                     )),

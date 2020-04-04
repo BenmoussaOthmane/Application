@@ -17,12 +17,44 @@ class _LoginState extends State<Login> {
   final _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   String _email, _password, _name;
+  String error = '';
 
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      Authservice.login(context, _email, _password);
+      if (_email.isEmpty || _password.isEmpty) {
+        if (!_email.contains('@')) {
+          error = 'email : invalid format';
+          _showDialog();
+        } else {
+          if (_password.length < 6) {
+            error = 'password : number of characters <6';
+            _showDialog();
+          }
+        }
+      } else {
+        // print('kolach rah riglo');
+        Authservice.login(context, _email, _password);
+        ;
+      }
     }
+  }
+
+  void _showDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              error,
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () => Navigator.pop(context), child: Text('Back'))
+            ],
+          );
+        });
   }
 
   @override
@@ -115,22 +147,27 @@ class _LoginState extends State<Login> {
                                           1.15,
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              15,
+                                              12,
                                       // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
                                       margin: EdgeInsets.only(top: 20),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(
-                                          Radius.circular(50),
-                                        ),
+                                            Radius.circular(50)),
                                         color: Colors.white,
-                                        border: Border.all(
-                                            color: Color(0xFF00799F)),
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.black26,
-                                        //     blurRadius: 20
-                                        //   )
-                                        // ]
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey[500],
+                                            offset: Offset(5.0, 5.0),
+                                            blurRadius: 15.0,
+                                            spreadRadius: 1.0,
+                                          ),
+                                          BoxShadow(
+                                            color: Colors.white,
+                                            offset: Offset(-5.0, -5.0),
+                                            blurRadius: 15.0,
+                                            spreadRadius: 1.0,
+                                          )
+                                        ],
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
@@ -152,21 +189,27 @@ class _LoginState extends State<Login> {
                                           1.15,
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              15,
+                                              12,
                                       margin: EdgeInsets.only(top: 20),
                                       // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(50)),
                                         color: Colors.white,
-                                        border: Border.all(
-                                            color: Color(0xFF00799F)),
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.black26,
-                                        //     blurRadius: 20
-                                        //   )
-                                        // ]
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey[500],
+                                            offset: Offset(5.0, 5.0),
+                                            blurRadius: 15.0,
+                                            spreadRadius: 1.0,
+                                          ),
+                                          BoxShadow(
+                                            color: Colors.white,
+                                            offset: Offset(-5.0, -5.0),
+                                            blurRadius: 15.0,
+                                            spreadRadius: 1.0,
+                                          )
+                                        ],
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
@@ -203,17 +246,14 @@ class _LoginState extends State<Login> {
                                                 blurRadius: 10,
                                                 offset: Offset(0, 15))
                                           ]),
-                                      child: Center(
-                                        child: FlatButton(
-                                          padding: EdgeInsets.all(15),
-                                          onPressed: _submit,
-                                          child: Text(
-                                            'Log in',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 21,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                      child: FlatButton(
+                                        onPressed: _submit,
+                                        child: Text(
+                                          'Log in',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 21,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     )),

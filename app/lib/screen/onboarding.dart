@@ -236,7 +236,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height/15,),
             FadeAnimation(1.8,Container(
-              height: 55,
+              height: MediaQuery.of(context).size.height/11,
                width: MediaQuery.of(context).size.width/1.3,
                decoration: BoxDecoration(
                         color: Colors.grey[850],
@@ -274,7 +274,7 @@ class _OnboardingState extends State<Onboarding> {
             )),
             SizedBox(height: MediaQuery.of(context).size.height/22,),
             FadeAnimation(1.8,Container(
-                height: 55,
+                height: MediaQuery.of(context).size.height/11,
                  width: MediaQuery.of(context).size.width/1.3,
                  decoration: BoxDecoration(
                         color: Colors.grey[850],
@@ -301,7 +301,7 @@ class _OnboardingState extends State<Onboarding> {
                          'Creat New Account !',
                           style: TextStyle(
                             color: Color(0xFF74f9ff),
-                            fontSize: 15,
+                            fontSize: MediaQuery.of(context).size.width/26,
                             fontWeight: FontWeight.bold
                           ),
                        ),

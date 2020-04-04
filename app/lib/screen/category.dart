@@ -40,7 +40,7 @@ class _CategoryState extends State<Category>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 8000),
     );
     _animation = Tween<double>(
       begin: 1.0,
@@ -51,7 +51,9 @@ class _CategoryState extends State<Category>
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.downToUp, child: Onboarding()));
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 3000),
+                  child: Onboarding()));
         }
       });
   }
@@ -84,12 +86,15 @@ class _CategoryState extends State<Category>
           ' KM= ' +
           _kM.toString());
       _animationController.forward();
+      setState(() {
+        hide = false;
+      });
     } else {
       SnackBar mys = SnackBar(
         backgroundColor: Color(0xff204051),
         duration: Duration(milliseconds: 700),
         content: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 50,vertical: 5),
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
           child: Text(
             'khasak t3amar ga3 swalhak',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -456,15 +461,25 @@ class _CategoryState extends State<Category>
                         height: MediaQuery.of(context).size.height / 12,
                         width: MediaQuery.of(context).size.width / 1.5,
                         child: IconButton(
-                          icon: Icon(
-                            Icons.chevron_right,
-                            size: 50,
-                            color: Color(0xff204051),
-                          ),
+                          icon: hide
+                              ? Icon(
+                                  Icons.chevron_right,
+                                  size: 50,
+                                  color: Color(0xff204051),
+                                )
+                              : Container(
+                                child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                        'assets/Validation.gif'),
+                                  )),
+                                ),
+                                ),
                           onPressed: () {
-                            setState(() {
-                              hide = true;
-                            });
                             getSterted(context);
                           },
                           // child: Text(
