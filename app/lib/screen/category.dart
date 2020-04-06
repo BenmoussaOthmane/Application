@@ -40,7 +40,7 @@ class _CategoryState extends State<Category>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 8000),
+      duration: Duration(milliseconds: 400),
     );
     _animation = Tween<double>(
       begin: 1.0,
@@ -52,7 +52,7 @@ class _CategoryState extends State<Category>
               context,
               PageTransition(
                   type: PageTransitionType.fade,
-                  duration: Duration(milliseconds: 3000),
+                  duration: Duration(milliseconds: 300),
                   child: Onboarding()));
         }
       });
@@ -468,16 +468,7 @@ class _CategoryState extends State<Category>
                                   color: Color(0xff204051),
                                 )
                               : Container(
-                                child: Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        'assets/Validation.gif'),
-                                  )),
-                                ),
+                                  color: Color(0xff204051),
                                 ),
                           onPressed: () {
                             getSterted(context);

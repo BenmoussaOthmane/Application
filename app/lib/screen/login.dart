@@ -147,7 +147,7 @@ class _LoginState extends State<Login> {
                                           1.15,
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              12,
+                                              14,
                                       // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
                                       margin: EdgeInsets.only(top: 20),
                                       decoration: BoxDecoration(
@@ -171,7 +171,7 @@ class _LoginState extends State<Login> {
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 30.0, vertical: 3.0),
+                                            horizontal: 30.0, vertical: 5.0),
                                         child: TextFormField(
                                           decoration: InputDecoration(
                                               hintText: 'Email',
@@ -189,7 +189,7 @@ class _LoginState extends State<Login> {
                                           1.15,
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              12,
+                                              14,
                                       margin: EdgeInsets.only(top: 20),
                                       // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
                                       decoration: BoxDecoration(
@@ -213,7 +213,7 @@ class _LoginState extends State<Login> {
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 30.0, vertical: 3.0),
+                                            horizontal: 30.0, vertical: 5.0),
                                         child: TextFormField(
                                           decoration: InputDecoration(
                                               hintText: 'PassWord',
