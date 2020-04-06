@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -20,6 +21,12 @@ class UPdateusers extends StatefulWidget {
 }
 
 class _UPdateusersState extends State<UPdateusers> {
+
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+  Position _currentPosition;
+  String _currentAddress;
+
   File _profileImage;
 
   _handelImageNetwork() async {
@@ -67,6 +74,50 @@ class _UPdateusersState extends State<UPdateusers> {
       return FileImage(_profileImage);
     }
   }
+  _getCurrentLocation() {
+    // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+    
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        _getAddressFromLatLng();
+        print('LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}');
+      });
+    }).catchError((e) {
+      print(e);
+    });
+    
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+            print(_currentAddress);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    setState(() {
+      _getCurrentLocation() ;
+      _getAddressFromLatLng();
+    });
+  }
+
+
 //  _submit(BuildContext context)async{
 //    String _profielImageUrl ='';
 //    if(_profileImage == null){
@@ -74,27 +125,27 @@ class _UPdateusersState extends State<UPdateusers> {
 //    }
 //    _profielImageUrl = await uploadPick(context);
 //  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      body: Container(
+      
+      body:Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
         child: Column(
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
                     icon: Icon(
                       Icons.arrow_back_ios,
                       color: Color(0xff10375c),
                     ),
-                    onPressed: null),
-                // SizedBox(
-                //   width: MediaQuery.of(context).size.width / 5,
-                // ),
+                    onPressed: () => Navigator.pop(context)),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 4,
+                ),
                 Text(
                   'Profiel',
                   style: TextStyle(
@@ -104,12 +155,6 @@ class _UPdateusersState extends State<UPdateusers> {
                       fontSize: MediaQuery.of(context).size.width / 15,
                       fontWeight: FontWeight.bold),
                 ),
-                IconButton(
-                    icon: Icon(
-                      FontAwesomeIcons.signOutAlt,
-                      color: Color(0xff10375c),
-                    ),
-                    onPressed: null),
               ],
             ),
             SizedBox(
@@ -188,7 +233,7 @@ class _UPdateusersState extends State<UPdateusers> {
                                 color: Color(0xff3b6978),
                                 size: 25,
                               ),
-                              onPressed: null)),
+                              onPressed: _handelImageNetwork)),
                     ],
                   )
                 ],
@@ -211,170 +256,185 @@ class _UPdateusersState extends State<UPdateusers> {
             SizedBox(
               height: MediaQuery.of(context).size.height / 40,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height / 2.2,
-              width: MediaQuery.of(context).size.width / 1.1,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[500],
-                    offset: Offset(5.0, 5.0),
-                    blurRadius: 15.0,
-                    spreadRadius: 1.0,
-                  ),
-                  BoxShadow(
-                    color: Colors.white,
-                    offset: Offset(-5.0, -5.0),
-                    blurRadius: 15.0,
-                    spreadRadius: 1.0,
-                  )
-                ],
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 55),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          height: MediaQuery.of(context).size.height / 18,
-                          width: MediaQuery.of(context).size.width / 7.7,
-                          decoration: BoxDecoration(
-                              color: Color(0xff3b6978).withOpacity(.2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Icon(
-                            FontAwesomeIcons.user,
-                            color: Color(0xff3b6978),
-                          ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 15,
-                        ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'User Name',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'calibri',
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height/150,),
-                            Text(
-                              'Benmoussa Othmane',
-                              style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontFamily: 'calibri',
-                                  fontSize: 15),
-                            )
-                          ],
-                        )
-                      ],
+              Container(
+                height: MediaQuery.of(context).size.height / 2.2,
+                width: MediaQuery.of(context).size.width / 1.1,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[500],
+                      offset: Offset(5.0, 5.0),
+                      blurRadius: 15.0,
+                      spreadRadius: 1.0,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/38,),
-                    Divider(
-                      height: 10.0,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height/38,),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          height: MediaQuery.of(context).size.height / 18,
-                          width: MediaQuery.of(context).size.width / 7.7,
-                          decoration: BoxDecoration(
-                              color: Color(0xff3b6978).withOpacity(.2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Icon(
-                            FontAwesomeIcons.at,
-                            color: Color(0xff3b6978),
-                          ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 15,
-                        ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Email',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'calibri',
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height/150,),
-                            Text(
-                              'CoderX@gmail.com',
-                              style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontFamily: 'calibri',
-                                  fontSize: 15),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height/38,),
-                    Divider(
-                      height: 10.0,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height/38,),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          height: MediaQuery.of(context).size.height / 18,
-                          width: MediaQuery.of(context).size.width / 7.7,
-                          decoration: BoxDecoration(
-                              color: Color(0xff3b6978).withOpacity(.2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Icon(
-                            FontAwesomeIcons.mapMarkerAlt,
-                            color: Color(0xff3b6978),
-                          ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 15,
-                        ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Location',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'calibri',
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height/150,),
-                            Text(
-                              'Benmoussa Othmane',
-                              style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontFamily: 'calibri',
-                                  fontSize: 15),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-5.0, -5.0),
+                      blurRadius: 15.0,
+                      spreadRadius: 1.0,
+                    )
                   ],
                 ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 48),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height / 18,
+                            width: MediaQuery.of(context).size.width / 7.7,
+                            decoration: BoxDecoration(
+                                color: Color(0xff3b6978).withOpacity(.2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Icon(
+                              FontAwesomeIcons.user,
+                              color: Color(0xff3b6978),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 15,
+                          ),
+                          Column(
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'User Name',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'calibri',
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height / 150,
+                              ),
+                              Text(
+                                Authservice.nameee,
+                                style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontFamily: 'calibri',
+                                    fontSize: 15),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 38,
+                      ),
+                      Divider(
+                        height: 10.0,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 38,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height / 18,
+                            width: MediaQuery.of(context).size.width / 7.7,
+                            decoration: BoxDecoration(
+                                color: Color(0xff3b6978).withOpacity(.2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Icon(
+                              FontAwesomeIcons.at,
+                              color: Color(0xff3b6978),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 15,
+                          ),
+                          Column(
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Email',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'calibri',
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height / 150,
+                              ),
+                              Text(
+                                Authservice.emaiiil,
+                                style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontFamily: 'calibri',
+                                    fontSize: 15),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 38,
+                      ),
+                      Divider(
+                        height: 10.0,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 38,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height / 18,
+                            width: MediaQuery.of(context).size.width / 7.7,
+                            decoration: BoxDecoration(
+                                color: Color(0xff3b6978).withOpacity(.2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Icon(
+                              FontAwesomeIcons.mapMarkerAlt,
+                              color: Color(0xff3b6978),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 15,
+                          ),
+                          Column(
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Location',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'calibri',
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height / 150,
+                              ),
+                              if(_currentAddress !=null )
+                              Text(
+                                _currentAddress,
+                                style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontFamily: 'calibri',
+                                    fontSize: MediaQuery.of(context).size.width/35),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            )
           ],
         ),
       ),

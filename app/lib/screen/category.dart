@@ -1,6 +1,7 @@
 import 'package:app/screen/Home.dart';
 import 'package:app/screen/onboarding.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Category extends StatefulWidget {
@@ -268,7 +269,7 @@ class _CategoryState extends State<Category>
                     width: MediaQuery.of(context).size.width / 5,
                     child: IconButton(
                       icon: Icon(
-                        Icons.shopping_basket,
+                        FontAwesomeIcons.shoppingBag,
                         size: 35,
                         color: darkVet ? Color(0xff7d5e2a) : Colors.white,
                       ),
@@ -306,8 +307,8 @@ class _CategoryState extends State<Category>
                     width: MediaQuery.of(context).size.width / 3.8,
                     child: IconButton(
                       icon: Icon(
-                        Icons.new_releases,
-                        size: 35,
+                        FontAwesomeIcons.tshirt,
+                        size: 34,
                         color: darkBotique ? Color(0xff512b58) : Colors.white,
                       ),
                       onPressed: () {

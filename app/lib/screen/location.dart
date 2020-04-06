@@ -37,8 +37,6 @@ class _LocationState extends State<Location> {
   static Position position, _currentPosition, cp;
   String searchAppr;
   static const kGoogleApiKey = "API-KEY";
-  static double ln = Liste.cp.latitude;
-  static double lnn = Liste.cp.longitude;
   double lnccn = 0;
   static LatLng _center = LatLng(0, 0);
 

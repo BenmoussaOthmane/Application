@@ -3,28 +3,46 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Liste extends StatefulWidget {
-  static Position cp = null;
   @override
   _ListeState createState() => _ListeState();
 }
 
 class _ListeState extends State<Liste> {
-  Position _currentPosition;
-   _getCurrentLocation() {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+  Position _currentPosition;
+   String _currentAddress;
+   _getCurrentLocation() {
+    // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
     
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
       setState(() {
         _currentPosition = position;
-        Liste.cp=_currentPosition;
+        _getAddressFromLatLng();
         // print('LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}');
       });
     }).catchError((e) {
       print(e);
     });
     
+  }
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+            print(_currentAddress);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
   // @override
   // void initState() {
@@ -41,9 +59,9 @@ class _ListeState extends State<Liste> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            if(_currentPosition != null)
+            if(_currentAddress != null)
               Text(
-                'LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}',
+                'adres : ${_currentAddress}',
               ),
               FlatButton(
                 child: Text(
