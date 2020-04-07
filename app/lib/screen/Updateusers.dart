@@ -21,7 +21,6 @@ class UPdateusers extends StatefulWidget {
 }
 
 class _UPdateusersState extends State<UPdateusers> {
-
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 
   Position _currentPosition;
@@ -64,31 +63,28 @@ class _UPdateusersState extends State<UPdateusers> {
 
   displayProfiel() {
     if (_profileImage == null) {
-      if (Authservice.imagee.isEmpty) {
-        return AssetImage(
-            'assets/images/72377054_2431601263788855_84064381272326144_n (1).jpg');
-      } else {
-        return CachedNetworkImageProvider(Authservice.imagee);
-      }
+      return AssetImage(
+          'assets/images/72377054_2431601263788855_84064381272326144_n (1).jpg');
     } else {
       return FileImage(_profileImage);
     }
   }
+
   _getCurrentLocation() {
     // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-    
+
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
       setState(() {
         _currentPosition = position;
         _getAddressFromLatLng();
-        print('LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}');
+        print(
+            'LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}');
       });
     }).catchError((e) {
       print(e);
     });
-    
   }
 
   _getAddressFromLatLng() async {
@@ -101,7 +97,7 @@ class _UPdateusersState extends State<UPdateusers> {
       setState(() {
         _currentAddress =
             "${place.locality}, ${place.postalCode}, ${place.country}";
-            print(_currentAddress);
+        print(_currentAddress);
       });
     } catch (e) {
       print(e);
@@ -109,14 +105,13 @@ class _UPdateusersState extends State<UPdateusers> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     setState(() {
-      _getCurrentLocation() ;
+      _getCurrentLocation();
       _getAddressFromLatLng();
     });
   }
-
 
 //  _submit(BuildContext context)async{
 //    String _profielImageUrl ='';
@@ -129,8 +124,8 @@ class _UPdateusersState extends State<UPdateusers> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      
-      body:Container(
+
+      body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
         child: Column(
           children: <Widget>[
@@ -186,6 +181,7 @@ class _UPdateusersState extends State<UPdateusers> {
                     ),
                     child: CircleAvatar(
                       radius: 75,
+                      backgroundColor: Colors.grey[500],
                       backgroundImage: displayProfiel(),
                     ),
                   ),
@@ -256,185 +252,186 @@ class _UPdateusersState extends State<UPdateusers> {
             SizedBox(
               height: MediaQuery.of(context).size.height / 40,
             ),
-              Container(
-                height: MediaQuery.of(context).size.height / 2.2,
-                width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[500],
-                      offset: Offset(5.0, 5.0),
-                      blurRadius: 15.0,
-                      spreadRadius: 1.0,
+            Container(
+              height: MediaQuery.of(context).size.height / 2.2,
+              width: MediaQuery.of(context).size.width / 1.1,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey[500],
+                    offset: Offset(5.0, 5.0),
+                    blurRadius: 15.0,
+                    spreadRadius: 1.0,
+                  ),
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: Offset(-5.0, -5.0),
+                    blurRadius: 15.0,
+                    spreadRadius: 1.0,
+                  )
+                ],
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 48),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: MediaQuery.of(context).size.height / 18,
+                          width: MediaQuery.of(context).size.width / 7.7,
+                          decoration: BoxDecoration(
+                              color: Color(0xff3b6978).withOpacity(.2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Icon(
+                            FontAwesomeIcons.user,
+                            color: Color(0xff3b6978),
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 15,
+                        ),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'User Name',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'calibri',
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 150,
+                            ),
+                            Text(
+                              Authservice.nameee,
+                              style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontFamily: 'calibri',
+                                  fontSize: 15),
+                            )
+                          ],
+                        )
+                      ],
                     ),
-                    BoxShadow(
-                      color: Colors.white,
-                      offset: Offset(-5.0, -5.0),
-                      blurRadius: 15.0,
-                      spreadRadius: 1.0,
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 48),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: MediaQuery.of(context).size.height / 18,
-                            width: MediaQuery.of(context).size.width / 7.7,
-                            decoration: BoxDecoration(
-                                color: Color(0xff3b6978).withOpacity(.2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Icon(
-                              FontAwesomeIcons.user,
-                              color: Color(0xff3b6978),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 38,
+                    ),
+                    Divider(
+                      height: 10.0,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 38,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: MediaQuery.of(context).size.height / 18,
+                          width: MediaQuery.of(context).size.width / 7.7,
+                          decoration: BoxDecoration(
+                              color: Color(0xff3b6978).withOpacity(.2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Icon(
+                            FontAwesomeIcons.at,
+                            color: Color(0xff3b6978),
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 15,
+                        ),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Email',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'calibri',
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 15,
-                          ),
-                          Column(
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'User Name',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'calibri',
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 150,
-                              ),
-                              Text(
-                                Authservice.nameee,
-                                style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontFamily: 'calibri',
-                                    fontSize: 15),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 38,
-                      ),
-                      Divider(
-                        height: 10.0,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 38,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: MediaQuery.of(context).size.height / 18,
-                            width: MediaQuery.of(context).size.width / 7.7,
-                            decoration: BoxDecoration(
-                                color: Color(0xff3b6978).withOpacity(.2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Icon(
-                              FontAwesomeIcons.at,
-                              color: Color(0xff3b6978),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 150,
                             ),
+                            Text(
+                              Authservice.emaiiil,
+                              style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontFamily: 'calibri',
+                                  fontSize: 15),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 38,
+                    ),
+                    Divider(
+                      height: 10.0,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 38,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: MediaQuery.of(context).size.height / 18,
+                          width: MediaQuery.of(context).size.width / 7.7,
+                          decoration: BoxDecoration(
+                              color: Color(0xff3b6978).withOpacity(.2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Icon(
+                            FontAwesomeIcons.mapMarkerAlt,
+                            color: Color(0xff3b6978),
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 15,
-                          ),
-                          Column(
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Email',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'calibri',
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 150,
-                              ),
-                              Text(
-                                Authservice.emaiiil,
-                                style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontFamily: 'calibri',
-                                    fontSize: 15),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 38,
-                      ),
-                      Divider(
-                        height: 10.0,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 38,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: MediaQuery.of(context).size.height / 18,
-                            width: MediaQuery.of(context).size.width / 7.7,
-                            decoration: BoxDecoration(
-                                color: Color(0xff3b6978).withOpacity(.2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Icon(
-                              FontAwesomeIcons.mapMarkerAlt,
-                              color: Color(0xff3b6978),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 15,
+                        ),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Location',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'calibri',
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 15,
-                          ),
-                          Column(
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Location',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'calibri',
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 150,
-                              ),
-                              if(_currentAddress !=null )
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 150,
+                            ),
+                            if (_currentAddress != null)
                               Text(
                                 _currentAddress,
                                 style: TextStyle(
                                     color: Colors.grey[600],
                                     fontFamily: 'calibri',
-                                    fontSize: MediaQuery.of(context).size.width/35),
+                                    fontSize:
+                                        MediaQuery.of(context).size.width / 35),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
+            ),
           ],
         ),
       ),

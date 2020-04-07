@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
-          backgroundColor:  Color(0xFFF1F0F0),
+          backgroundColor:  Colors.grey[300],
           animationCurve: Curves.ease,
           animationDuration: Duration(milliseconds: 250),
           onTap: (int tappedIndex) {
