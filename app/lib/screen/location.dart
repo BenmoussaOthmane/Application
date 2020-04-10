@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:typed_data';
 
+import 'package:app/screen/detail_place.dart';
 import 'package:app/screen/liste.dart';
 import 'package:app/screen/place_detail.dart';
 import 'package:dio/dio.dart';
@@ -32,11 +33,11 @@ class _LocationState extends State<Location> {
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
   GoogleMapController _controller;
   GoogleMapsPlaces _places =
-      GoogleMapsPlaces(apiKey: "API-KEY");
+      GoogleMapsPlaces(apiKey: "API");
   // Completer<GoogleMapController> _controllerr = Completer();
   static Position position, _currentPosition, cp;
   String searchAppr;
-  static const kGoogleApiKey = "API-KEY";
+  static const kGoogleApiKey = "API";
   double lnccn = 0;
   static LatLng _center = LatLng(0, 0);
 
@@ -80,7 +81,7 @@ class _LocationState extends State<Location> {
     try {
       Prediction p = await PlacesAutocomplete.show(
           context: context,
-          apiKey: 'API-KEY',
+          apiKey: 'API',
           onError: onError,
           mode: Mode.overlay,
           language: 'dz',
@@ -115,7 +116,7 @@ class _LocationState extends State<Location> {
     if (placeId != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PlaceDetailWidget(placeId)),
+        MaterialPageRoute(builder: (context) => DetaiPlace(placeId)),
       );
     }
   }

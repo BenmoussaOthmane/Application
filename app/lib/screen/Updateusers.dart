@@ -274,7 +274,7 @@ class _UPdateusersState extends State<UPdateusers> {
                 ],
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 48),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 48),
                 child: Column(
                   children: <Widget>[
                     Row(
