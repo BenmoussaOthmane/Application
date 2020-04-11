@@ -81,7 +81,7 @@ class _LocationState extends State<Location> {
     try {
       Prediction p = await PlacesAutocomplete.show(
           context: context,
-          apiKey: 'API',
+          apiKey: kGoogleApiKey,
           onError: onError,
           mode: Mode.overlay,
           language: 'dz',
