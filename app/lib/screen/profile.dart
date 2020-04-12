@@ -92,10 +92,10 @@ class _ProfileState extends State<Profile> {
               ),
               // SizedBox(height: MediaQuery.of(context).size.height/80,),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   height: MediaQuery.of(context).size.height / 1.7,
-                  width: MediaQuery.of(context).size.width / 1.01,
+                  width: MediaQuery.of(context).size.width / 1.1,
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.all(Radius.circular(20)),

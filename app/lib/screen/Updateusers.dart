@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app/Animation/FadeAnimation.dart';
 import 'package:app/Service/auth_service.dart';
 import 'package:app/Service/databseupdate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -137,7 +138,7 @@ class _UPdateusersState extends State<UPdateusers> {
                       Icons.arrow_back_ios,
                       color: Color(0xff10375c),
                     ),
-                    onPressed: () => Navigator.pop(context)),
+                   onPressed: () => Navigator.pop(context)),
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 4,
                 ),
@@ -158,7 +159,7 @@ class _UPdateusersState extends State<UPdateusers> {
             Container(
               height: MediaQuery.of(context).size.height / 4,
               width: MediaQuery.of(context).size.width / 1.1,
-              child: Row(
+              child: FadeAnimation(1, Row(
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
@@ -233,26 +234,26 @@ class _UPdateusersState extends State<UPdateusers> {
                     ],
                   )
                 ],
-              ),
+              )),
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 80),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 18),
               child: Row(
                 children: <Widget>[
-                  Text('Account',
+                 FadeAnimation(1.3, Text('Account',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: MediaQuery.of(context).size.width / 15,
                           fontFamily: 'calibri',
-                          fontWeight: FontWeight.bold)),
+                          fontWeight: FontWeight.bold))),
                 ],
               ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height / 40,
             ),
-            Container(
+            FadeAnimation(1.6, Container(
               height: MediaQuery.of(context).size.height / 2.2,
               width: MediaQuery.of(context).size.width / 1.1,
               decoration: BoxDecoration(
@@ -431,7 +432,7 @@ class _UPdateusersState extends State<UPdateusers> {
                   ],
                 ),
               ),
-            ),
+            )),
           ],
         ),
       ),
