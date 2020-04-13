@@ -18,11 +18,19 @@ class _FeedState extends State<Feed> {
               child: Column(
                children: <Widget>[
                  Text(
-                   'Email: ${Authservice.emaiiil}'
+                   'Email: ${Authservice.emaiiil}',
+                   style: TextStyle(
+                     fontFamily: 'BalooTamma2 Regular',
+                     fontSize: 20,
+                   ),
                  ),
                  SizedBox(height: 50,),
                  Text(
-                  'name : ${Authservice.nameee}'
+                  'name : ${Authservice.nameee}',
+                  style: TextStyle(
+                    fontFamily: 'Gotu',
+                    fontSize: 30
+                  ),
                  )
                ],
               ),

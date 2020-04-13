@@ -94,7 +94,7 @@ class _ProfileState extends State<Profile> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 1.7,
+                  height: MediaQuery.of(context).size.height / 1.5,
                   width: MediaQuery.of(context).size.width / 1.1,
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
