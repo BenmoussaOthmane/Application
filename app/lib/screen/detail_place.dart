@@ -3,7 +3,7 @@
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:google_maps_webservice/places.dart';
 
-// const kGoogleApiKey = "API";
+// const kGoogleApiKey = "AIzaSyDTDnQqw-YEmhF48sqjJz1eSfXV8jI0zDw";
 // GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 // class DetaiPlace extends StatefulWidget {
@@ -1681,6 +1681,9 @@
 //   }
 // }
 
+import 'package:app/Animation/FadeAnimation.dart';
+import 'package:app/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -1705,6 +1708,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
   PlacesDetailsResponse place;
   bool isLoading = false;
   String errorLoading;
+  String ref;
 
   double withAnimatedBtn = 170;
   Icon _icon = Icon(FontAwesomeIcons.plus);
@@ -1729,20 +1733,23 @@ class _DetaiPlaceState extends State<DetaiPlace>
   }
 
   String buildPhotoURL(String photoReference) {
+    ref = photoReference;
     return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${kGoogleApiKey}";
   }
 
   @override
   Widget build(BuildContext context) {
-    String namePlace;
-    String formAddress = "Acun Information";
-    String type;
-    String phoneNumber = "Acun Information";
-    var mahlolwalaMbala3;
-    String mahlolMbalaa;
-    String siteWeb = "Acun Information";
+    String namePlace="";
+    String formAddress = "";
+    String type="";
+    String phoneNumber = "";
+    // var mahlolwalaMbala3;
+    String mahlolMbalaa="";
+    String siteWeb = "";
     // double rating = 0.0;
     double count;
+    double latt;
+    double lang;
     bool notNul = false;
     Widget listePPP;
 
@@ -1765,10 +1772,40 @@ class _DetaiPlaceState extends State<DetaiPlace>
       final placeDetail = place.result;
       final location = place.result.geometry.location;
       final lat = location.lat;
+      latt=lat;
       final lng = location.lng;
+      lang = lng;
       final center = LatLng(lat, lng);
 
       namePlace = placeDetail.name;
+
+      void getPostplace() {
+        print('Name' + namePlace);
+        print('Name' + type);
+        print('Name' + formAddress);
+        print('Name' + mahlolMbalaa);
+        print('Name' + siteWeb);
+        print('Name' + phoneNumber);
+        print('Name' + latt.toString());
+        print('Name' + lang.toString());
+        print('Name' + "${placeDetail.rating}");
+        print('Name' + ref);
+        Firestore.instance.collection('users').document(uiiid).collection('places').document().setData(
+          {
+            'name':namePlace,
+            'type':type,
+            'address':formAddress,
+            'open':mahlolMbalaa,
+            'siteweb':siteWeb,
+            'phone':phoneNumber,
+            'latitud':latt.toString(),
+            'longutude':lang.toString(),
+            'rating':"${placeDetail.rating}",
+            'photo':ref,
+          }
+        );
+        print('object');
+      }
 
       if (placeDetail.formattedAddress != null) {
         formAddress = placeDetail.formattedAddress;
@@ -1781,7 +1818,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
       }
       if (placeDetail.openingHours != null) {
         final openFer = placeDetail.openingHours;
-        mahlolwalaMbala3 = '';
+        // mahlolwalaMbala3 = '';
         if (openFer.openNow) {
           mahlolMbalaa = 'Opening Now';
           // print('Opening Now');
@@ -2898,45 +2935,47 @@ class _DetaiPlaceState extends State<DetaiPlace>
                             fontSize: 20,
                           ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '${placeDetail.rating}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        )
+                        FadeAnimation(
+                            2,
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Colors.amber,
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Colors.amber,
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Colors.amber,
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Colors.amber,
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Colors.amber,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${placeDetail.rating}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ))
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2989,78 +3028,145 @@ class _DetaiPlaceState extends State<DetaiPlace>
                           topRight: Radius.circular(40))),
                   child: Column(
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: MediaQuery.of(context).size.height / 15,
-                            width: MediaQuery.of(context).size.width / 7.4,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey[500],
-                                  offset: Offset(5.0, 5.0),
-                                  blurRadius: 15.0,
-                                  spreadRadius: 1.0,
-                                ),
-                                BoxShadow(
-                                  color: Colors.white,
-                                  offset: Offset(-5.0, -5.0),
-                                  blurRadius: 15.0,
-                                  spreadRadius: 1.0,
-                                )
-                              ],
-                            ),
-                            child: Icon(
-                              FontAwesomeIcons.globe,
-                              color: Color(0xff3b6978),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 15,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      FadeAnimation(
+                          1.5,
+                          Row(
                             children: <Widget>[
-                              Text(
-                                phoneNumber,
-                                style: TextStyle(
-                                    letterSpacing: 3,
-                                    color: Color(0xff10375c),
-                                    fontFamily: 'calibri',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                              Container(
+                                height: MediaQuery.of(context).size.height / 15,
+                                width: MediaQuery.of(context).size.width / 7.4,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey[500],
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 15.0,
+                                      spreadRadius: 1.0,
+                                    ),
+                                    BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5.0, -5.0),
+                                      blurRadius: 15.0,
+                                      spreadRadius: 1.0,
+                                    )
+                                  ],
+                                ),
+                                child: Icon(
+                                  FontAwesomeIcons.globe,
+                                  color: Color(0xff3b6978),
+                                ),
                               ),
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 250,
+                                width: MediaQuery.of(context).size.width / 15,
                               ),
-                              Text(
-                                placeDetail.formattedAddress,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'calibri',
-                                  fontSize: 15,
-                                ),
-                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    phoneNumber,
+                                    style: TextStyle(
+                                        letterSpacing: 3,
+                                        color: Color(0xff10375c),
+                                        fontFamily: 'calibri',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        250,
+                                  ),
+                                  Text(
+                                    placeDetail.formattedAddress,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'calibri',
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
+                          )),
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 25,
                       ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                              height: MediaQuery.of(context).size.height / 15,
-                              width: MediaQuery.of(context).size.width / 7.4,
+                      FadeAnimation(
+                          1.6,
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                  height:
+                                      MediaQuery.of(context).size.height / 15,
+                                  width:
+                                      MediaQuery.of(context).size.width / 7.4,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey[500],
+                                        offset: Offset(5.0, 5.0),
+                                        blurRadius: 15.0,
+                                        spreadRadius: 1.0,
+                                      ),
+                                      BoxShadow(
+                                        color: Colors.white,
+                                        offset: Offset(-5.0, -5.0),
+                                        blurRadius: 15.0,
+                                        spreadRadius: 1.0,
+                                      )
+                                    ],
+                                  ),
+                                  child: _close),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'Open ?',
+                                    style: TextStyle(
+                                        letterSpacing: 3,
+                                        color: Color(0xff10375c),
+                                        fontFamily: 'calibri',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        250,
+                                  ),
+                                  Text(
+                                    mahlolMbalaa,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'calibri',
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 20,
+                      ),
+                      FadeAnimation(
+                          1.8,
+                          Center(
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              height: MediaQuery.of(context).size.height / 13,
+                              width: withAnimatedBtn,
                               decoration: BoxDecoration(
-                                color: Colors.grey[300],
+                                color: backBtn,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                    BorderRadius.all(Radius.circular(70)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey[500],
@@ -3076,79 +3182,22 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                   )
                                 ],
                               ),
-                              child: _close),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 15,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Open ?',
-                                style: TextStyle(
-                                    letterSpacing: 3,
-                                    color: Color(0xff10375c),
-                                    fontFamily: 'calibri',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 250,
-                              ),
-                              Text(
-                                mahlolMbalaa,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'calibri',
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 20,
-                      ),
-                      Center(
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 300),
-                          height: MediaQuery.of(context).size.height / 13,
-                          width: withAnimatedBtn,
-                          decoration: BoxDecoration(
-                            color: backBtn,
-                            borderRadius: BorderRadius.all(Radius.circular(70)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[500],
-                                offset: Offset(5.0, 5.0),
-                                blurRadius: 15.0,
-                                spreadRadius: 1.0,
-                              ),
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: Offset(-5.0, -5.0),
-                                blurRadius: 15.0,
-                                spreadRadius: 1.0,
-                              )
-                            ],
-                          ),
-                          child: IconButton(
-                              icon: _icon,
-                              iconSize: 30,
-                              onPressed: () {
-                                setState(() {
-                                  withAnimatedBtn = 80;
-                                  backBtn = Color(0xff10375c);
-                                  _icon = Icon(
-                                    FontAwesomeIcons.check,
-                                    color: Colors.white,
-                                  );
-                                });
-                              }),
-                        ),
-                      ),
+                              child: IconButton(
+                                  icon: _icon,
+                                  iconSize: 30,
+                                  onPressed: () {
+                                    setState(() {
+                                      withAnimatedBtn = 80;
+                                      backBtn = Color(0xff10375c);
+                                      _icon = Icon(
+                                        FontAwesomeIcons.check,
+                                        color: Colors.white,
+                                      );
+                                    });
+                                    getPostplace();
+                                  }),
+                            ),
+                          )),
                     ],
                   ),
                 ),

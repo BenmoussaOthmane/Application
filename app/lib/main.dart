@@ -7,17 +7,17 @@ import 'package:app/screen/onboarding.dart';
 import 'package:app/screen/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+String uiiid;
 void main() => runApp(MyApp());
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-    
+  
     Widget _getscreenId(){
       return StreamBuilder<FirebaseUser>(
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (BuildContext context ,snapshot){
             if(snapshot.hasData){
+              uiiid = snapshot.data.uid;
               print(snapshot.data);
               return Home(userId: snapshot.data.uid);
             }else{
