@@ -24,6 +24,8 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:google_maps_webservice/timezone.dart';
 import 'package:search_map_place/search_map_place.dart';
 
+
+const kGoogleApiKey = "API";
 class Location extends StatefulWidget {
   @override
   _LocationState createState() => _LocationState();
@@ -33,11 +35,11 @@ class _LocationState extends State<Location> {
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
   GoogleMapController _controller;
   GoogleMapsPlaces _places =
-      GoogleMapsPlaces(apiKey: "API");
+      GoogleMapsPlaces(apiKey: kGoogleApiKey);
   // Completer<GoogleMapController> _controllerr = Completer();
   static Position position, _currentPosition, cp;
   String searchAppr;
-  static const kGoogleApiKey = "API";
+  // static const kGoogleApiKey = "API";
   double lnccn = 0;
   static LatLng _center = LatLng(0, 0);
 

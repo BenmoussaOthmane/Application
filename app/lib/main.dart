@@ -5,6 +5,7 @@ import 'package:app/screen/detail_place.dart';
 import 'package:app/screen/login.dart';
 import 'package:app/screen/onboarding.dart';
 import 'package:app/screen/signup.dart';
+import 'package:app/screen/splach.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 String uiiid;
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
               print(snapshot.data);
               return Home(userId: snapshot.data.uid);
             }else{
-              return Onboarding();
+              return Category();
             }
         }
       );
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
             Home.id :(context) =>Home(),
             UPdateusers.id : (context) => UPdateusers(),
             Category.id : (context) => Category(),
+            Splach.id : (context) =>Splach(),
         
       },
     );

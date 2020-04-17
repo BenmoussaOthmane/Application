@@ -1689,7 +1689,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 
-const kGoogleApiKey = "API";
+final DateTime dateTime = DateTime.now();
+const kGoogleApiKey = 'API';
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class DetaiPlace extends StatefulWidget {
@@ -1709,6 +1710,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
   bool isLoading = false;
   String errorLoading;
   String ref;
+  String idPlaces;
 
   double withAnimatedBtn = 170;
   Icon _icon = Icon(FontAwesomeIcons.plus);
@@ -1719,6 +1721,9 @@ class _DetaiPlaceState extends State<DetaiPlace>
   Animation animation;
   AnimationController animationController;
   bool reverSinimation = false;
+  int ratinghist = 0;
+
+  bool exixte = false;
 
   void animated() {
     animationController =
@@ -1728,7 +1733,9 @@ class _DetaiPlaceState extends State<DetaiPlace>
 
   @override
   void initState() {
+    // uidPlaces();
     fetchPlaceDetail();
+    // getPlace();
     super.initState();
   }
 
@@ -1737,14 +1744,34 @@ class _DetaiPlaceState extends State<DetaiPlace>
     return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${kGoogleApiKey}";
   }
 
+  // getPlace(){
+  //   Firestore.instance.collection('users').document(uiiid).collection('places').getDocuments().then(
+  //     (QuerySnapshot snapshot){
+  //       snapshot.documents.forEach(
+  //         (DocumentSnapshot doc){
+  //           // print(doc.data);
+  //           exixte = doc.exists ;
+  //           print(doc.exists);
+  //         }
+  //       );
+  //     }
+  //   );
+
+  // }
+  // void uidPlaces() async {
+  //   DocumentSnapshot snapshot = await Firestore.instance.collection('users').document(uiiid).collection('places').document().get();
+  //   idPlaces = snapshot.documentID;
+    
+  // }
+
   @override
   Widget build(BuildContext context) {
-    String namePlace="";
+    String namePlace = "";
     String formAddress = "";
-    String type="";
+    String type = "";
     String phoneNumber = "";
     // var mahlolwalaMbala3;
-    String mahlolMbalaa="";
+    String mahlolMbalaa = "";
     String siteWeb = "";
     // double rating = 0.0;
     double count;
@@ -1772,7 +1799,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
       final placeDetail = place.result;
       final location = place.result.geometry.location;
       final lat = location.lat;
-      latt=lat;
+      latt = lat;
       final lng = location.lng;
       lang = lng;
       final center = LatLng(lat, lng);
@@ -1780,31 +1807,27 @@ class _DetaiPlaceState extends State<DetaiPlace>
       namePlace = placeDetail.name;
 
       void getPostplace() {
-        print('Name' + namePlace);
-        print('Name' + type);
-        print('Name' + formAddress);
-        print('Name' + mahlolMbalaa);
-        print('Name' + siteWeb);
-        print('Name' + phoneNumber);
-        print('Name' + latt.toString());
-        print('Name' + lang.toString());
-        print('Name' + "${placeDetail.rating}");
-        print('Name' + ref);
-        Firestore.instance.collection('users').document(uiiid).collection('places').document().setData(
-          {
-            'name':namePlace,
-            'type':type,
-            'address':formAddress,
-            'open':mahlolMbalaa,
-            'siteweb':siteWeb,
-            'phone':phoneNumber,
-            'latitud':latt.toString(),
-            'longutude':lang.toString(),
-            'rating':"${placeDetail.rating}",
-            'photo':ref,
-          }
-        );
-        print('object');
+        
+          Firestore.instance
+              .collection('users')
+              .document(uiiid)
+              .collection('places')
+              .document()
+              .setData({
+            'name': namePlace,
+            'type': type,
+            'address': formAddress,
+            'open': mahlolMbalaa,
+            'siteweb': siteWeb,
+            'phone': phoneNumber,
+            'latitud': latt.toString(),
+            'longutude': lang.toString(),
+            'rating': "${placeDetail.rating}",
+            'photo': ref,
+            'date': dateTime,
+            'ratinghist': ratinghist,
+          });
+        
       }
 
       if (placeDetail.formattedAddress != null) {

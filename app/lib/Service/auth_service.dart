@@ -4,6 +4,7 @@ import 'package:app/screen/Updateusers.dart';
 import 'package:app/screen/category.dart';
 import 'package:app/screen/login.dart';
 import 'package:app/screen/onboarding.dart';
+import 'package:app/screen/splach.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class Authservice {
           .collection('/users')
           .document(authResult.user.uid)
           .get();
-      Navigator.pushReplacementNamed(context, Home.id);
+      Navigator.pushReplacementNamed(context, Splach.id);
 
       currentUser = User.fromDocument(doc);
       Authservice.id = currentUser.id;
