@@ -9,7 +9,6 @@ import 'package:liquid_swipe/Constants/Helpers.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:liquid_swipe/page.dart';
 
-
 class Onboarding extends StatefulWidget {
   static final String id = 'onboarding';
   @override
@@ -17,8 +16,6 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-
-
   // final int _numpage = 3;
   // final PageController _pagecontroller = PageController(initialPage: 0);
   // int _currentPage = 0;
@@ -44,276 +41,339 @@ class _OnboardingState extends State<Onboarding> {
   // }
   bool buttonPressed1 = false;
   bool buttonPressed2 = false;
-  void _letsPress1(){
+  void _letsPress1() {
     setState(() {
-      buttonPressed1=true;
-      buttonPressed2=false;
-    });
-  }
-  void _letsPress2(){
-    setState(() {
-      buttonPressed1=false;
-      buttonPressed2=true;
+      buttonPressed1 = true;
+      buttonPressed2 = false;
     });
   }
 
-
-
-
-  
+  void _letsPress2() {
+    setState(() {
+      buttonPressed1 = false;
+      buttonPressed2 = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final pages = [
-     Container(
-       color: Color(0xFF1a2639),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical:40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-               onPressed: () => Navigator.pushReplacementNamed(context,Login.id),
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
+      Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [
+                  0.1,
+                  // 0.3,
+                  0.6,
+                  1.0
+                ],
+                colors: [
+                  Color(0xFFc5426e),
+                  // Color(0xFF672b73),
+                  Color(0xFF672b73),
+                  Color(0xFF672b73),
+                ]),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: FlatButton(
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, Login.id),
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/4,),
-            FadeAnimation(0.1,Container(
-              height: MediaQuery.of(context).size.height/6,
-              width: MediaQuery.of(context).size.width/3,
-              // color: Colors.white,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/54f9cc1d-f00d-4e02-a11d-413ad7e6cae8_200x200.png'),
-                )
-              ),
-            )
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/20,),
-            FadeAnimation(1.8,Container(
-              child: Text(
-                'Applications',
-                style: TextStyle(
-                  color: Color(0xFF74f9ff),
-                  fontFamily: 'Arial',
-                  fontSize: 28,
-                  letterSpacing: 3,
-                  fontWeight: FontWeight.bold
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 4,
                 ),
-              ),
-            )
-            ),
-            SizedBox(height: 8,),
-            FadeAnimation(1.8,Container(
-              child: Text(
-                'Is your way',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Arial',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
+                FadeAnimation(
+                    0.1,
+                    Container(
+                      height: MediaQuery.of(context).size.height / 6,
+                      width: MediaQuery.of(context).size.width / 3,
+                      // color: Colors.white,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                            'assets/images/54f9cc1d-f00d-4e02-a11d-413ad7e6cae8_200x200.png'),
+                      )),
+                    )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 20,
                 ),
-              ),
-            )
+                FadeAnimation(
+                    1.8,
+                    Container(
+                      child: Text(
+                        'Applications',
+                        style: TextStyle(
+                            color: Color(0xFF2ec9f9),
+                            // color: Color(0xFF74f9ff),
+                            fontFamily: 'Arial',
+                            fontSize: 28,
+                            letterSpacing: 3,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )),
+                SizedBox(
+                  height: 8,
+                ),
+                FadeAnimation(
+                    1.8,
+                    Container(
+                      child: Text(
+                        'Is your way',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Arial',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )),
+              ],
             ),
-          ],
-        ),
-      )
-    ),
-    Container(
-       color: Color(0xFF2d4059),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical:40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-               onPressed: () => Navigator.pushReplacementNamed(context,Login.id),
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
+          )),
+      Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [
+                0.1,
+                // 0.3,
+                0.6,
+                1.0
+              ],
+                  colors: [
+                Color(0xFF58bdf2),
+                // Color(0xFF8f5cf5),
+                Color(0xFF8f5cf5),
+                Color(0xFF8f5cf5),
+              ])),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: FlatButton(
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, Login.id),
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/20,),
-            FadeAnimation(0.1,Container(
-              height: MediaQuery.of(context).size.height/2.8,
-              width: MediaQuery.of(context).size.width/0.8,
-              // color: Colors.white,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/bisaklat.png'),
-                )
-              ),
-            )
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/25,),
-            FadeAnimation(1.8,Container(
-              child: Text(
-                'Enjoy the moment',
-                textScaleFactor: 1,
-                style: TextStyle(
-                  color: Color(0xFF74f9ff),
-                  fontFamily: 'Arial',
-                  fontSize: 28,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.bold
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 20,
                 ),
-              ),
-            )
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/25,),
-            FadeAnimation(1.8,Container(
-              child: Text(
-                'We will find you the best locations \n in a short time ',
-                textScaleFactor: 1,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontFamily: 'Arial',
-                  fontSize: 19,
+                FadeAnimation(
+                    0.1,
+                    Container(
+                      height: MediaQuery.of(context).size.height / 2.8,
+                      width: MediaQuery.of(context).size.width / 0.8,
+                      // color: Colors.white,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/images/bisaklat.png'),
+                      )),
+                    )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 25,
                 ),
-              ),
-            )
-            ),
-          ],
-        ),
-      )
-    ),
-      // HADA 3
-    Container(
-      color:  Colors.grey[850],
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-               onPressed: () => Navigator.pushReplacementNamed(context,Login.id),
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/4,),
-            FadeAnimation(0.1,Container(
-              // height: MediaQuery.of(context).size.height/6,
-              // width: MediaQuery.of(context).size.width/3,
-              // color: Colors.white,
-             child: Text(
-               'START BLOGINGG TODAY !',
-               style: TextStyle(
-                 color: Colors.white,
-                 fontSize: 20,
-                 fontWeight: FontWeight.bold,
-
-               ),
-             ),
-            )
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/15,),
-            FadeAnimation(1.8,Container(
-              height: MediaQuery.of(context).size.height/11,
-               width: MediaQuery.of(context).size.width/1.3,
-               decoration: BoxDecoration(
-                        color: Colors.grey[850],
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[900],
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 15.0,
-                            spreadRadius: 1.0,
-                          ),
-                          BoxShadow(
-                            color: Colors.grey[800],
-                            offset: Offset(-5.0, -5.0),
-                            blurRadius: 15.0,
-                            spreadRadius: 1.0,
-                          ),
-                        ]),
-               child:Center(
-                 child:FlatButton(
-                   padding: EdgeInsets.symmetric(horizontal: 100,vertical: 12),
-                   onPressed: () => Navigator.pushReplacementNamed(context,Login.id),
-                   child: Text(
-                     'Login',
-                     style: TextStyle(
-                       color: Colors.white,
-                       letterSpacing: 2,
-                       fontFamily: 'calibri',
-                       fontSize: 22,
-                       fontWeight: FontWeight.bold,
-                     ),
-                   ),
-                 )
-               )
-            )),
-            SizedBox(height: MediaQuery.of(context).size.height/22,),
-            FadeAnimation(1.8,Container(
-                height: MediaQuery.of(context).size.height/11,
-                 width: MediaQuery.of(context).size.width/1.3,
-                 decoration: BoxDecoration(
-                        color: Colors.grey[850],
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[900],
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 15.0,
-                            spreadRadius: 1.0,
-                          ),
-                          BoxShadow(
-                            color: Colors.grey[800],
-                            offset: Offset(-5.0, -5.0),
-                            blurRadius: 15.0,
-                            spreadRadius: 1.0,
-                          ),
-                        ]),
-                  child:Center(
-                     child:FlatButton(
-                       padding: EdgeInsets.symmetric(horizontal: 70,vertical: 12),
-                       onPressed: () => Navigator.pushReplacementNamed(context,Signup.id),
-                       child: Text(
-                         'Creat New Account !',
-                          style: TextStyle(
+                FadeAnimation(
+                    1.8,
+                    Container(
+                      child: Text(
+                        'Enjoy the moment',
+                        textScaleFactor: 1,
+                        style: TextStyle(
                             color: Color(0xFF74f9ff),
-                            fontSize: MediaQuery.of(context).size.width/26,
-                            fontWeight: FontWeight.bold
-                          ),
-                       ),
-                    )
-                  )
-            )
+                            fontFamily: 'Arial',
+                            fontSize: 28,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 25,
+                ),
+                FadeAnimation(
+                    1.8,
+                    Container(
+                      child: Text(
+                        'We will find you the best locations \n in a short time ',
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontFamily: 'Arial',
+                          fontSize: 19,
+                        ),
+                      ),
+                    )),
+              ],
             ),
-          ],
-        ),
+          )),
+      // HADA 3
+      Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [
+              0.1,
+              // 0.3,
+              0.6,
+              1.0
+            ],
+                colors: [
+              Color(0xFF39ee7b),
+              Color(0xFF129a8e),
+              Color(0xFF129a8e),
+            ])),
+        // child: Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 40),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     children: <Widget>[
+        //       Container(
+        //         alignment: Alignment.centerRight,
+        //         child: FlatButton(
+        //           onPressed: () =>
+        //               Navigator.pushReplacementNamed(context, Login.id),
+        //           child: Text(
+        //             'Skip',
+        //             style: TextStyle(
+        //                 color: Colors.white,
+        //                 fontSize: 18,
+        //                 fontWeight: FontWeight.bold),
+        //           ),
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         height: MediaQuery.of(context).size.height / 4,
+        //       ),
+        //       FadeAnimation(
+        //           0.1,
+        //           Container(
+        //             // height: MediaQuery.of(context).size.height/6,
+        //             // width: MediaQuery.of(context).size.width/3,
+        //             // color: Colors.white,
+        //             child: Text(
+        //               'START BLOGINGG TODAY !',
+        //               style: TextStyle(
+        //                 color: Colors.white,
+        //                 fontSize: 20,
+        //                 fontWeight: FontWeight.bold,
+        //               ),
+        //             ),
+        //           )),
+        //       SizedBox(
+        //         height: MediaQuery.of(context).size.height / 15,
+        //       ),
+        //       FadeAnimation(
+        //           1.8,
+        //           Container(
+        //               height: MediaQuery.of(context).size.height / 11,
+        //               width: MediaQuery.of(context).size.width / 1.3,
+        //               decoration: BoxDecoration(
+        //                   color: Colors.grey[850],
+        //                   borderRadius: BorderRadius.all(Radius.circular(50)),
+        //                   boxShadow: [
+        //                     BoxShadow(
+        //                       color: Colors.grey[900],
+        //                       offset: Offset(5.0, 5.0),
+        //                       blurRadius: 15.0,
+        //                       spreadRadius: 1.0,
+        //                     ),
+        //                     BoxShadow(
+        //                       color: Colors.grey[800],
+        //                       offset: Offset(-5.0, -5.0),
+        //                       blurRadius: 15.0,
+        //                       spreadRadius: 1.0,
+        //                     ),
+        //                   ]),
+        //               child: Center(
+        //                   child: FlatButton(
+        //                 padding: EdgeInsets.symmetric(
+        //                     horizontal: 100, vertical: 12),
+        //                 onPressed: () =>
+        //                     Navigator.pushReplacementNamed(context, Login.id),
+        //                 child: Text(
+        //                   'Login',
+        //                   style: TextStyle(
+        //                     color: Colors.white,
+        //                     letterSpacing: 2,
+        //                     fontFamily: 'calibri',
+        //                     fontSize: 22,
+        //                     fontWeight: FontWeight.bold,
+        //                   ),
+        //                 ),
+        //               )))),
+        //       SizedBox(
+        //         height: MediaQuery.of(context).size.height / 22,
+        //       ),
+        //       FadeAnimation(
+        //           1.8,
+        //           Container(
+        //               height: MediaQuery.of(context).size.height / 11,
+        //               width: MediaQuery.of(context).size.width / 1.3,
+        //               decoration: BoxDecoration(
+        //                   color: Colors.grey[850],
+        //                   borderRadius: BorderRadius.all(Radius.circular(50)),
+        //                   boxShadow: [
+        //                     BoxShadow(
+        //                       color: Colors.grey[900],
+        //                       offset: Offset(5.0, 5.0),
+        //                       blurRadius: 15.0,
+        //                       spreadRadius: 1.0,
+        //                     ),
+        //                     BoxShadow(
+        //                       color: Colors.grey[800],
+        //                       offset: Offset(-5.0, -5.0),
+        //                       blurRadius: 15.0,
+        //                       spreadRadius: 1.0,
+        //                     ),
+        //                   ]),
+        //               child: Center(
+        //                   child: FlatButton(
+        //                 padding: EdgeInsets.symmetric(
+        //                     horizontal: 70, vertical: 12),
+        //                 onPressed: () => Navigator.pushReplacementNamed(
+        //                     context, Signup.id),
+        //                 child: Text(
+        //                   'Creat New Account !',
+        //                   style: TextStyle(
+        //                       color: Color(0xFF74f9ff),
+        //                       fontSize:
+        //                           MediaQuery.of(context).size.width / 26,
+        //                       fontWeight: FontWeight.bold),
+        //                 ),
+        //               )))),
+        //     ],
+        //   ),
+        // )
       )
-    )
-  ];
+    ];
     // return Scaffold(
     //   body: AnnotatedRegion<SystemUiOverlayStyle>(
     //     value: SystemUiOverlayStyle.light,
@@ -322,7 +382,7 @@ class _OnboardingState extends State<Onboarding> {
     //         image: DecorationImage(
     //           fit: BoxFit.cover,
     //           image: AssetImage('assets/images/qsdfg.png'),
-              
+
     //           // fit: BoxFit.cover
     //         ),
 
@@ -505,8 +565,7 @@ class _OnboardingState extends State<Onboarding> {
     //                       ],
     //                     ),
     //                   ),
-                      
-                      
+
     //                 ],
     //               ),
     //             ),
@@ -515,7 +574,7 @@ class _OnboardingState extends State<Onboarding> {
     //               mainAxisAlignment: MainAxisAlignment.center,
     //               children: _buildPageIndicator(),
     //               ),
-    //               _currentPage != _numpage -1 
+    //               _currentPage != _numpage -1
     //               ?Expanded(
     //                 child: Align(
     //                   alignment: FractionalOffset.bottomRight,
@@ -535,7 +594,7 @@ class _OnboardingState extends State<Onboarding> {
     //                             style: TextStyle(
     //                               color: Colors.white,
     //                               fontSize: 20.0,
-    //                             ), 
+    //                             ),
     //                         ),
     //                         SizedBox(width: 10.0,),
     //                         Icon(
@@ -557,27 +616,24 @@ class _OnboardingState extends State<Onboarding> {
     //   ),
     // );
 
+// MANA YABDA DISGNE JDID
 
-
-// MANA YABDA DISGNE JDID 
-
-
-return MaterialApp(
-  debugShowCheckedModeBanner: false,
-  home: Scaffold(
-      body: LiquidSwipe(
-        pages:pages,
-        enableLoop: true,
-        fullTransitionValue: 500,
-        enableSlideIcon: true,
-        waveType: WaveType.liquidReveal,
-        positionSlideIcon: 0.75,
-        slideIconWidget: Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: LiquidSwipe(
+          pages: pages,
+          enableLoop: true,
+          fullTransitionValue: 500,
+          enableSlideIcon: true,
+          waveType: WaveType.liquidReveal,
+          positionSlideIcon: 0.75,
+          slideIconWidget: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
         ),
       ),
-  ),
-);
+    );
   }
 }

@@ -10,10 +10,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geocoder/geocoder.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_map_polyline/google_map_polyline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as prefix0;
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:google_maps_webservice/directions.dart';
@@ -22,10 +24,10 @@ import 'package:google_maps_webservice/geocoding.dart';
 import 'package:google_maps_webservice/geolocation.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_maps_webservice/timezone.dart';
-import 'package:search_map_place/search_map_place.dart';
-
+// import 'package:search_map_place/search_map_place.dart';
 
 const kGoogleApiKey = "API";
+
 class Location extends StatefulWidget {
   @override
   _LocationState createState() => _LocationState();
@@ -34,14 +36,13 @@ class Location extends StatefulWidget {
 class _LocationState extends State<Location> {
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
   GoogleMapController _controller;
-  GoogleMapsPlaces _places =
-      GoogleMapsPlaces(apiKey: kGoogleApiKey);
+  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   // Completer<GoogleMapController> _controllerr = Completer();
   static Position position, _currentPosition, cp;
   String searchAppr;
   // static const kGoogleApiKey = "API";
   double lnccn = 0;
-  static LatLng _center = LatLng(0, 0);
+  static LatLng _center = LatLng(35.933333, 0.083333);
 
   String _heading;
 
@@ -58,6 +59,10 @@ class _LocationState extends State<Location> {
       target: LatLng(position.latitude, position.longitude),
       zoom: 16.0,
     )));
+    double lat = position.latitude;
+    double long = position.longitude;
+    print('Lat :' + lat.toString());
+    print('Long :' + long.toString());
   }
 
   void getLocationResult(String input) async {
@@ -89,8 +94,7 @@ class _LocationState extends State<Location> {
           language: 'dz',
           components: [new Component(Component.country, "dz")],
           radius: _center == null ? null : 10000);
-        showDetailPlace(p.placeId);
-
+      showDetailPlace(p.placeId);
     } catch (e) {}
   }
 
@@ -123,11 +127,40 @@ class _LocationState extends State<Location> {
     }
   }
 
+  final Set<prefix0.Polyline> polyline = {};
+  List<LatLng> latlngSegment1 = List();
+  List<LatLng> latlngSegment2 = List();
+  static LatLng _lat1 = LatLng(35.920721, 0.093118);
+  static LatLng _lat2 = LatLng(35.933333, 0.083333);
+  // static LatLng _lat3 = LatLng(12.970387, 77.693621);
+  // static LatLng _lat4 = LatLng(12.858433, 77.575691);
+  // static LatLng _lat5 = LatLng(12.948029, 77.472936);
+  // static LatLng _lat6 = LatLng(13.069280, 77.455844);
+
+  // GoogleMapPolyline googleMapPolyline =
+  //     new GoogleMapPolyline(apiKey: 'AIzaSyDTDnQqw-YEmhF48sqjJz1eSfXV8jI0zDw');
+  // getSomePoint() async {
+  //   routCode = await googleMapPolyline.getCoordinatesWithLocation(
+  //       origin: LatLng(35.933333, 0.083333),
+  //       destination: LatLng(35.920721, 0.093118),
+  //       mode: RouteMode.driving);
+  // }
+
   @override
   void initState() {
     super.initState();
     _heading = "loiding";
-    _getCur();
+    // _getCur();
+    // getSomePoint();
+    latlngSegment1.add(_lat1);
+    latlngSegment1.add(_lat2);
+    // latlngSegment1.add(_lat3);
+    // latlngSegment1.add(_lat4);
+
+    // latlngSegment2.add(_lat4);
+    // latlngSegment2.add(_lat5);
+    // latlngSegment2.add(_lat6);
+    // latlngSegment2.add(_lat1);
   }
 
   @override
@@ -143,6 +176,7 @@ class _LocationState extends State<Location> {
             tiltGesturesEnabled: true,
             rotateGesturesEnabled: true,
             compassEnabled: true,
+            polylines: polyline,
             markers: _creatMarker(),
             initialCameraPosition: CameraPosition(
               bearing: 192.8334901395799,
@@ -284,8 +318,28 @@ class _LocationState extends State<Location> {
   }
 
   void _onMapCreated(controller) {
-    _controller = controller;
-    _setStyle(controller);
+    setState(() {
+      _controller = controller;
+      _setStyle(controller);
+
+      polyline.add(prefix0.Polyline(
+        polylineId: PolylineId('line1'),
+        visible: true,
+        //latlng is List<LatLng>
+        points: latlngSegment1,
+        width: 4,
+        color: Colors.white,
+      ));
+
+      // polyline.add(prefix0.Polyline(
+      //   polylineId: PolylineId('line1'),
+      //   visible: true,
+      //   //latlng is List<LatLng>
+      //   points: latlngSegment2,
+      //   width: 4,
+      //   color: Colors.white,
+      // ));
+    });
   }
 
   Set<Marker> _creatMarker() {

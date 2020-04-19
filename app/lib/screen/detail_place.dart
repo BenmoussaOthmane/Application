@@ -1686,6 +1686,7 @@ import 'package:app/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 
@@ -1725,6 +1726,13 @@ class _DetaiPlaceState extends State<DetaiPlace>
 
   bool exixte = false;
 
+  GoogleMapController _controller;
+  var geolocator = Geolocator();
+  double latD, longD;
+  double latt;
+  double lang;
+  double distance=0.0;
+
   void animated() {
     animationController =
         new AnimationController(vsync: this, duration: Duration(seconds: 1));
@@ -1735,9 +1743,34 @@ class _DetaiPlaceState extends State<DetaiPlace>
   void initState() {
     // uidPlaces();
     fetchPlaceDetail();
+    
     // getPlace();
     super.initState();
+
+    Future.delayed(
+      Duration(seconds: 4),
+      (){
+        getDestance();
+      }
+    );
   }
+
+  void getDestance() async {
+
+    final position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    latD = position.latitude;
+    longD = position.longitude;
+    // print('Lat :' + latD.toString());
+    // print('Long :' + longD.toString());
+
+    distance = await geolocator.distanceBetween(latD, longD, latt, lang);
+    distance = distance / 1000.round();
+    // String dis =distance.toStringAsFixed(1);
+    // print(distance);
+  }
+
 
   String buildPhotoURL(String photoReference) {
     ref = photoReference;
@@ -1761,8 +1794,25 @@ class _DetaiPlaceState extends State<DetaiPlace>
   // void uidPlaces() async {
   //   DocumentSnapshot snapshot = await Firestore.instance.collection('users').document(uiiid).collection('places').document().get();
   //   idPlaces = snapshot.documentID;
-    
+
   // }
+  // void _getCur() async {
+  //   final position = await Geolocator()
+  //       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  //   // HADI BAH NHAWAL CAMIRA NDIRHA HAKA
+  //   // _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+  //   //   target: LatLng(position.latitude, position.longitude),
+  //   //   zoom: 16.0,
+  //   // )));
+
+  //   latD = position.latitude;
+  //   longD = position.longitude;
+  //   print('Lat :' + latD.toString());
+  //   print('Long :' + longD.toString());
+  // }
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -1775,13 +1825,15 @@ class _DetaiPlaceState extends State<DetaiPlace>
     String siteWeb = "";
     // double rating = 0.0;
     double count;
-    double latt;
-    double lang;
     bool notNul = false;
     Widget listePPP;
-
+    // double latt;
+    // double lang;
     Widget bodyChild;
     // String title;
+
+
+    
 
     if (isLoading) {
       namePlace = "Loading";
@@ -1807,27 +1859,25 @@ class _DetaiPlaceState extends State<DetaiPlace>
       namePlace = placeDetail.name;
 
       void getPostplace() {
-        
-          Firestore.instance
-              .collection('users')
-              .document(uiiid)
-              .collection('places')
-              .document()
-              .setData({
-            'name': namePlace,
-            'type': type,
-            'address': formAddress,
-            'open': mahlolMbalaa,
-            'siteweb': siteWeb,
-            'phone': phoneNumber,
-            'latitud': latt.toString(),
-            'longutude': lang.toString(),
-            'rating': "${placeDetail.rating}",
-            'photo': ref,
-            'date': dateTime,
-            'ratinghist': ratinghist,
-          });
-        
+        Firestore.instance
+            .collection('users')
+            .document(uiiid)
+            .collection('places')
+            .document()
+            .setData({
+          'name': namePlace,
+          'type': type,
+          'address': formAddress,
+          'open': mahlolMbalaa,
+          'siteweb': siteWeb,
+          'phone': phoneNumber,
+          'latitud': latt.toString(),
+          'longutude': lang.toString(),
+          'rating': "${placeDetail.rating}",
+          'photo': ref,
+          'date': dateTime,
+          'ratinghist': ratinghist,
+        });
       }
 
       if (placeDetail.formattedAddress != null) {
@@ -2561,7 +2611,8 @@ class _DetaiPlaceState extends State<DetaiPlace>
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'BalooTamma2 Bold',
+                              fontFamily: 'GothamRoundedBook 21018',
+                              fontWeight: FontWeight.bold,
                               fontSize: MediaQuery.of(context).size.width / 10),
                         ),
                         Text(
@@ -2572,6 +2623,27 @@ class _DetaiPlaceState extends State<DetaiPlace>
                             fontFamily: 'BalooTamma2 Bold',
                             fontSize: 20,
                           ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily:'BalooTamma2 Bold',
+                                fontSize: 20 
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Text(
+                              'Km',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily:'BalooTamma2 Bold',
+                                fontSize: 20 
+                              ),
+                            )
+                          ],
                         ),
                         Row(
                           children: <Widget>[
@@ -2611,7 +2683,8 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                   fontWeight: FontWeight.bold),
                             )
                           ],
-                        )
+                        ),
+                        
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -3217,7 +3290,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                         color: Colors.white,
                                       );
                                     });
-                                    getPostplace();
+                                    getDestance();
                                   }),
                             ),
                           )),

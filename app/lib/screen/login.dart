@@ -64,19 +64,19 @@ class _LoginState extends State<Login> {
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
               stops: [
                 0.1,
                 0.3,
-                0.6,
+                0.5,
                 1.0
               ],
               colors: [
-                Color(0xFF04516C),
-                Color(0xFF092D50),
-                Color(0xFF092D50),
-                Color(0xFF012242),
+                Color(0xFFc5426e),
+                Color(0xFF672b73),
+                Color(0xFF672b73),
+                Color(0xFF672b73),
               ]),
         ),
         child: SingleChildScrollView(
@@ -236,7 +236,19 @@ class _LoginState extends State<Login> {
                                       width: MediaQuery.of(context).size.width /
                                           1.55,
                                       decoration: BoxDecoration(
-                                          color: Color.fromRGBO(6, 52, 95, 2),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                              stops: [
+                                                0.1,
+                                                // 0.3,
+                                                // 0.6,
+                                                1.0
+                                              ],
+                                              colors: [
+                                                Color(0xFFc5426e),
+                                                Color(0xFF672b73),
+                                              ]),
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           boxShadow: [
@@ -285,16 +297,10 @@ class _LoginState extends State<Login> {
                                           1.55,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                            color:
-                                                Color.fromRGBO(6, 52, 95, 2)),
+                                          color: Color(0xFF672b73),
+                                        ),
                                         // color: Color.fromRGBO(6, 52, 95, 2),
                                         borderRadius: BorderRadius.circular(50),
-
-                                        // boxShadow: [BoxShadow(
-                                        //   color: Color.fromRGBO(2, 78, 95, .2),
-                                        //   blurRadius: 25,
-                                        //   offset: Offset(0,35)
-                                        // )]
                                       ),
                                       child: Center(
                                         child: FlatButton(
@@ -304,7 +310,7 @@ class _LoginState extends State<Login> {
                                           child: Text(
                                             'Creat New Account !',
                                             style: TextStyle(
-                                                color: Colors.blueGrey,
+                                                color: Color(0xFF672b73),
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 fontFamily: 'Arial'),

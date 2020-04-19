@@ -1,5 +1,6 @@
 import 'package:app/Service/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
  
 
 final DateTime date = DateTime.now();
@@ -9,11 +10,27 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
+  
+  double distance;
+  int dis;
+  double l=52.2165157;
+  double k=6.9437819;
+  double j=52.3546274;
+  double h=4.8285838;
+  var geolocator = Geolocator();
+
+  void getDestance()async{
+    distance = await geolocator.distanceBetween(l, k, j, h);
+    distance = distance/1000;
+    dis =distance.round();
+    print(dis);
+  }
 
     @override
     void initState() {
     // TODO: implement initState
     print(date);
+    getDestance();
     super.initState();
   }
       @override

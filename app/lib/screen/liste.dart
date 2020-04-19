@@ -40,6 +40,7 @@ class _ListeState extends State<Liste> {
         // appBar: AppBar(
         //   backgroundColor: Colors.grey[300],
         // ),
+        backgroundColor: Color(0xFFf5f7fa),
         body: StreamBuilder(
       stream: Firestore.instance
           .collection('users')
@@ -59,14 +60,15 @@ class _ListeState extends State<Liste> {
             Expanded(
               child: Container(
                 // color: Colors.black,
-                padding: const EdgeInsets.only(top: 45, left: 20),
+                padding: const EdgeInsets.only(top: 40, left: 20),
                 child: Text(
                   'My Trips',
                   style: TextStyle(
-                      color: Color(0xff10375c),
-                      fontFamily: 'BalooTamma2 Bold',
-                      fontSize: MediaQuery.of(context).size.width / 12,
-                      fontWeight: FontWeight.bold),
+                      color: Color(0xFF672b73),
+                      fontFamily: 'GothamRoundedBook 21018',
+                      fontSize: MediaQuery.of(context).size.width / 15,
+                      fontWeight: FontWeight.bold
+                      ),
                 ),
               ),
             ),
@@ -178,7 +180,7 @@ class _ListeState extends State<Liste> {
                       return Icon(
                         _listicon[index],
                         size: 16,
-                        color: Colors.amber[700],
+                        color: Color(0xFFc5426e),
                       );
                     }
 
@@ -230,24 +232,24 @@ class _ListeState extends State<Liste> {
                                 documentSnapshot['name'],
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontFamily: 'BalooTamma2 Regular',
+                                    fontFamily: 'GothamRoundedBook 21018',
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold),
                               ),
-                              // SizedBox(height: MediaQuery.of(context).size.height/100,),
                               Text(
                                 documentSnapshot['type'],
                                 style: TextStyle(
                                     color: Colors.grey[700],
-                                    fontFamily: 'BalooTamma2 Regular',
+                                    fontFamily: 'GothamRoundedBook 21018',
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold),
                               ),
+                              SizedBox(height: MediaQuery.of(context).size.height/30,),
                               Row(
                                 children: <Widget>[
                                   Icon(
                                     FontAwesomeIcons.mapMarkerAlt,
-                                    color: Color(0xff10375c),
+                                    color: Color(0xFFc5426e),
                                     size: 12,
                                   ),
                                   SizedBox(
@@ -258,36 +260,36 @@ class _ListeState extends State<Liste> {
                                     documentSnapshot['address'],
                                     style: TextStyle(
                                         color: Colors.grey[700],
-                                        fontFamily: 'BalooTamma2 Regular',
+                                        fontFamily: 'GothamRoundedBook 21018',
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height / 60,
+                                height: MediaQuery.of(context).size.height / 100,
                               ),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    FontAwesomeIcons.storeAlt,
-                                    size: 12,
-                                    color: Color(0xff3b6978),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width / 30,
-                                  ),
-                                  Text(
-                                    documentSnapshot['open'],
-                                    style: TextStyle(
-                                        color: Colors.grey[700],
-                                        fontFamily: 'BalooTamma2 Regular',
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   children: <Widget>[
+                              //     Icon(
+                              //       FontAwesomeIcons.storeAlt,
+                              //       size: 12,
+                              //       color: Color(0xff3b6978),
+                              //     ),
+                              //     SizedBox(
+                              //       width:
+                              //           MediaQuery.of(context).size.width / 30,
+                              //     ),
+                              //     Text(
+                              //       documentSnapshot['open'],
+                              //       style: TextStyle(
+                              //           color: Colors.grey[700],
+                              //           fontFamily: 'BalooTamma2 Regular',
+                              //           fontSize: 12,
+                              //           fontWeight: FontWeight.bold),
+                              //     ),
+                              //   ],
+                              // ),
 
                               Row(
                                 children: <Widget>[

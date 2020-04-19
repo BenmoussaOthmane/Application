@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             if(snapshot.hasData){
               uiiid = snapshot.data.uid;
               print(snapshot.data);
-              return Home(userId: snapshot.data.uid);
+              return Splach(userId: snapshot.data.uid);
             }else{
               return Category();
             }

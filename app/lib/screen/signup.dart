@@ -61,25 +61,21 @@ class _SignupState extends State<Signup> {
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [
-                0.1,
-                0.3,
-                0.6,
-                1.0
-              ],
-              colors: [
-                Color(0xFF04516C),
-                Color(0xFF092D50),
-                Color(0xFF092D50),
-                Color(0xFF012242),
-                // Color.fromRGBO(2, 43, 82,8),
-                // Color.fromRGBO(1, 34, 66,14),
-                // Color.fromRGBO(0, 11, 19,13),
-                // Color.fromRGBO(0, 2, 10,25),
-              ]),
+           gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [
+                  0.1,
+                  // 0.3,
+                  0.4,
+                  1.0
+                ],
+                colors: [
+                  Color(0xFFc5426e),
+                  // Color(0xFF672b73),
+                  Color(0xFF672b73),
+                  Color(0xFF672b73),
+                ]),
         ),
         child: SingleChildScrollView(
           child: Container(
@@ -288,7 +284,19 @@ class _SignupState extends State<Signup> {
                                       width: MediaQuery.of(context).size.width /
                                           1.5,
                                       decoration: BoxDecoration(
-                                          color: Color.fromRGBO(6, 52, 95, 2),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                              stops: [
+                                                0.1,
+                                                // 0.3,
+                                                // 0.6,
+                                                1.0
+                                              ],
+                                              colors: [
+                                                Color(0xFFc5426e),
+                                                Color(0xFF672b73),
+                                              ]),
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           boxShadow: [
@@ -334,8 +342,7 @@ class _SignupState extends State<Signup> {
                                           1.5,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                            color:
-                                                Color.fromRGBO(6, 52, 95, 2)),
+                                            color:Color(0xFF672b73)),
                                         // color: Color.fromRGBO(6, 52, 95, 2),
                                         borderRadius: BorderRadius.circular(50),
 
@@ -351,7 +358,7 @@ class _SignupState extends State<Signup> {
                                         child: Text(
                                           'Log In',
                                           style: TextStyle(
-                                              color: Colors.blueGrey,
+                                              color: Color(0xFF672b73),
                                               fontSize: 22,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Arial'),
