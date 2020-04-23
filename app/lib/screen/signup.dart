@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:app/Animation/FadeAnimation.dart';
 import 'package:app/Service/auth_service.dart';
 import 'package:app/screen/login.dart';
@@ -61,21 +62,21 @@ class _SignupState extends State<Signup> {
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-           gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [
-                  0.1,
-                  // 0.3,
-                  0.4,
-                  1.0
-                ],
-                colors: [
-                  Color(0xFFc5426e),
-                  // Color(0xFF672b73),
-                  Color(0xFF672b73),
-                  Color(0xFF672b73),
-                ]),
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [
+                0.1,
+                // 0.3,
+                0.4,
+                1.0
+              ],
+              colors: [
+                Color(0xFFc5426e),
+                // Color(0xFF672b73),
+                Color(0xFF672b73),
+                Color(0xFF672b73),
+              ]),
         ),
         child: SingleChildScrollView(
           child: Container(
@@ -149,174 +150,172 @@ class _SignupState extends State<Signup> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                FadeAnimation(
-                                    0.5,
-                                    Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          1.15,
-                                      height: 60,
-                                      margin:
-                                          EdgeInsets.only(left: 30, right: 30),
-                                      // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey[500],
-                                            offset: Offset(5.0, 5.0),
-                                            blurRadius: 15.0,
-                                            spreadRadius: 1.0,
-                                          ),
-                                          BoxShadow(
-                                            color: Colors.white,
-                                            offset: Offset(-5.0, -5.0),
-                                            blurRadius: 15.0,
-                                            spreadRadius: 1.0,
-                                          )
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 30.0, vertical: 10.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                              hintText: 'Name',
-                                              border: InputBorder.none,
-                                              icon: Icon(Icons.person)),
-                                          // validator: (input) => input.isEmpty ? 'Format non valid' : null,
-                                          onSaved: (input) => _name = input,
+                                BounceInUp(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width /
+                                        1.15,
+                                    height: 60,
+                                    margin:
+                                        EdgeInsets.only(left: 30, right: 30),
+                                    // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[500],
+                                          offset: Offset(5.0, 5.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0,
                                         ),
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          offset: Offset(-5.0, -5.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0,
+                                        )
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30.0, vertical: 10.0),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
+                                            hintText: 'Name',
+                                            border: InputBorder.none,
+                                            icon: Icon(Icons.person)),
+                                        // validator: (input) => input.isEmpty ? 'Format non valid' : null,
+                                        onSaved: (input) => _name = input,
                                       ),
-                                    )),
-                                FadeAnimation(
-                                    0.6,
-                                    Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          1.15,
-                                      height: 60,
-                                      // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
-                                      margin: EdgeInsets.only(top: 20),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey[500],
-                                            offset: Offset(5.0, 5.0),
-                                            blurRadius: 15.0,
-                                            spreadRadius: 1.0,
-                                          ),
-                                          BoxShadow(
-                                            color: Colors.white,
-                                            offset: Offset(-5.0, -5.0),
-                                            blurRadius: 15.0,
-                                            spreadRadius: 1.0,
-                                          )
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 30.0, vertical: 10.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                              hintText: 'Email',
-                                              border: InputBorder.none,
-                                              icon: Icon(Icons.email)),
-                                          // validator: (input) => input.isEmpty ? 'Format non valid' : null,
-                                          onSaved: (input) => _email = input,
+                                    ),
+                                  ),
+                                ),
+                                BounceInUp(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width /
+                                        1.15,
+                                    height: 60,
+                                    // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
+                                    margin: EdgeInsets.only(top: 20),
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[500],
+                                          offset: Offset(5.0, 5.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0,
                                         ),
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          offset: Offset(-5.0, -5.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0,
+                                        )
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30.0, vertical: 10.0),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
+                                            hintText: 'Email',
+                                            border: InputBorder.none,
+                                            icon: Icon(Icons.email)),
+                                        // validator: (input) => input.isEmpty ? 'Format non valid' : null,
+                                        onSaved: (input) => _email = input,
                                       ),
-                                    )),
-                                FadeAnimation(
-                                    0.7,
-                                    Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          1.15,
-                                      height: 60,
-                                      margin: EdgeInsets.only(top: 20),
-                                      // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey[500],
-                                            offset: Offset(5.0, 5.0),
-                                            blurRadius: 15.0,
-                                            spreadRadius: 1.0,
-                                          ),
-                                          BoxShadow(
-                                            color: Colors.white,
-                                            offset: Offset(-5.0, -5.0),
-                                            blurRadius: 15.0,
-                                            spreadRadius: 1.0,
-                                          )
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 30.0, vertical: 10.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                              hintText: 'PassWord',
-                                              border: InputBorder.none,
-                                              icon: Icon(Icons.lock)),
-                                          obscureText: true,
-                                          // validator: (input) => input.isEmpty ? 'Format non valid' : null,
-                                          onSaved: (input) => _password = input,
+                                    ),
+                                  ),
+                                ),
+                                BounceInUp(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width /
+                                        1.15,
+                                    height: 60,
+                                    margin: EdgeInsets.only(top: 20),
+                                    // padding: EdgeInsets.only(top: 10,left: 16,right: 16,bottom: 4),
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[500],
+                                          offset: Offset(5.0, 5.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0,
                                         ),
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          offset: Offset(-5.0, -5.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0,
+                                        )
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30.0, vertical: 10.0),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
+                                            hintText: 'PassWord',
+                                            border: InputBorder.none,
+                                            icon: Icon(Icons.lock)),
+                                        obscureText: true,
+                                        // validator: (input) => input.isEmpty ? 'Format non valid' : null,
+                                        onSaved: (input) => _password = input,
                                       ),
-                                    )),
+                                    ),
+                                  ),
+                                ),
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 35,
                                 ),
-                                FadeAnimation(
-                                    0.8,
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              13.5,
-                                      width: MediaQuery.of(context).size.width /
-                                          1.5,
-                                      decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomRight,
-                                              stops: [
-                                                0.1,
-                                                // 0.3,
-                                                // 0.6,
-                                                1.0
-                                              ],
-                                              colors: [
-                                                Color(0xFFc5426e),
-                                                Color(0xFF672b73),
-                                              ]),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Color.fromRGBO(
-                                                    2, 78, 95, .2),
-                                                blurRadius: 10,
-                                                offset: Offset(4.0, 4.0))
-                                          ]),
-                                      child: FlatButton(
-                                        onPressed: _submit,
-                                        child: Text(
-                                          'Registred',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 21,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                BounceInUp(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height /
+                                        13.5,
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            stops: [
+                                              0.1,
+                                              // 0.3,
+                                              // 0.6,
+                                              1.0
+                                            ],
+                                            colors: [
+                                              Color(0xFFc5426e),
+                                              Color(0xFF672b73),
+                                            ]),
+                                        borderRadius: BorderRadius.circular(50),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color:
+                                                  Color.fromRGBO(2, 78, 95, .2),
+                                              blurRadius: 10,
+                                              offset: Offset(4.0, 4.0))
+                                        ]),
+                                    child: FlatButton(
+                                      onPressed: _submit,
+                                      child: Text(
+                                        'Registred',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 21,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    )),
+                                    ),
+                                  ),
+                                ),
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 60,
@@ -332,39 +331,38 @@ class _SignupState extends State<Signup> {
                                   height:
                                       MediaQuery.of(context).size.height / 40,
                                 ),
-                                FadeAnimation(
-                                    1.2,
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              13.5,
-                                      width: MediaQuery.of(context).size.width /
-                                          1.5,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color:Color(0xFF672b73)),
-                                        // color: Color.fromRGBO(6, 52, 95, 2),
-                                        borderRadius: BorderRadius.circular(50),
+                                BounceInUp(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height /
+                                        13.5,
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Color(0xFF672b73)),
+                                      // color: Color.fromRGBO(6, 52, 95, 2),
+                                      borderRadius: BorderRadius.circular(50),
 
-                                        // boxShadow: [BoxShadow(
-                                        //   color: Color.fromRGBO(2, 78, 95, .2),
-                                        //   blurRadius: 25,
-                                        //   offset: Offset(0,35)
-                                        // )]
+                                      // boxShadow: [BoxShadow(
+                                      //   color: Color.fromRGBO(2, 78, 95, .2),
+                                      //   blurRadius: 25,
+                                      //   offset: Offset(0,35)
+                                      // )]
+                                    ),
+                                    child: FlatButton(
+                                      onPressed: () => Navigator.pushNamed(
+                                          context, Login.id),
+                                      child: Text(
+                                        'Log In',
+                                        style: TextStyle(
+                                            color: Color(0xFF672b73),
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Arial'),
                                       ),
-                                      child: FlatButton(
-                                        onPressed: () => Navigator.pushNamed(
-                                            context, Login.id),
-                                        child: Text(
-                                          'Log In',
-                                          style: TextStyle(
-                                              color: Color(0xFF672b73),
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Arial'),
-                                        ),
-                                      ),
-                                    )),
+                                    ),
+                                  ),
+                                ),
                                 SizedBox(
                                   height: 60,
                                 )

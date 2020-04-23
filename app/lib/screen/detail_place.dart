@@ -1682,6 +1682,7 @@
 // }
 
 import 'package:app/Animation/FadeAnimation.dart';
+import 'package:app/Animation/FadeAnimationmataht.dart';
 import 'package:app/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -1691,6 +1692,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 
 final DateTime dateTime = DateTime.now();
+
 const kGoogleApiKey = 'API';
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
@@ -1714,9 +1716,12 @@ class _DetaiPlaceState extends State<DetaiPlace>
   String idPlaces;
 
   double withAnimatedBtn = 170;
-  Icon _icon = Icon(FontAwesomeIcons.plus);
+  Icon _icon = Icon(
+    FontAwesomeIcons.plus,
+    color: Color(0xFFc5426e),
+  );
   Color backBtn = Colors.grey[300];
-  Icon _close;
+  Icon _close = Icon(FontAwesomeIcons.storeSlash,color: Color(0xFFc5426e),);
   bool _heart = true;
 
   Animation animation;
@@ -1731,7 +1736,13 @@ class _DetaiPlaceState extends State<DetaiPlace>
   double latD, longD;
   double latt;
   double lang;
-  double distance=0.0;
+  double distance = 0.0;
+  String timeE = 'OO';
+
+  int he = 0;
+  int min = 0;
+
+  int d = DateTime.now().weekday;
 
   void animated() {
     animationController =
@@ -1743,54 +1754,52 @@ class _DetaiPlaceState extends State<DetaiPlace>
   void initState() {
     // uidPlaces();
     fetchPlaceDetail();
-    
+
     // getPlace();
     super.initState();
+    // _getCur();
 
-    Future.delayed(
-      Duration(seconds: 4),
-      (){
-        getDestance();
-      }
-    );
+    Future.delayed(Duration(seconds: 1), () {
+      _getCur();
+    });
   }
+// latD, longD, latt, lang)
 
-  void getDestance() async {
-
+  void _getCur() async {
     final position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
     latD = position.latitude;
     longD = position.longitude;
-    // print('Lat :' + latD.toString());
-    // print('Long :' + longD.toString());
+    print('Lat :' + latD.toString());
+    print('Long :' + longD.toString());
 
     distance = await geolocator.distanceBetween(latD, longD, latt, lang);
-    distance = distance / 1000.round();
-    // String dis =distance.toStringAsFixed(1);
-    // print(distance);
-  }
+    distance = distance / 100;
+    print(distance);
 
+    double vM = distance / 4;
+    vM = vM * 60;
+    timeE = vM.round().toString();
+    // print(timeE);
+    if (vM > 60) {
+      he = (vM / 60).toInt();
+      print(he.toString() + 'H');
+      vM = vM % 60;
+      min = (vM % 60).toInt();
+      print(min.toString() + 'min');
+    }
+
+    // double vV = distance/20;
+    // print(vV);
+    // double vL = distance/80;
+    // print(vL);
+  }
 
   String buildPhotoURL(String photoReference) {
     ref = photoReference;
     return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${kGoogleApiKey}";
   }
 
-  // getPlace(){
-  //   Firestore.instance.collection('users').document(uiiid).collection('places').getDocuments().then(
-  //     (QuerySnapshot snapshot){
-  //       snapshot.documents.forEach(
-  //         (DocumentSnapshot doc){
-  //           // print(doc.data);
-  //           exixte = doc.exists ;
-  //           print(doc.exists);
-  //         }
-  //       );
-  //     }
-  //   );
-
-  // }
   // void uidPlaces() async {
   //   DocumentSnapshot snapshot = await Firestore.instance.collection('users').document(uiiid).collection('places').document().get();
   //   idPlaces = snapshot.documentID;
@@ -1811,11 +1820,9 @@ class _DetaiPlaceState extends State<DetaiPlace>
   //   print('Long :' + longD.toString());
   // }
 
-
-  
-
   @override
   Widget build(BuildContext context) {
+    String idplaceF ;
     String namePlace = "";
     String formAddress = "";
     String type = "";
@@ -1826,14 +1833,12 @@ class _DetaiPlaceState extends State<DetaiPlace>
     // double rating = 0.0;
     double count;
     bool notNul = false;
+    String opning = "";
     Widget listePPP;
     // double latt;
     // double lang;
     Widget bodyChild;
     // String title;
-
-
-    
 
     if (isLoading) {
       namePlace = "Loading";
@@ -1857,9 +1862,10 @@ class _DetaiPlaceState extends State<DetaiPlace>
       final center = LatLng(lat, lng);
 
       namePlace = placeDetail.name;
+      idplaceF = placeDetail.id;
 
-      void getPostplace() {
-        Firestore.instance
+      void getPostplace() async{
+          Firestore.instance
             .collection('users')
             .document(uiiid)
             .collection('places')
@@ -1878,6 +1884,42 @@ class _DetaiPlaceState extends State<DetaiPlace>
           'date': dateTime,
           'ratinghist': ratinghist,
         });
+        // _getCur();
+
+       
+      }
+      void getFavorite()async{
+        bool kayan =false;
+        final QuerySnapshot snapshot = await Firestore.instance.collection('users').document(uiiid).collection('favorites').where('id',isEqualTo:idplaceF.toString()).getDocuments();
+        snapshot.documents.forEach(
+          (DocumentSnapshot doc){
+            kayan=true;
+          }
+        );
+        if(kayan){
+          print('rah kayan ');
+        }else{
+          Firestore.instance
+            .collection('users')
+            .document(uiiid)
+            .collection('favorites')
+            .document()
+            .setData({
+          'id': idplaceF,
+          'name': namePlace,
+          'type': type,
+          'address': formAddress,
+          'open': mahlolMbalaa,
+          'siteweb': siteWeb,
+          'phone': phoneNumber,
+          'latitud': latt.toString(),
+          'longutude': lang.toString(),
+          'rating': "${placeDetail.rating}",
+          'photo': ref,
+          'date': dateTime,
+          'ratinghist': ratinghist,
+        });
+        }
       }
 
       if (placeDetail.formattedAddress != null) {
@@ -1897,23 +1939,25 @@ class _DetaiPlaceState extends State<DetaiPlace>
           // print('Opening Now');
           _close = Icon(
             FontAwesomeIcons.storeAlt,
-            color: Color(0xff3b6978),
+            color: Color(0xFFc5426e),
           );
         } else {
           mahlolMbalaa = 'Close';
-          // print('Close');
           _close = Icon(
             FontAwesomeIcons.storeSlash,
-            color: Color(0xff3b6978),
+            color: Color(0xFFc5426e),
           );
         }
       }
       if (placeDetail.website != null) {
         siteWeb = placeDetail.website;
       }
-      // if (placeDetail.rating != null) {
-      //   rating = placeDetail.rating;
-      // }
+      if (placeDetail.openingHours != null) {
+        var h = placeDetail.openingHours.weekdayText[d - 1];
+        int hh = h.indexOf(' ');
+        opning = h.substring(hh + 1);
+        // print(h.substring(hh+1));
+      }
       if (placeDetail.photos != null && placeDetail.rating != null) {
         final photos = placeDetail.photos;
         // count = photos.length;
@@ -1950,75 +1994,152 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                     )
                                   : Icon(
                                       FontAwesomeIcons.solidHeart,
-                                      color: Colors.red,
+                                      color: Color(0xFFc5426e),
                                     ),
                               onPressed: () {
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 3,
+                          height: MediaQuery.of(context).size.height / 3.5,
                         ),
                         Text(
                           namePlace,
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontFamily: 'GothamRoundedMedium_21022',
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 15),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Text(
                           type,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 3,
-                            fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontFamily: 'GothamRoundedLight 21020',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Row(
                           children: <Widget>[
                             Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
                             ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
                             ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '${placeDetail.rating}',
+                              'Km',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             )
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${placeDetail.rating}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(width: MediaQuery.of(context).size.width/2.6,),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  ' ' +
+                                      he.toString() +
+                                      'h' +
+                                      ' ' +
+                                      min.toString() +
+                                      'min',
+                                  // '12h 30min',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'GothamRoundedLight 21020',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              30),
+                                )
+                              ],
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 60,
+                            // ),
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2079,75 +2200,152 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                     )
                                   : Icon(
                                       FontAwesomeIcons.solidHeart,
-                                      color: Colors.red,
+                                      color: Color(0xFFc5426e),
                                     ),
                               onPressed: () {
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 4,
+                          height: MediaQuery.of(context).size.height / 3.5,
                         ),
                         Text(
                           namePlace,
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontFamily: 'GothamRoundedMedium_21022',
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 15),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Text(
                           type,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 3,
-                            fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontFamily: 'GothamRoundedLight 21020',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Row(
                           children: <Widget>[
                             Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
                             ),
-                            Icon(
-                              FontAwesomeIcons.starHalfAlt,
-                              color: Colors.amber,
-                              size: 20,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
                             ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '${placeDetail.rating}',
+                              'Km',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             )
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.starHalfAlt,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${placeDetail.rating}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(width: MediaQuery.of(context).size.width/2.6,),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  ' ' +
+                                      he.toString() +
+                                      'h' +
+                                      ' ' +
+                                      min.toString() +
+                                      'min',
+                                  // '12h 30min',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'GothamRoundedLight 21020',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              30),
+                                )
+                              ],
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 60,
+                            // ),
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2207,75 +2405,152 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                     )
                                   : Icon(
                                       FontAwesomeIcons.solidHeart,
-                                      color: Colors.red,
+                                      color: Color(0xFFc5426e),
                                     ),
                               onPressed: () {
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 4,
+                          height: MediaQuery.of(context).size.height / 3.5,
                         ),
                         Text(
                           namePlace,
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontFamily: 'GothamRoundedMedium_21022',
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 15),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Text(
                           type,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 3,
-                            fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontFamily: 'GothamRoundedLight 21020',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Row(
                           children: <Widget>[
                             Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
                             ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
                             ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '${placeDetail.rating}',
+                              'Km',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
                             )
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${placeDetail.rating}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(width: MediaQuery.of(context).size.width/2.6,),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  ' ' +
+                                      he.toString() +
+                                      'h' +
+                                      ' ' +
+                                      min.toString() +
+                                      'min',
+                                  // '12h 30min',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'GothamRoundedLight 21020',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              30),
+                                )
+                              ],
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 60,
+                            // ),
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2336,75 +2611,152 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                     )
                                   : Icon(
                                       FontAwesomeIcons.solidHeart,
-                                      color: Colors.red,
+                                      color: Color(0xFFc5426e),
                                     ),
                               onPressed: () {
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 4,
+                          height: MediaQuery.of(context).size.height / 3.5,
                         ),
                         Text(
                           namePlace,
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontFamily: 'GothamRoundedMedium_21022',
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 15),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Text(
                           type,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 3,
-                            fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontFamily: 'GothamRoundedLight 21020',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Row(
                           children: <Widget>[
                             Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
                             ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
                             ),
-                            Icon(
-                              FontAwesomeIcons.starHalfAlt,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '${placeDetail.rating}',
+                              'Km',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             )
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.starHalfAlt,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${placeDetail.rating}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(width: MediaQuery.of(context).size.width/2.6,),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  ' ' +
+                                      he.toString() +
+                                      'h' +
+                                      ' ' +
+                                      min.toString() +
+                                      'min',
+                                  // '12h 30min',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'GothamRoundedLight 21020',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              30),
+                                )
+                              ],
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 60,
+                            // ),
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2464,75 +2816,152 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                     )
                                   : Icon(
                                       FontAwesomeIcons.solidHeart,
-                                      color: Colors.red,
+                                      color: Color(0xFFc5426e),
                                     ),
                               onPressed: () {
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 4,
+                          height: MediaQuery.of(context).size.height / 3.5,
                         ),
                         Text(
                           namePlace,
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontFamily: 'GothamRoundedMedium_21022',
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 15),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Text(
                           type,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 3,
-                            fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontFamily: 'GothamRoundedLight 21020',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Row(
                           children: <Widget>[
                             Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
                             ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
                             ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '${placeDetail.rating}',
+                              'Km',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             )
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${placeDetail.rating}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(width: MediaQuery.of(context).size.width/2.6,),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  ' ' +
+                                      he.toString() +
+                                      'h' +
+                                      ' ' +
+                                      min.toString() +
+                                      'min',
+                                  // '12h 30min',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'GothamRoundedLight 21020',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              30),
+                                )
+                              ],
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 60,
+                            // ),
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2593,98 +3022,152 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                     )
                                   : Icon(
                                       FontAwesomeIcons.solidHeart,
-                                      color: Colors.red,
+                                      color: Color(0xFFc5426e),
                                     ),
                               onPressed: () {
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 4.5,
+                          height: MediaQuery.of(context).size.height / 3.5,
                         ),
                         Text(
                           namePlace,
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'GothamRoundedBook 21018',
+                              fontFamily: 'GothamRoundedMedium_21022',
                               fontWeight: FontWeight.bold,
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontSize: MediaQuery.of(context).size.width / 15),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Text(
                           type,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 3,
-                            fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontFamily: 'GothamRoundedLight 21020',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
                         Row(
                           children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
+                            ),
                             Text(
                               distance.toStringAsFixed(2),
                               style: TextStyle(
-                                color: Colors.white,
-                                fontFamily:'BalooTamma2 Bold',
-                                fontSize: 20 
-                              ),
-                            ),
-                            SizedBox(width: 10,),
-                            Text(
-                              'Km',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily:'BalooTamma2 Bold',
-                                fontSize: 20 
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.solidStar,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.starHalfAlt,
-                              color: Colors.amber,
-                              size: 20,
-                            ),
-                            Icon(
-                              FontAwesomeIcons.star,
-                              color: Colors.amber,
-                              size: 20,
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '${placeDetail.rating}',
+                              'Km',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             )
                           ],
                         ),
-                        
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.solidStar,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.starHalfAlt,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.star,
+                                  color: Color(0xFFc5426e),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${placeDetail.rating}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(width: MediaQuery.of(context).size.width/2.6,),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  ' ' +
+                                      he.toString() +
+                                      'h' +
+                                      ' ' +
+                                      min.toString() +
+                                      'min',
+                                  // '12h 30min',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'GothamRoundedLight 21020',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              30),
+                                )
+                              ],
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 60,
+                            // ),
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2750,6 +3233,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
@@ -2763,7 +3247,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                               color: Colors.white,
                               letterSpacing: 2,
                               fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontSize: MediaQuery.of(context).size.width / 15),
                         ),
                         Text(
                           type,
@@ -2771,10 +3255,48 @@ class _DetaiPlaceState extends State<DetaiPlace>
                             color: Colors.white,
                             letterSpacing: 3,
                             fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontSize: 15,
                           ),
                         ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
                         Row(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
+                            ),
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Km',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Icon(
                               FontAwesomeIcons.solidStar,
@@ -2812,7 +3334,31 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                   fontWeight: FontWeight.bold),
                             )
                           ],
-                        )
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.clock,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              ' ' +
+                                  he.toString() +
+                                  'h' +
+                                  ' ' +
+                                  min.toString() +
+                                  'min',
+                              // '12h 30min',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 30),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -2879,6 +3425,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
@@ -2892,7 +3439,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                               color: Colors.white,
                               letterSpacing: 2,
                               fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontSize: MediaQuery.of(context).size.width / 15),
                         ),
                         Text(
                           type,
@@ -2900,10 +3447,48 @@ class _DetaiPlaceState extends State<DetaiPlace>
                             color: Colors.white,
                             letterSpacing: 3,
                             fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontSize: 15,
                           ),
                         ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
                         Row(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
+                            ),
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Km',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Icon(
                               FontAwesomeIcons.solidStar,
@@ -2926,7 +3511,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                               size: 20,
                             ),
                             Icon(
-                              FontAwesomeIcons.starHalfAlt,
+                              FontAwesomeIcons.star,
                               color: Colors.amber,
                               size: 20,
                             ),
@@ -2941,7 +3526,31 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                   fontWeight: FontWeight.bold),
                             )
                           ],
-                        )
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.clock,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              ' ' +
+                                  he.toString() +
+                                  'h' +
+                                  ' ' +
+                                  min.toString() +
+                                  'min',
+                              // '12h 30min',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 30),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -3001,63 +3610,107 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                     )
                                   : Icon(
                                       FontAwesomeIcons.solidHeart,
-                                      color: Colors.red,
+                                      color: Color(0xFFc5426e),
                                     ),
                               onPressed: () {
                                 setState(() {
                                   _heart = false;
                                 });
+                                getFavorite();
                               },
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 4,
+                          height: MediaQuery.of(context).size.height / 3.5,
                         ),
-                        Text(
+                        FadeAnimation(1.4, Text(
                           namePlace,
                           style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 2,
-                              fontFamily: 'BalooTamma2 Bold',
-                              fontSize: MediaQuery.of(context).size.width / 10),
+                              fontFamily: 'GothamRoundedMedium_21022',
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 15),
+                        )),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
-                        Text(
+                        FadeAnimation(1.6, Text(
                           type,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 3,
-                            fontFamily: 'BalooTamma2 Bold',
-                            fontSize: 20,
+                            fontFamily: 'GothamRoundedLight 21020',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        )),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
                         ),
-                        FadeAnimation(
-                            2,
+                        FadeAnimation(1.8, Row(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.arrowsAltH,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 50,
+                            ),
+                            Text(
+                              distance.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Km',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'GothamRoundedLight 21020',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            )
+                          ],
+                        )),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 80,
+                        ),
+                        FadeAnimation(2, Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
                             Row(
                               children: <Widget>[
                                 Icon(
                                   FontAwesomeIcons.solidStar,
-                                  color: Colors.amber,
+                                  color: Color(0xFFc5426e),
                                   size: 20,
                                 ),
                                 Icon(
                                   FontAwesomeIcons.solidStar,
-                                  color: Colors.amber,
+                                  color: Color(0xFFc5426e),
                                   size: 20,
                                 ),
                                 Icon(
                                   FontAwesomeIcons.solidStar,
-                                  color: Colors.amber,
+                                  color: Color(0xFFc5426e),
                                   size: 20,
                                 ),
                                 Icon(
                                   FontAwesomeIcons.solidStar,
-                                  color: Colors.amber,
+                                  color: Color(0xFFc5426e),
                                   size: 20,
                                 ),
                                 Icon(
                                   FontAwesomeIcons.solidStar,
-                                  color: Colors.amber,
+                                  color: Color(0xFFc5426e),
                                   size: 20,
                                 ),
                                 SizedBox(
@@ -3069,9 +3722,40 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(width: MediaQuery.of(context).size.width/2.6,),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  ' ' +
+                                      he.toString() +
+                                      'h' +
+                                      ' ' +
+                                      min.toString() +
+                                      'min',
+                                  // '12h 30min',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'GothamRoundedLight 21020',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              30),
                                 )
                               ],
-                            ))
+                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 60,
+                            // ),
+                          ],
+                        )),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -3113,10 +3797,10 @@ class _DetaiPlaceState extends State<DetaiPlace>
             ),
             Expanded(
               child: Transform.translate(
-                offset: Offset(0, -32),
+                offset: Offset(0, -40),
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                   decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.only(
@@ -3124,7 +3808,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                           topRight: Radius.circular(40))),
                   child: Column(
                     children: <Widget>[
-                      FadeAnimation(
+                      FadeAnimationmataht(
                           1.5,
                           Row(
                             children: <Widget>[
@@ -3134,7 +3818,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300],
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                      BorderRadius.all(Radius.circular(50)),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey[500],
@@ -3152,7 +3836,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                 ),
                                 child: Icon(
                                   FontAwesomeIcons.globe,
-                                  color: Color(0xff3b6978),
+                                  color: Color(0xFFc5426e),
                                 ),
                               ),
                               SizedBox(
@@ -3162,11 +3846,11 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    phoneNumber,
+                                    ' ' + phoneNumber,
                                     style: TextStyle(
                                         letterSpacing: 3,
-                                        color: Color(0xff10375c),
-                                        fontFamily: 'calibri',
+                                        color: Color(0xFF212121),
+                                        fontFamily: 'GothamRoundedLight 21020',
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -3177,8 +3861,8 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                   Text(
                                     placeDetail.formattedAddress,
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'calibri',
+                                      color: Color(0xFF212121),
+                                      fontFamily: 'GothamRoundedMedium_21022',
                                       fontSize: 15,
                                     ),
                                   ),
@@ -3189,8 +3873,8 @@ class _DetaiPlaceState extends State<DetaiPlace>
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 25,
                       ),
-                      FadeAnimation(
-                          1.6,
+                      FadeAnimationmataht(
+                          2,
                           Row(
                             children: <Widget>[
                               Container(
@@ -3201,7 +3885,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                   decoration: BoxDecoration(
                                     color: Colors.grey[300],
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                        BorderRadius.all(Radius.circular(50)),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.grey[500],
@@ -3225,26 +3909,35 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    'Open ?',
+                                    '  ' + mahlolMbalaa,
                                     style: TextStyle(
-                                        letterSpacing: 3,
-                                        color: Color(0xff10375c),
-                                        fontFamily: 'calibri',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        250,
-                                  ),
-                                  Text(
-                                    mahlolMbalaa,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'calibri',
-                                      fontSize: 15,
+                                      color: Color(0xff212121),
+                                      fontFamily: 'GothamRoundedMedium_21022',
+                                      fontSize: 19,
                                     ),
                                   ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Opning Time : ',
+                                        style: TextStyle(
+                                          color: Color(0xff212121),
+                                          fontFamily:
+                                              'GothamRoundedMedium_21022',
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Text(
+                                        opning,
+                                        style: TextStyle(
+                                          color: Color(0xff212121),
+                                          fontFamily:
+                                              'GothamRoundedMedium_21022',
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               )
                             ],
@@ -3252,7 +3945,7 @@ class _DetaiPlaceState extends State<DetaiPlace>
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 20,
                       ),
-                      FadeAnimation(
+                      FadeAnimationmataht(
                           1.8,
                           Center(
                             child: AnimatedContainer(
@@ -3284,13 +3977,14 @@ class _DetaiPlaceState extends State<DetaiPlace>
                                   onPressed: () {
                                     setState(() {
                                       withAnimatedBtn = 80;
-                                      backBtn = Color(0xff10375c);
+                                      backBtn = Color(0xFF672b73);
                                       _icon = Icon(
                                         FontAwesomeIcons.check,
                                         color: Colors.white,
                                       );
                                     });
-                                    getDestance();
+                                    // _getCur();
+                                    getPostplace();
                                   }),
                             ),
                           )),

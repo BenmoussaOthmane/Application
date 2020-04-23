@@ -59,27 +59,28 @@ class _OnboardingState extends State<Onboarding> {
   Widget build(BuildContext context) {
     final pages = [
       Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [
-                  0.1,
-                  // 0.3,
-                  0.6,
-                  1.0
-                ],
-                colors: [
-                  Color(0xFFc5426e),
-                  // Color(0xFF672b73),
-                  Color(0xFF672b73),
-                  Color(0xFF672b73),
-                ]),
-          ),
+          decoration: BoxDecoration(color: Color(0xFF212121)
+              // gradient: LinearGradient(
+              //     begin: Alignment.topLeft,
+              //     end: Alignment.bottomRight,
+              //     stops: [
+              //       0.1,
+              //       // 0.3,
+              //       0.6,
+              //       1.0
+              //     ],
+              //     colors: [
+              //       Color(0xFFc5426e),
+              //       // Color(0xFF672b73),
+              //       Color(0xFF672b73),
+              //       Color(0xFF672b73),
+              //     ]),
+              ),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerRight,
@@ -91,24 +92,24 @@ class _OnboardingState extends State<Onboarding> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
+                          fontFamily: 'GothamRoundedLight 21020',
                           fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 4,
+                  height: MediaQuery.of(context).size.height / 10,
                 ),
                 FadeAnimation(
                     0.1,
                     Container(
-                      height: MediaQuery.of(context).size.height / 6,
-                      width: MediaQuery.of(context).size.width / 3,
+                      height: MediaQuery.of(context).size.height / 4,
+                      width: MediaQuery.of(context).size.width / 2,
                       // color: Colors.white,
                       decoration: BoxDecoration(
                           image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                            'assets/images/54f9cc1d-f00d-4e02-a11d-413ad7e6cae8_200x200.png'),
+                        image: AssetImage('assets/images/logoIntro.png'),
                       )),
                     )),
                 SizedBox(
@@ -120,9 +121,8 @@ class _OnboardingState extends State<Onboarding> {
                       child: Text(
                         'Applications',
                         style: TextStyle(
-                            color: Color(0xFF2ec9f9),
-                            // color: Color(0xFF74f9ff),
-                            fontFamily: 'Arial',
+                            color: Colors.white,
+                            fontFamily: 'GothamRoundedMedium_21022',
                             fontSize: 28,
                             letterSpacing: 3,
                             fontWeight: FontWeight.bold),
@@ -138,7 +138,7 @@ class _OnboardingState extends State<Onboarding> {
                         'Is your way',
                         style: TextStyle(
                             color: Colors.white,
-                            fontFamily: 'Arial',
+                            fontFamily: 'GothamRoundedLight 21020',
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
@@ -236,20 +236,22 @@ class _OnboardingState extends State<Onboarding> {
       // HADA 3
       Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [
-              0.1,
-              // 0.3,
-              0.6,
-              1.0
-            ],
-                colors: [
-              Color(0xFF39ee7b),
-              Color(0xFF129a8e),
-              Color(0xFF129a8e),
-            ])),
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [
+                0.1,
+                // 0.3,
+                0.6,
+                1.0
+              ],
+              colors: [
+                Color(0xFFc5426e),
+                // Color(0xFF672b73),
+                Color(0xFF672b73),
+                Color(0xFF672b73),
+              ]),
+        ),
         // child: Padding(
         //   padding: EdgeInsets.symmetric(vertical: 40),
         //   child: Column(

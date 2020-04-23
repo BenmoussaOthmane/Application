@@ -13,17 +13,17 @@ class _FeedState extends State<Feed> {
   
   double distance;
   int dis;
-  double l=52.2165157;
-  double k=6.9437819;
-  double j=52.3546274;
-  double h=4.8285838;
+  double l=35.933333;
+  double k=0.083333;
+  double j=35.920721;
+  double h=0.093118;
   var geolocator = Geolocator();
 
   void getDestance()async{
     distance = await geolocator.distanceBetween(l, k, j, h);
     distance = distance/1000;
-    dis =distance.round();
-    print(dis);
+    // dis =distance.round();
+    print(distance);
   }
 
     @override

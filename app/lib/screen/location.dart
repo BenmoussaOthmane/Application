@@ -10,8 +10,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:geocoder/geocoder.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_map_polyline/google_map_polyline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -127,11 +127,11 @@ class _LocationState extends State<Location> {
     }
   }
 
-  final Set<prefix0.Polyline> polyline = {};
-  List<LatLng> latlngSegment1 = List();
-  List<LatLng> latlngSegment2 = List();
-  static LatLng _lat1 = LatLng(35.920721, 0.093118);
-  static LatLng _lat2 = LatLng(35.933333, 0.083333);
+  // final Set<prefix0.Polyline> polyline = {};
+  // List<LatLng> latlngSegment1 = List();
+  // List<LatLng> latlngSegment2 = List();
+  // static LatLng _lat1 = LatLng(35.920721, 0.093118);
+  // static LatLng _lat2 = LatLng(35.933333, 0.083333);
   // static LatLng _lat3 = LatLng(12.970387, 77.693621);
   // static LatLng _lat4 = LatLng(12.858433, 77.575691);
   // static LatLng _lat5 = LatLng(12.948029, 77.472936);
@@ -152,8 +152,8 @@ class _LocationState extends State<Location> {
     _heading = "loiding";
     // _getCur();
     // getSomePoint();
-    latlngSegment1.add(_lat1);
-    latlngSegment1.add(_lat2);
+    // latlngSegment1.add(_lat1);
+    // latlngSegment1.add(_lat2);
     // latlngSegment1.add(_lat3);
     // latlngSegment1.add(_lat4);
 
@@ -176,7 +176,7 @@ class _LocationState extends State<Location> {
             tiltGesturesEnabled: true,
             rotateGesturesEnabled: true,
             compassEnabled: true,
-            polylines: polyline,
+            // polylines: polyline,
             markers: _creatMarker(),
             initialCameraPosition: CameraPosition(
               bearing: 192.8334901395799,
@@ -318,18 +318,9 @@ class _LocationState extends State<Location> {
   }
 
   void _onMapCreated(controller) {
-    setState(() {
+   
       _controller = controller;
       _setStyle(controller);
-
-      polyline.add(prefix0.Polyline(
-        polylineId: PolylineId('line1'),
-        visible: true,
-        //latlng is List<LatLng>
-        points: latlngSegment1,
-        width: 4,
-        color: Colors.white,
-      ));
 
       // polyline.add(prefix0.Polyline(
       //   polylineId: PolylineId('line1'),
@@ -339,7 +330,7 @@ class _LocationState extends State<Location> {
       //   width: 4,
       //   color: Colors.white,
       // ));
-    });
+   
   }
 
   Set<Marker> _creatMarker() {

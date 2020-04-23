@@ -2,6 +2,7 @@ import 'package:app/screen/Home.dart';
 import 'package:app/screen/Updateusers.dart';
 import 'package:app/screen/category.dart';
 import 'package:app/screen/detail_place.dart';
+import 'package:app/screen/detailpageliste.dart';
 import 'package:app/screen/login.dart';
 import 'package:app/screen/onboarding.dart';
 import 'package:app/screen/signup.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             UPdateusers.id : (context) => UPdateusers(),
             Category.id : (context) => Category(),
             Splach.id : (context) =>Splach(),
+            Detailpageliste.id : (context) =>Detailpageliste(),
         
       },
     );

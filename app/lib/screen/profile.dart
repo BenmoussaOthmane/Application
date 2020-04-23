@@ -288,11 +288,11 @@ class _ProfileState extends State<Profile> {
                                     ]),
                                 child: IconButton(
                                   icon: Icon(
-                                    FontAwesomeIcons.camera,
+                                    FontAwesomeIcons.pen,
                                     size: 35,
                                     color: Colors.grey[600],
                                   ),
-                                  onPressed: _handelImageNetwork,
+                                  onPressed: ()=>Authservice.logout(context),
                                 ),
                               ),
                             ],
@@ -303,8 +303,8 @@ class _ProfileState extends State<Profile> {
                             width: MediaQuery.of(context).size.width / 4.5,
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
                                     stops: [
                                       0.1,
                                       // 0.3,
@@ -327,11 +327,11 @@ class _ProfileState extends State<Profile> {
                                 ]),
                             child: IconButton(
                               icon: Icon(
-                                FontAwesomeIcons.powerOff,
+                                FontAwesomeIcons.camera,
                                 size: 30,
                                 color: Colors.white,
                               ),
-                              onPressed: ()=>_showDialog(context),
+                              onPressed: _handelImageNetwork,
                             ),
                           ),
                           SizedBox(
